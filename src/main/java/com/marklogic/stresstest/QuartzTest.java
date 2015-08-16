@@ -1,6 +1,7 @@
 package com.marklogic.stresstest;
 
 import com.marklogic.stresstest.consts.Consts;
+import com.marklogic.stresstest.jobs.ForceMerge;
 import com.marklogic.stresstest.jobs.Load;
 import com.marklogic.stresstest.jobs.Ping;
 import org.quartz.*;
@@ -21,41 +22,29 @@ public class QuartzTest {
 
     public static void main(String[] args) {
 
-
-
         LOG.info("Starting stress test");
 
-        JobDetail job = JobBuilder.newJob(Load.class)
-                .withIdentity("dummyJobName", "group1").build();
+        // JOBS
+        JobDetail ping = JobBuilder.newJob(Ping.class).withIdentity("ping").build();
+        JobDetail load = JobBuilder.newJob(Load.class).withIdentity("load").build();
+        JobDetail merge = JobBuilder.newJob(ForceMerge.class).withIdentity("merge").build();
 
-        JobDetail pingJob = JobBuilder.newJob(Ping.class)
-                .withIdentity("pingJob", "group1").build();
+        // TRIGGERS
+        Trigger triggerPing = TriggerBuilder.newTrigger().withIdentity("triggerPing").withSchedule(CronScheduleBuilder.cronSchedule(Consts.EVERY_SECOND)).build();
+        Trigger triggerLoad = TriggerBuilder.newTrigger().withIdentity("triggerLoad").withSchedule(CronScheduleBuilder.cronSchedule(Consts.EVERY_FIVE_SECONDS)).build();
+        Trigger triggerMerge = TriggerBuilder.newTrigger().withIdentity("triggerMerge").withSchedule(CronScheduleBuilder.cronSchedule(Consts.EVERY_MINUTE)).build();
 
-
-        Trigger triggerA = TriggerBuilder
-                .newTrigger()
-                .withIdentity("pingJob", "group1")
-                .withSchedule(
-                        CronScheduleBuilder.cronSchedule(Consts.EVERY_SECOND))
-                .build();
-
-
-        Trigger trigger = TriggerBuilder
-                .newTrigger()
-                .withIdentity("dummyTriggerName", "group1")
-                .withSchedule(
-                        CronScheduleBuilder.cronSchedule(Consts.EVERY_FIVE_SECONDS))
-                .build();
-
-
+        // SCHEDULE
         try {
             Scheduler scheduler = new StdSchedulerFactory().getScheduler();
             scheduler.start();
-            scheduler.scheduleJob(pingJob, triggerA);
-            scheduler.scheduleJob(job, trigger);
+            scheduler.scheduleJob(ping, triggerPing);
+            scheduler.scheduleJob(load, triggerLoad);
+            scheduler.scheduleJob(merge, triggerMerge);
         } catch (SchedulerException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            LOG.error(Consts.returnExceptionString(e));
         }
+
 
     }
 }

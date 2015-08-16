@@ -77,7 +77,7 @@ public class LoadBalancedMarkLogicContentSource {
         connectionCount = new AtomicInteger(0);
 
 		/*
-		 * Creates a synchronizedList from the contentSourceList for Thread safe
+         * Creates a synchronizedList from the contentSourceList for Thread safe
 		 * access to the List when necessary/required.
 		 */
         activeContentSourceList = Collections

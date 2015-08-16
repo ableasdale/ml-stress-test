@@ -7,6 +7,7 @@ package com.marklogic.stresstest.jobs;
  * Time: 10:02
  * To change this template use File | Settings | File Templates.
  */
+
 import com.marklogic.stresstest.consts.Consts;
 import com.marklogic.stresstest.providers.SingleNodeMarkLogicContentSource;
 import com.marklogic.xcc.exceptions.RequestException;
@@ -17,8 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public class Ping implements Job
-{
+public class Ping implements Job {
     private Logger LOG = LoggerFactory.getLogger(Ping.class);
 
     public void execute(JobExecutionContext context) throws JobExecutionException {

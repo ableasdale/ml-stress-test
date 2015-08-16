@@ -13,8 +13,7 @@ import org.slf4j.LoggerFactory;
  * Time: 10:39
  * To change this template use File | Settings | File Templates.
  */
-public class ForceMerge implements Job
-{
+public class ForceMerge implements Job {
     private Logger LOG = LoggerFactory.getLogger(ForceMerge.class);
 
     public void execute(JobExecutionContext context) throws JobExecutionException {
