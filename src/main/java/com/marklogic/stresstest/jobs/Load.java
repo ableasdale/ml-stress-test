@@ -8,6 +8,7 @@ package com.marklogic.stresstest.jobs; /**
 
 import com.marklogic.stresstest.helpers.TestHelper;
 import com.marklogic.stresstest.providers.SingleNodeMarkLogicContentSource;
+import com.marklogic.stresstest.providers.XQueryModules;
 import com.marklogic.xcc.Request;
 import com.marklogic.xcc.Session;
 import com.marklogic.xcc.exceptions.RequestException;
@@ -30,10 +31,8 @@ public class Load implements Job {
         Session s = SingleNodeMarkLogicContentSource.getInstance().getSession();
         try {
             LOG.info("Loading a doc...");
-            s.submitRequest(s.newAdhocQuery(FileUtils.readFileToString(new File("src/main/resources/queries/load.xqy"))));
+            s.submitRequest(s.newAdhocQuery(XQueryModules.getInstance().loadXML()));
             s.close();
-        } catch (IOException e) {
-            LOG.error(TestHelper.returnExceptionString(e));
         } catch (RequestException e) {
             LOG.error(TestHelper.returnExceptionString(e));
         }
