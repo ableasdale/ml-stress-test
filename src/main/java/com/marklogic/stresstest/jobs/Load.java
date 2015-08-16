@@ -6,11 +6,20 @@ package com.marklogic.stresstest.jobs; /**
  * To change this template use File | Settings | File Templates.
  */
 
+import com.marklogic.stresstest.helpers.TestHelper;
+import com.marklogic.stresstest.providers.SingleNodeMarkLogicContentSource;
+import com.marklogic.xcc.Request;
+import com.marklogic.xcc.Session;
+import com.marklogic.xcc.exceptions.RequestException;
+import org.apache.commons.io.FileUtils;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.io.IOException;
 
 
 public class Load implements Job {
@@ -18,7 +27,16 @@ public class Load implements Job {
 
     public void execute(JobExecutionContext context) throws JobExecutionException {
 
-        LOG.info("Load some data");
+        Session s = SingleNodeMarkLogicContentSource.getInstance().getSession();
+        try {
+            LOG.info("Loading a doc...");
+            s.submitRequest(s.newAdhocQuery(FileUtils.readFileToString(new File("src/main/resources/queries/load.xqy"))));
+            s.close();
+        } catch (IOException e) {
+            LOG.error(TestHelper.returnExceptionString(e));
+        } catch (RequestException e) {
+            LOG.error(TestHelper.returnExceptionString(e));
+        }
 
     }
 
