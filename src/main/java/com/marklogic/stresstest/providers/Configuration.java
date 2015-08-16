@@ -1,6 +1,7 @@
 package com.marklogic.stresstest.providers;
 
 import com.marklogic.stresstest.consts.Consts;
+import com.marklogic.stresstest.helpers.TestHelper;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.XMLConfiguration;
 import org.slf4j.Logger;
@@ -27,18 +28,13 @@ public class Configuration {
         try {
             config = new XMLConfiguration(Consts.CONFIG_FILE_PATH);
         } catch (ConfigurationException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            LOG.error(TestHelper.returnExceptionString(e));
         }
 
         uriList = Arrays.asList(config.getStringArray("uris.uri"));
         LOG.info(MessageFormat.format("Number of xcc uris: {0}", uriList.size()));
 
     }
-
-    private static class ConfigurationProvider {
-        private static final Configuration INSTANCE = new Configuration();
-    }
-
 
     public static Configuration getInstance() {
         return ConfigurationProvider.INSTANCE;
@@ -50,6 +46,10 @@ public class Configuration {
 
     public List<String> getUriList() {
         return uriList;
+    }
+
+    private static class ConfigurationProvider {
+        private static final Configuration INSTANCE = new Configuration();
     }
 
 }

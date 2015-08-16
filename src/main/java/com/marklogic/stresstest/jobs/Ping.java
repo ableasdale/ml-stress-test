@@ -8,7 +8,7 @@ package com.marklogic.stresstest.jobs;
  * To change this template use File | Settings | File Templates.
  */
 
-import com.marklogic.stresstest.consts.Consts;
+import com.marklogic.stresstest.helpers.TestHelper;
 import com.marklogic.stresstest.providers.SingleNodeMarkLogicContentSource;
 import com.marklogic.xcc.exceptions.RequestException;
 import org.quartz.Job;
@@ -27,7 +27,7 @@ public class Ping implements Job {
         try {
             LOG.info(String.format("Ping: MarkLogic Current Query Timestamp: %s", SingleNodeMarkLogicContentSource.getInstance().getSession().getCurrentServerPointInTime()));
         } catch (RequestException e) {
-            LOG.error(Consts.returnExceptionString(e));
+            LOG.error(TestHelper.returnExceptionString(e));
         }
 
 

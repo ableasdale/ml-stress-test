@@ -1,6 +1,6 @@
 package com.marklogic.stresstest.providers;
 
-import com.marklogic.stresstest.consts.Consts;
+import com.marklogic.stresstest.helpers.TestHelper;
 import com.marklogic.xcc.ContentSource;
 import com.marklogic.xcc.ContentSourceFactory;
 import com.marklogic.xcc.Session;
@@ -21,9 +21,9 @@ public class SingleNodeMarkLogicContentSource {
         try {
             cs = ContentSourceFactory.newContentSource(new URI(Configuration.getInstance().getUriList().get(0)));
         } catch (XccConfigException e) {
-            LOG.error(Consts.returnExceptionString(e));
+            LOG.error(TestHelper.returnExceptionString(e));
         } catch (URISyntaxException e) {
-            LOG.error(Consts.returnExceptionString(e));
+            LOG.error(TestHelper.returnExceptionString(e));
         }
     }
 

@@ -3,6 +3,7 @@ package com.marklogic.stresstest.providers;
 import com.marklogic.stresstest.consts.Consts;
 import com.marklogic.stresstest.exceptions.ConnectionFailedException;
 import com.marklogic.stresstest.exceptions.ContentSourceAlreadyEnlistedException;
+import com.marklogic.stresstest.helpers.TestHelper;
 import com.marklogic.xcc.ContentSource;
 import com.marklogic.xcc.ContentSourceFactory;
 import com.marklogic.xcc.Session;
@@ -100,7 +101,7 @@ public class LoadBalancedMarkLogicContentSource {
                     "Required Parameters are null when initializing, unable to continue",
                     e);
         } catch (ConfigurationException e) {
-            LOG.error(Consts.returnExceptionString(e));
+            LOG.error(TestHelper.returnExceptionString(e));
         }
     }
 
@@ -169,11 +170,11 @@ public class LoadBalancedMarkLogicContentSource {
                 LOG.info(MessageFormat.format("Created XCC Connection: {0}",
                         uri.toString()));
             } catch (URISyntaxException e) {
-                LOG.error(Consts.returnExceptionString(e));
+                LOG.error(TestHelper.returnExceptionString(e));
             } catch (XccConfigException e) {
-                LOG.error(Consts.returnExceptionString(e));
+                LOG.error(TestHelper.returnExceptionString(e));
             } catch (ContentSourceAlreadyEnlistedException e) {
-                LOG.error(Consts.returnExceptionString(e));
+                LOG.error(TestHelper.returnExceptionString(e));
             }
         }
         LOG.info(MessageFormat
@@ -405,7 +406,7 @@ public class LoadBalancedMarkLogicContentSource {
         try {
             return getSessionAtIndex(0);
         } catch (ConnectionFailedException e) {
-            LOG.error(Consts.returnExceptionString(e));
+            LOG.error(TestHelper.returnExceptionString(e));
         }
         return null;
     }
@@ -432,7 +433,7 @@ public class LoadBalancedMarkLogicContentSource {
             LOG.info(MessageFormat
                     .format("Reached {0} connections.  Running check against delisted content.",
                             connectionsBeforeDelistCheck));
-			/*
+            /*
 			 * This will be quick; it's looping through a small list (the
 			 * delistedContentSourceList), it should add minimal overhead when
 			 * it gets called (which is every time the connectionCount hits the

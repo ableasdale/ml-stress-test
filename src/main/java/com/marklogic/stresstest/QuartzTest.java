@@ -1,6 +1,7 @@
 package com.marklogic.stresstest;
 
 import com.marklogic.stresstest.consts.Consts;
+import com.marklogic.stresstest.helpers.TestHelper;
 import com.marklogic.stresstest.jobs.ForceMerge;
 import com.marklogic.stresstest.jobs.Load;
 import com.marklogic.stresstest.jobs.Ping;
@@ -42,7 +43,7 @@ public class QuartzTest {
             scheduler.scheduleJob(load, triggerLoad);
             scheduler.scheduleJob(merge, triggerMerge);
         } catch (SchedulerException e) {
-            LOG.error(Consts.returnExceptionString(e));
+            LOG.error(TestHelper.returnExceptionString(e));
         }
 
 
