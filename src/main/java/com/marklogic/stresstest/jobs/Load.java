@@ -30,7 +30,7 @@ public class Load implements Job {
 
         Session s = SingleNodeMarkLogicContentSource.getInstance().getSession();
         try {
-            LOG.info("Loading a doc...");
+            LOG.info("Loading docs...");
             s.submitRequest(s.newAdhocQuery(XQueryModules.getInstance().loadXML()));
             s.close();
         } catch (RequestException e) {
