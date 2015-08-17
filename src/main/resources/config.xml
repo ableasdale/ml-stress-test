@@ -5,5 +5,6 @@
         <!--uri>xcc://admin:admin@localhost:8004</uri>
         <uri>xcc://admin:admin@localhost:8005</uri-->
     </uris>
+    <durationInMinutes>3</durationInMinutes>
     <!-- scheme>even</scheme -->
 </configuration>

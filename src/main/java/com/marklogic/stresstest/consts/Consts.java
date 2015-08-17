@@ -16,5 +16,8 @@ public class Consts {
 
     public static final String CONFIG_FILE_PATH = "config.xml";
 
+    public static Long ONE_SECOND = 1L * 1000L;
+    public static Long ONE_MINUTE = 60L * 1000L;
+    public static Long ONE_HOUR = 3600L * 1000L;
 
 }

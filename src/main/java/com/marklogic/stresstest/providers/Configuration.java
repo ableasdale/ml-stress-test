@@ -23,6 +23,7 @@ public class Configuration {
     private static final Logger LOG = LoggerFactory.getLogger(Configuration.class);
     private XMLConfiguration config;
     private List<String> uriList;
+    private Long durationInMinutes;
 
     private Configuration() {
         try {
@@ -30,7 +31,7 @@ public class Configuration {
         } catch (ConfigurationException e) {
             LOG.error(TestHelper.returnExceptionString(e));
         }
-
+        durationInMinutes = config.getLong("durationInMinutes");
         uriList = Arrays.asList(config.getStringArray("uris.uri"));
         LOG.info(MessageFormat.format("Number of xcc uris: {0}", uriList.size()));
 
@@ -46,6 +47,10 @@ public class Configuration {
 
     public List<String> getUriList() {
         return uriList;
+    }
+
+    public Long getDurationInMinutes() {
+        return durationInMinutes;
     }
 
     private static class ConfigurationProvider {

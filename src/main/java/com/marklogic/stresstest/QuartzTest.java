@@ -5,6 +5,7 @@ import com.marklogic.stresstest.helpers.TestHelper;
 import com.marklogic.stresstest.jobs.ForceMerge;
 import com.marklogic.stresstest.jobs.Load;
 import com.marklogic.stresstest.jobs.Ping;
+import com.marklogic.stresstest.providers.Configuration;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 import org.slf4j.Logger;
@@ -49,12 +50,22 @@ public class QuartzTest {
             scheduler.scheduleJob(load2, triggerLoad2);
             scheduler.scheduleJob(merge, triggerMerge);
 
-
+            /*
+              .startNow()
+      .withSchedule(simpleSchedule()
+          .withIntervalInSeconds(40)
+          .repeatForever())
+             */
 
             scheduler.start();
+            try {
+                // Wait X seconds then kill the scheduler
+                Thread.sleep(Consts.ONE_MINUTE * Configuration.getInstance().getDurationInMinutes());
+            } catch (InterruptedException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
 
-            // TODO - wait X minutes then kill the scheduler
-            //scheduler.shutdown();
+            scheduler.shutdown(true);
         } catch (SchedulerException e) {
             LOG.error(TestHelper.returnExceptionString(e));
         }
