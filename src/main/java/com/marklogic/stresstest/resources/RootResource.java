@@ -1,13 +1,6 @@
 package com.marklogic.stresstest.resources;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import com.sun.jersey.api.view.Viewable;
+import com.marklogic.stresstest.helpers.TestHelper;
 import com.sun.jersey.api.view.Viewable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +10,8 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -37,6 +31,7 @@ public class RootResource extends BaseResource {
     private Map<String, Object> createModel(String id) {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("title", "Dashboard and Overview");
+        map.put("metrics", TestHelper.timingsList);
         return map;
     }
 
@@ -52,6 +47,5 @@ public class RootResource extends BaseResource {
         LOG.debug("Getting Dashboard ...");
         return new Viewable("/dashboard", createModel("Dashboard"));
     }
-
 
 }

@@ -6,7 +6,7 @@
 <div class="container">
 
     <div class="row">
-        <h2>MarkLogic Stress Test Tool <small>Dashboard</small></h2>
+        <h2>MarkLogic Stress Test Tool <small>${title}</small></h2>
     <#include "navigation.ftl">
     </div>
 
@@ -36,10 +36,6 @@
             </div>
         </div>
     </div -->
-
-
-
-
 </div>
 <div id="container">
 <#include "footer.ftl">
@@ -75,13 +71,7 @@
                 x: 'x',
 //        xFormat: '%Y%m%d', // 'xFormat' can be used as custom format of 'x'
                 columns: [
-                    ['x', <#list dateSubset as date>'${date}',</#list>],
-
-                <#assign totes = accruedTotals?keys>
-                <#list totes as k>
-                    ['${k}', <#list accruedTotals[k] as item>${item}, </#list>],
-                </#list>
-
+                    ['x', <#list metrics as metric>'${metric}',</#list>]
                 ]
             }
         });
@@ -177,8 +167,5 @@
             }
             return output;
         };
-
     });
-
-
 </script>

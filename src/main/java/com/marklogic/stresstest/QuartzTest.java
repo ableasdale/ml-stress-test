@@ -36,15 +36,6 @@ public class QuartzTest {
 
     private static Logger LOG = LoggerFactory.getLogger(QuartzTest.class);
 
-    public static final URI BASE_URI = getBaseURI();
-
-    private static URI getBaseURI() {
-        return UriBuilder.fromUri("http://0.0.0.0/")
-                .port(Consts.GRIZZLY_HTTP_PORT).build();
-    }
-
-
-
     public static void main(String[] args) {
 
         LOG.info("Starting MarkLogic stress test");
@@ -94,41 +85,8 @@ public class QuartzTest {
             LOG.info(iterator.next());
         }
         // Set up jersey?
+        Thread t = new JerseyServer();
+        t.start();
 
-        HttpServer httpServer = null;
-        try {
-            httpServer = startServer();
-            LOG.info("HTTP Application com.marklogic.analyser.Server Ready: " + BASE_URI);
-            LOG.info("WADL Definition available at: " + BASE_URI
-                    + "application.wadl");
-            LOG.info("Press enter to stop the application server...");
-            System.in.read();
-            httpServer.stop();
-        } catch (IOException e) {
-            TestHelper.returnExceptionString(e);
-
-        }
-    }
-
-
-
-    protected static HttpServer startServer() throws IOException {
-        LOG.info("Starting Grizzly (HTTP Service).");
-        ResourceConfig rc = new PackagesResourceConfig(BaseResource.class.getPackage().getName());
-        rc.getProperties().put(
-                FreemarkerViewProcessor.FREEMARKER_TEMPLATES_BASE_PATH,
-                "freemarker");
-        rc.getFeatures().put(ResourceConfig.FEATURE_IMPLICIT_VIEWABLES, true);
-        HttpServer server = GrizzlyServerFactory.createHttpServer(BASE_URI, rc);
-
-        //StaticHttpHandler staticHttpHandler = new StaticHttpHandler(Consts.STATIC_RESOURCE_DIRECTORY_ROOT);
-        //server.getServerConfiguration().addHttpHandler(staticHttpHandler, "/vendor");
-
-        /*(: server.getServerConfiguration().addHttpHandler(new StaticHttpHandler("/libs"), "/libs");     :)*/
-        /*
-        server.getServerConfiguration().addHttpHandler(
-                new CLStaticHttpHandler(new URLClassLoader(new URL[] {new URL("file:///home/username/staticfiles.jar")})), "/www");
-          */
-        return server;
     }
 }
