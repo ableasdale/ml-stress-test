@@ -6,10 +6,24 @@ import com.marklogic.stresstest.jobs.ForceMerge;
 import com.marklogic.stresstest.jobs.Load;
 import com.marklogic.stresstest.jobs.Ping;
 import com.marklogic.stresstest.providers.Configuration;
+import com.marklogic.stresstest.resources.BaseResource;
+import com.sun.jersey.api.container.grizzly2.GrizzlyServerFactory;
+import com.sun.jersey.api.core.PackagesResourceConfig;
+import com.sun.jersey.api.core.ResourceConfig;
+import com.sun.jersey.freemarker.FreemarkerViewProcessor;
+import org.glassfish.grizzly.http.server.HttpServer;
+import org.glassfish.grizzly.http.server.StaticHttpHandler;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.ws.rs.core.UriBuilder;
+import java.io.IOException;
+import java.net.URI;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,6 +35,15 @@ import org.slf4j.LoggerFactory;
 public class QuartzTest {
 
     private static Logger LOG = LoggerFactory.getLogger(QuartzTest.class);
+
+    public static final URI BASE_URI = getBaseURI();
+
+    private static URI getBaseURI() {
+        return UriBuilder.fromUri("http://0.0.0.0/")
+                .port(Consts.GRIZZLY_HTTP_PORT).build();
+    }
+
+
 
     public static void main(String[] args) {
 
@@ -50,7 +73,7 @@ public class QuartzTest {
             scheduler.scheduleJob(load2, triggerLoad2);
             scheduler.scheduleJob(merge, triggerMerge);
 
-            /* Another example for sheduler use from the docs....
+            /* Another example of scheduler use from the docs....
               .startNow().withSchedule(simpleSchedule().withIntervalInSeconds(40).repeatForever()) */
             scheduler.start();
             try {
@@ -65,6 +88,47 @@ public class QuartzTest {
             LOG.error(TestHelper.returnExceptionString(e));
         }
 
+        // Crude report feature
+        Iterator<String> iterator = TestHelper.timingsList.iterator();
+        while (iterator.hasNext()) {
+            LOG.info(iterator.next());
+        }
+        // Set up jersey?
 
+        HttpServer httpServer = null;
+        try {
+            httpServer = startServer();
+            LOG.info("HTTP Application com.marklogic.analyser.Server Ready: " + BASE_URI);
+            LOG.info("WADL Definition available at: " + BASE_URI
+                    + "application.wadl");
+            LOG.info("Press enter to stop the application server...");
+            System.in.read();
+            httpServer.stop();
+        } catch (IOException e) {
+            TestHelper.returnExceptionString(e);
+
+        }
+    }
+
+
+
+    protected static HttpServer startServer() throws IOException {
+        LOG.info("Starting Grizzly (HTTP Service).");
+        ResourceConfig rc = new PackagesResourceConfig(BaseResource.class.getPackage().getName());
+        rc.getProperties().put(
+                FreemarkerViewProcessor.FREEMARKER_TEMPLATES_BASE_PATH,
+                "freemarker");
+        rc.getFeatures().put(ResourceConfig.FEATURE_IMPLICIT_VIEWABLES, true);
+        HttpServer server = GrizzlyServerFactory.createHttpServer(BASE_URI, rc);
+
+        //StaticHttpHandler staticHttpHandler = new StaticHttpHandler(Consts.STATIC_RESOURCE_DIRECTORY_ROOT);
+        //server.getServerConfiguration().addHttpHandler(staticHttpHandler, "/vendor");
+
+        /*(: server.getServerConfiguration().addHttpHandler(new StaticHttpHandler("/libs"), "/libs");     :)*/
+        /*
+        server.getServerConfiguration().addHttpHandler(
+                new CLStaticHttpHandler(new URLClassLoader(new URL[] {new URL("file:///home/username/staticfiles.jar")})), "/www");
+          */
+        return server;
     }
 }

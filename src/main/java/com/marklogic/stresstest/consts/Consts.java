@@ -20,4 +20,7 @@ public class Consts {
     public static Long ONE_MINUTE = 60L * 1000L;
     public static Long ONE_HOUR = 3600L * 1000L;
 
+    public static int GRIZZLY_HTTP_PORT = 9995;
+
+    public static String FREEMARKER_TEMPLATE_PATH = "src/main/resources/freemarker";
 }

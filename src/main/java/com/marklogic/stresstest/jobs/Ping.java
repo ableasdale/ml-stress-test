@@ -33,6 +33,7 @@ public class Ping implements Job {
             //LOG.debug("Ping: Range query for recent # docs ...");
             ResultSequence rs = s.submitRequest(s.newAdhocQuery(XQueryModules.getInstance().pingMarkLogic()));
             String[] results = rs.asStrings();
+            TestHelper.timingsList.add(results[1]);
             LOG.info(String.format("Ping - total documents: %s Execution time: %s", results[0], results[1]));
             s.close();
         } catch (RequestException e) {
