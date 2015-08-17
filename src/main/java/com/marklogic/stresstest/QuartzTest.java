@@ -49,7 +49,12 @@ public class QuartzTest {
             scheduler.scheduleJob(load2, triggerLoad2);
             scheduler.scheduleJob(merge, triggerMerge);
 
+
+
             scheduler.start();
+
+            // TODO - wait X minutes then kill the scheduler
+            //scheduler.shutdown();
         } catch (SchedulerException e) {
             LOG.error(TestHelper.returnExceptionString(e));
         }
