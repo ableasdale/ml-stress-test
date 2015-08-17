@@ -20,12 +20,14 @@ public class XQueryModules {
     private static final Logger LOG = LoggerFactory.getLogger(XQueryModules.class);
 
     private String LOAD_XML_DOC;
+    private String PING_MARKLOGIC;
 
     private XQueryModules(){
 
         LOG.info("Preparing XQuery Modules");
         try {
             LOAD_XML_DOC = FileUtils.readFileToString(new File("src/main/resources/queries/load.xqy"));
+            PING_MARKLOGIC = FileUtils.readFileToString(new File("src/main/resources/queries/ping.xqy"));
         } catch (IOException e) {
             LOG.error(TestHelper.returnExceptionString(e));
         }
@@ -43,6 +45,10 @@ public class XQueryModules {
 
     public String loadXML(){
         return LOAD_XML_DOC;
+    }
+
+    public String pingMarkLogic(){
+        return PING_MARKLOGIC;
     }
 
 }

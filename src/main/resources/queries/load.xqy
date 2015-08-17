@@ -4,6 +4,7 @@ declare function local:xml($pos) as element(xml){
     <xml>
         <id>{xdmp:random()}</id>
         <dateTime>{fn:current-dateTime()}</dateTime>
+        <!-- timestamp>{xdmp:request-timestamp()}</timestamp -->
         <random>{(xdmp:random() div 2)}</random>
         <pos>{$pos}</pos>
     </xml>

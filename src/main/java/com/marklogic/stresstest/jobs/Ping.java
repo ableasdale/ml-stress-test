@@ -10,6 +10,9 @@ package com.marklogic.stresstest.jobs;
 
 import com.marklogic.stresstest.helpers.TestHelper;
 import com.marklogic.stresstest.providers.SingleNodeMarkLogicContentSource;
+import com.marklogic.stresstest.providers.XQueryModules;
+import com.marklogic.xcc.ResultSequence;
+import com.marklogic.xcc.Session;
 import com.marklogic.xcc.exceptions.RequestException;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
@@ -17,20 +20,31 @@ import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.sql.ResultSet;
+
 
 public class Ping implements Job {
     private Logger LOG = LoggerFactory.getLogger(Ping.class);
 
     public void execute(JobExecutionContext context) throws JobExecutionException {
 
-
+        Session s = SingleNodeMarkLogicContentSource.getInstance().getSession();
         try {
-            LOG.info(String.format("Ping: MarkLogic Current Query Timestamp: %s", SingleNodeMarkLogicContentSource.getInstance().getSession().getCurrentServerPointInTime()));
+            //LOG.debug("Ping: Range query for recent # docs ...");
+            ResultSequence rs = s.submitRequest(s.newAdhocQuery(XQueryModules.getInstance().pingMarkLogic()));
+            String[] results = rs.asStrings();
+            LOG.info(String.format("Ping - total documents: %s Execution time: %s", results[0], results[1]));
+            s.close();
         } catch (RequestException e) {
             LOG.error(TestHelper.returnExceptionString(e));
         }
 
+        /* Original ping code - returns the timestamp
+        try {
+            LOG.info(String.format("Ping: MarkLogic Current Query Timestamp: %s", SingleNodeMarkLogicContentSource.getInstance().getSession().getCurrentServerPointInTime()));
+        } catch (RequestException e) {
+            LOG.error(TestHelper.returnExceptionString(e));
+        } */
 
     }
-
 }

@@ -25,7 +25,7 @@ public class ForceMerge implements Job {
 
         Session s = SingleNodeMarkLogicContentSource.getInstance().getSession();
         try {
-            LOG.info("Force Merge...");
+            LOG.info("Forcing a Merge...");
             s.submitRequest(s.newAdhocQuery("xdmp:merge()"));
             s.close();
         } catch (RequestException e) {

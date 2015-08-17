@@ -29,12 +29,14 @@ public class QuartzTest {
 
         JobDetail ping = JobBuilder.newJob(Ping.class).withIdentity("ping").build();
         JobDetail load = JobBuilder.newJob(Load.class).withIdentity("load").build();
+        JobDetail load2 = JobBuilder.newJob(Load.class).withIdentity("load2").build();
         JobDetail merge = JobBuilder.newJob(ForceMerge.class).withIdentity("merge").build();
 
         // TRIGGERS
 
         Trigger triggerPing = TriggerBuilder.newTrigger().withIdentity("triggerPing").withSchedule(CronScheduleBuilder.cronSchedule(Consts.EVERY_SECOND)).build();
         Trigger triggerLoad = TriggerBuilder.newTrigger().withIdentity("triggerLoad").withSchedule(CronScheduleBuilder.cronSchedule(Consts.EVERY_FIVE_SECONDS)).build();
+        Trigger triggerLoad2 = TriggerBuilder.newTrigger().withIdentity("triggerLoad2").withSchedule(CronScheduleBuilder.cronSchedule(Consts.EVERY_TWO_SECONDS)).build();
         Trigger triggerMerge = TriggerBuilder.newTrigger().withIdentity("triggerMerge").withSchedule(CronScheduleBuilder.cronSchedule(Consts.EVERY_MINUTE)).build();
 
         // SCHEDULER
@@ -44,6 +46,7 @@ public class QuartzTest {
 
             scheduler.scheduleJob(ping, triggerPing);
             scheduler.scheduleJob(load, triggerLoad);
+            scheduler.scheduleJob(load2, triggerLoad2);
             scheduler.scheduleJob(merge, triggerMerge);
 
             scheduler.start();
