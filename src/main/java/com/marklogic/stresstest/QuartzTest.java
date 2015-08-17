@@ -24,7 +24,7 @@ public class QuartzTest {
 
     public static void main(String[] args) {
 
-        LOG.info("Starting stress test");
+        LOG.info("Starting MarkLogic stress test");
 
         // JOBS
 
@@ -50,19 +50,14 @@ public class QuartzTest {
             scheduler.scheduleJob(load2, triggerLoad2);
             scheduler.scheduleJob(merge, triggerMerge);
 
-            /*
-              .startNow()
-      .withSchedule(simpleSchedule()
-          .withIntervalInSeconds(40)
-          .repeatForever())
-             */
-
+            /* Another example for sheduler use from the docs....
+              .startNow().withSchedule(simpleSchedule().withIntervalInSeconds(40).repeatForever()) */
             scheduler.start();
             try {
                 // Wait X seconds then kill the scheduler
                 Thread.sleep(Consts.ONE_MINUTE * Configuration.getInstance().getDurationInMinutes());
             } catch (InterruptedException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                TestHelper.returnExceptionString(e);
             }
 
             scheduler.shutdown(true);
