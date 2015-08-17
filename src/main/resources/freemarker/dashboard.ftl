@@ -6,11 +6,13 @@
 <div class="container">
 
     <div class="row">
-        <h2>MarkLogic Fragment Counts <small>Dashboard</small></h2>
+        <h2>MarkLogic Stress Test Tool <small>Dashboard</small></h2>
     <#include "navigation.ftl">
     </div>
 
+
     <div class="row">
+        <p>TODO</p>
         <div id="chart"></div>
         <canvas id="canvas"></canvas>
     </div>
