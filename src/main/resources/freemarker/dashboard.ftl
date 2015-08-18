@@ -42,7 +42,7 @@
             data: {
                 type: 'spline',
                 columns: [
-                    ['Ping response time', <#list metrics as metric>'${metric}',</#list>]
+                    ['Ping response time (seconds)', <#list metrics as metric>'${metric}',</#list>]
                 ]
             }
         });
