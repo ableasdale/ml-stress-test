@@ -4,18 +4,14 @@
 <body role="document">
 
 <div class="container">
-
     <div class="row">
         <h2>MarkLogic Stress Test Tool <small>${title}</small></h2>
-    <#include "navigation.ftl">
+        <#include "navigation.ftl">
     </div>
-
 
     <div class="row">
         <div id="chart"></div>
     </div>
-
-    <hr class="bottom-spaced"/>
 
     <!-- add  disabled -->
 
@@ -41,8 +37,7 @@
         var chart = c3.generate({
             bindto: '#chart',
             size: {
-                width: 1300,
-                height: 800
+                height: 500
             },
             data: {
                 type: 'spline',
