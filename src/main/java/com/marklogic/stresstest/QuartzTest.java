@@ -79,12 +79,7 @@ public class QuartzTest {
             LOG.error(TestHelper.returnExceptionString(e));
         }
 
-        // Crude report feature
-        Iterator<String> iterator = TestHelper.timingsList.iterator();
-        while (iterator.hasNext()) {
-            LOG.info(iterator.next());
-        }
-        // Set up jersey?
+        // Set up jersey to run the report and generate a graph
         Thread t = new JerseyServer();
         t.start();
 
