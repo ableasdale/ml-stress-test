@@ -38,7 +38,7 @@ public class QuartzTest {
 
     public static void main(String[] args) {
 
-        LOG.info("Starting MarkLogic stress test");
+        LOG.info(String.format("Starting MarkLogic stress test: running for %d minute(s)", Configuration.getInstance().getDurationInMinutes()));
 
         // JOBS
 
