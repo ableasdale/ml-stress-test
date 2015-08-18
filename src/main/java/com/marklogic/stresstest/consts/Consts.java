@@ -22,5 +22,6 @@ public class Consts {
 
     public static int GRIZZLY_HTTP_PORT = 9995;
 
+    public static String STATIC_RESOURCE_DIRECTORY_ROOT = System.getProperty("user.dir") + "\\src\\main\\resources\\vendor";
     public static String FREEMARKER_TEMPLATE_PATH = "src/main/resources/freemarker";
 }

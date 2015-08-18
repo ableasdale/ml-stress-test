@@ -8,6 +8,7 @@ import com.sun.jersey.api.core.PackagesResourceConfig;
 import com.sun.jersey.api.core.ResourceConfig;
 import com.sun.jersey.freemarker.FreemarkerViewProcessor;
 import org.glassfish.grizzly.http.server.HttpServer;
+import org.glassfish.grizzly.http.server.StaticHttpHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,6 +42,9 @@ public class JerseyServer extends Thread {
                     "freemarker");
             rc.getFeatures().put(ResourceConfig.FEATURE_IMPLICIT_VIEWABLES, true);
             HttpServer server = GrizzlyServerFactory.createHttpServer(BASE_URI, rc);
+
+            StaticHttpHandler staticHttpHandler = new StaticHttpHandler(Consts.STATIC_RESOURCE_DIRECTORY_ROOT);
+            server.getServerConfiguration().addHttpHandler(staticHttpHandler, "/vendor");
 
             server.start();
 
