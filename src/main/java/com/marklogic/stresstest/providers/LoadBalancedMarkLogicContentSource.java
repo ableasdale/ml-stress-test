@@ -20,7 +20,6 @@ import java.text.MessageFormat;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
-// TODO: Auto-generated Javadoc
 
 /**
  * The LoadBalancedMarkLogicContentSource is a Singleton Class - use getInstance() to access.
@@ -227,7 +226,7 @@ public class LoadBalancedMarkLogicContentSource {
     private void addContentSourceToActiveList(List<ContentSource> cslist,
                                               ContentSource contentSource)
             throws ContentSourceAlreadyEnlistedException {
-        LOG.info(MessageFormat.format("Attempting to enlist ContentSource {0}",
+        LOG.debug(MessageFormat.format("Attempting to enlist ContentSource {0}",
                 contentSource.newSession().getConnectionUri()));
 
         if (validateConnection(contentSource)) {
@@ -238,7 +237,7 @@ public class LoadBalancedMarkLogicContentSource {
                 LOG.info(message);
                 throw new ContentSourceAlreadyEnlistedException(message);
             } else {
-                LOG.info(MessageFormat.format(
+                LOG.debug(MessageFormat.format(
                         "Adding a contentSource whose id is: {0}",
                         contentSource.hashCode()));
                 cslist.add(contentSource);
@@ -357,7 +356,7 @@ public class LoadBalancedMarkLogicContentSource {
     private boolean validateConnection(ContentSource contentSource) {
         Session ses = contentSource.newSession();
         if (validateSession(ses)) {
-            LOG.info(MessageFormat
+            LOG.debug(MessageFormat
                     .format("Connection [{0}] has the URI of {1} and is valid - the Session hashCode is: {2}",
                             contentSource.hashCode(), ses.getConnectionUri(),
                             ses.hashCode()));
@@ -434,7 +433,7 @@ public class LoadBalancedMarkLogicContentSource {
                     .format("Reached {0} connections.  Running check against delisted content.",
                             connectionsBeforeDelistCheck));
             /*
-			 * This will be quick; it's looping through a small list (the
+             * This will be quick; it's looping through a small list (the
 			 * delistedContentSourceList), it should add minimal overhead when
 			 * it gets called (which is every time the connectionCount hits the
 			 * specified CONNECTIONS_BEFORE_DELIST_CHECK). If the method gets

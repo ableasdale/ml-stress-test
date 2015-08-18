@@ -46,7 +46,8 @@ public class BaseResource {
             return true;
         } catch (NumberFormatException e) {
             return false;
-        }                                                                       }
+        }
+    }
 
     /**
      * Freemarker template parameter map for the HTTP Exception Page template

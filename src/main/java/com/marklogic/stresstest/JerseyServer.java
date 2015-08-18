@@ -30,6 +30,7 @@ public class JerseyServer extends Thread {
         return UriBuilder.fromUri("http://0.0.0.0/")
                 .port(Consts.GRIZZLY_HTTP_PORT).build();
     }
+
     private static Logger LOG = LoggerFactory.getLogger(JerseyServer.class);
 
     @Override

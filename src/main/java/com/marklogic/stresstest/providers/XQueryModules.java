@@ -22,7 +22,7 @@ public class XQueryModules {
     private String LOAD_XML_DOC;
     private String PING_MARKLOGIC;
 
-    private XQueryModules(){
+    private XQueryModules() {
 
         LOG.info("Preparing XQuery Modules");
         try {
@@ -38,16 +38,15 @@ public class XQueryModules {
     }
 
 
-
     public static XQueryModules getInstance() {
         return XQueryModulesProvider.INSTANCE;
     }
 
-    public String loadXML(){
+    public String loadXML() {
         return LOAD_XML_DOC;
     }
 
-    public String pingMarkLogic(){
+    public String pingMarkLogic() {
         return PING_MARKLOGIC;
     }
 

@@ -6,24 +6,10 @@ import com.marklogic.stresstest.jobs.ForceMerge;
 import com.marklogic.stresstest.jobs.Load;
 import com.marklogic.stresstest.jobs.Ping;
 import com.marklogic.stresstest.providers.Configuration;
-import com.marklogic.stresstest.resources.BaseResource;
-import com.sun.jersey.api.container.grizzly2.GrizzlyServerFactory;
-import com.sun.jersey.api.core.PackagesResourceConfig;
-import com.sun.jersey.api.core.ResourceConfig;
-import com.sun.jersey.freemarker.FreemarkerViewProcessor;
-import org.glassfish.grizzly.http.server.HttpServer;
-import org.glassfish.grizzly.http.server.StaticHttpHandler;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.ws.rs.core.UriBuilder;
-import java.io.IOException;
-import java.net.URI;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.

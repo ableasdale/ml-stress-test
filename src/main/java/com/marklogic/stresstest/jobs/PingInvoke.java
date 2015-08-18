@@ -2,10 +2,9 @@ package com.marklogic.stresstest.jobs;
 
 import com.marklogic.stresstest.helpers.TestHelper;
 import com.marklogic.stresstest.providers.SingleNodeMarkLogicContentSource;
-import com.marklogic.stresstest.providers.XQueryModules;
+import com.marklogic.xcc.Request;
 import com.marklogic.xcc.ResultSequence;
 import com.marklogic.xcc.Session;
-import com.marklogic.xcc.Request;
 import com.marklogic.xcc.exceptions.RequestException;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
@@ -20,7 +19,7 @@ import org.slf4j.LoggerFactory;
 public class PingInvoke implements Job {
     private Logger LOG = LoggerFactory.getLogger(PingInvoke.class);
 
-    public void execute(JobExecutionContext context) throws JobExecutionException{
+    public void execute(JobExecutionContext context) throws JobExecutionException {
         Session s = SingleNodeMarkLogicContentSource.getInstance().getSession();
         Request request = s.newModuleInvoke("ping-invoke.xqy");
         // there are no args to pass in on this one

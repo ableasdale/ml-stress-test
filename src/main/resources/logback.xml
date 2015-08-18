@@ -10,6 +10,7 @@
 
     <logger name="org.quartz" level="INFO"/>
     <logger name="com.marklogic.stresstest.jobs" level="INFO"/>
+    <logger name="com.marklogic.stresstest.providers" level="INFO"/>
 
     <root level="debug">
         <appender-ref ref="STDOUT" />

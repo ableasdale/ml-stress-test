@@ -9,7 +9,7 @@ package com.marklogic.stresstest.jobs;
  */
 
 import com.marklogic.stresstest.helpers.TestHelper;
-import com.marklogic.stresstest.providers.SingleNodeMarkLogicContentSource;
+import com.marklogic.stresstest.providers.LoadBalancedMarkLogicContentSource;
 import com.marklogic.stresstest.providers.XQueryModules;
 import com.marklogic.xcc.ResultSequence;
 import com.marklogic.xcc.Session;
@@ -20,15 +20,13 @@ import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.sql.ResultSet;
-
 
 public class Ping implements Job {
     private Logger LOG = LoggerFactory.getLogger(Ping.class);
 
     public void execute(JobExecutionContext context) throws JobExecutionException {
 
-        Session s = SingleNodeMarkLogicContentSource.getInstance().getSession();
+        Session s = LoadBalancedMarkLogicContentSource.getInstance().openSession();
         try {
             //LOG.debug("Ping: Range query for recent # docs ...");
             ResultSequence rs = s.submitRequest(s.newAdhocQuery(XQueryModules.getInstance().pingMarkLogic()));

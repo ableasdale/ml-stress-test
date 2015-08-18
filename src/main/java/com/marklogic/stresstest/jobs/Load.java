@@ -7,20 +7,15 @@ package com.marklogic.stresstest.jobs; /**
  */
 
 import com.marklogic.stresstest.helpers.TestHelper;
-import com.marklogic.stresstest.providers.SingleNodeMarkLogicContentSource;
+import com.marklogic.stresstest.providers.LoadBalancedMarkLogicContentSource;
 import com.marklogic.stresstest.providers.XQueryModules;
-import com.marklogic.xcc.Request;
 import com.marklogic.xcc.Session;
 import com.marklogic.xcc.exceptions.RequestException;
-import org.apache.commons.io.FileUtils;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.File;
-import java.io.IOException;
 
 
 public class Load implements Job {
@@ -28,9 +23,9 @@ public class Load implements Job {
 
     public void execute(JobExecutionContext context) throws JobExecutionException {
 
-        Session s = SingleNodeMarkLogicContentSource.getInstance().getSession();
+        Session s = LoadBalancedMarkLogicContentSource.getInstance().openSession();
         try {
-            LOG.debug("Generating 1500 docs.");
+            LOG.debug("Generating docs.");
             s.submitRequest(s.newAdhocQuery(XQueryModules.getInstance().loadXML()));
             s.close();
         } catch (RequestException e) {

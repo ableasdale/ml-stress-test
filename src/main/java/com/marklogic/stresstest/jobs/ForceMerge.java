@@ -1,8 +1,7 @@
 package com.marklogic.stresstest.jobs;
 
 import com.marklogic.stresstest.helpers.TestHelper;
-import com.marklogic.stresstest.providers.SingleNodeMarkLogicContentSource;
-import com.marklogic.stresstest.providers.XQueryModules;
+import com.marklogic.stresstest.providers.LoadBalancedMarkLogicContentSource;
 import com.marklogic.xcc.Session;
 import com.marklogic.xcc.exceptions.RequestException;
 import org.quartz.Job;
@@ -23,7 +22,7 @@ public class ForceMerge implements Job {
 
     public void execute(JobExecutionContext context) throws JobExecutionException {
 
-        Session s = SingleNodeMarkLogicContentSource.getInstance().getSession();
+        Session s = LoadBalancedMarkLogicContentSource.getInstance().openSession();
         try {
             LOG.debug("Forcing a Merge...");
             s.submitRequest(s.newAdhocQuery("xdmp:merge()"));
@@ -31,10 +30,6 @@ public class ForceMerge implements Job {
         } catch (RequestException e) {
             LOG.error(TestHelper.returnExceptionString(e));
         }
-
-
-
-
     }
 
 }
