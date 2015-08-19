@@ -33,8 +33,7 @@ public class TestHelper {
 
     public static void saveSessionData() {
         try {
-            FileOutputStream fos =
-                    new FileOutputStream(Consts.SAVE_DIRECTORY_ROOT + "\\" + UUID.randomUUID() + ".dat");
+            FileOutputStream fos = new FileOutputStream(Consts.SAVE_DIRECTORY_ROOT + "\\" + UUID.randomUUID() + ".ml");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(TestHelper.getStressTestInstance());
             oos.close();
@@ -48,6 +47,5 @@ public class TestHelper {
     private static class StressTestDataProvider {
         private static final StressTest INSTANCE = new StressTest();
     }
-
 
 }
