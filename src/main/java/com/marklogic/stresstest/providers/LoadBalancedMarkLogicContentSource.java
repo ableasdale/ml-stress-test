@@ -158,7 +158,7 @@ public class LoadBalancedMarkLogicContentSource {
     private void init(List<String> uriList) throws ConfigurationException,
             ConnectionFailedException {
 
-        LOG.info(MessageFormat.format(
+        LOG.debug(MessageFormat.format(
                 "Init: Creating ContentSources for {0} nodes.", uriList.size()));
 
         for (String s : uriList) {
@@ -167,7 +167,7 @@ public class LoadBalancedMarkLogicContentSource {
                 ContentSource c = ContentSourceFactory.newContentSource(uri);
                 addContentSourceToActiveList(activeContentSourceList, c);
                 LOG.info(MessageFormat.format("Created XCC Connection: {0}",
-                        uri.toString()));
+                        uri.getHost()));
             } catch (URISyntaxException e) {
                 LOG.error(TestHelper.returnExceptionString(e));
             } catch (XccConfigException e) {
@@ -177,7 +177,7 @@ public class LoadBalancedMarkLogicContentSource {
             }
         }
         LOG.info(MessageFormat
-                .format("LoadBalancedMarkLogicContentSource ready.  Delist check set to run every {0} connection requests.",
+                .format("LoadBalancedMarkLogicContentSource: {0} active listening hosts ready.  Delist check set to run every {1} connection requests.", activeContentSourceList.size(),
                         connectionsBeforeDelistCheck));
 
         if (activeContentSourceList.size() == 0) {

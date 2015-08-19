@@ -11,6 +11,8 @@
     <logger name="org.quartz" level="INFO"/>
     <logger name="com.marklogic.stresstest.jobs" level="INFO"/>
     <logger name="com.marklogic.stresstest.providers" level="INFO"/>
+    <logger name="org.quartz.simpl" level="WARN"/>
+    <logger name="org.quartz.impl" level="WARN"/>
 
     <root level="debug">
         <appender-ref ref="STDOUT" />

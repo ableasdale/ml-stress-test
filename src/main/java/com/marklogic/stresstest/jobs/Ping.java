@@ -35,6 +35,9 @@ public class Ping implements Job {
 
             String x = results[1].substring(2, results[1].length() - 1);
             //s.substring(s.lastIndexOf("/") + 1)
+            //TestHelper.getTimingsListForHost(s.getContentBaseName());
+            //LOG.info(s.getConnectionUri().getHost());
+
             TestHelper.timingsList.add(x);
             LOG.debug(String.format("Ping - total documents: %s Execution time: %s", results[0], results[1]));
             s.close();

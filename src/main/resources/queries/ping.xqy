@@ -7,7 +7,7 @@ let $end := xs:dateTime(fn:current-dateTime()) - xs:dayTimeDuration('PT1M')
 
 return
 
-fn:count(
+xdmp:estimate(
 cts:search(doc(),
   cts:and-query((
    cts:element-range-query(xs:QName("dateTime"), ">",
