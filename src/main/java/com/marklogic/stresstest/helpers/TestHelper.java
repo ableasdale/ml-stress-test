@@ -5,10 +5,11 @@ import com.marklogic.stresstest.consts.Consts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -42,6 +43,38 @@ public class TestHelper {
         } catch (IOException e) {
             LOG.error(returnExceptionString(e));
         }
+    }
+
+    public static void loadSessionData(String fname) {
+        StressTest st = null;
+        try {
+            FileInputStream fin = new FileInputStream(Consts.SAVE_DIRECTORY_ROOT + "\\" + fname);
+            ObjectInputStream in = new ObjectInputStream(fin);
+            st = (StressTest) in.readObject();
+            in.close();
+            fin.close();
+        } catch (IOException e) {
+            LOG.error(returnExceptionString(e));
+        } catch (ClassNotFoundException c) {
+            LOG.error(returnExceptionString(c));
+        }
+        if (st != null){
+            TestHelper.getStressTestInstance().setTestLabel(st.getTestLabel());
+            TestHelper.getStressTestInstance().setTestDateTime(st.getTestDateTime());
+            TestHelper.getStressTestInstance().setHostTimings(st.getHostTimings());
+            TestHelper.getStressTestInstance().setTotalHosts(st.getTotalHosts());
+        }
+    }
+
+    public static List<String> getSaveDirectoryListing() {
+        File f = new File(Consts.SAVE_DIRECTORY_ROOT);
+        //List<String> filenames = new
+        //ArrayList<File> files = new ArrayList<File>(Arrays.asList(f.listFiles()));
+        //File[] list = f.listFiles();
+        //for (File fi : f.listFiles()){
+
+        //}
+        return new ArrayList<String>(Arrays.asList(f.list()));
     }
 
     private static class StressTestDataProvider {
