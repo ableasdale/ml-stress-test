@@ -10,7 +10,7 @@ declare function local:xml($pos) as element(xml){
     </xml>
 };
 
-for $i in 1 to 5000
+for $i in 1 to 10000
 return
 xdmp:spawn-function(
   function(){xdmp:document-insert(fn:concat("/",xdmp:random(),".xml"), local:xml($i)), xdmp:commit()},

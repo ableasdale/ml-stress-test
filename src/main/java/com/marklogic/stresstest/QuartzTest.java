@@ -79,6 +79,8 @@ public class QuartzTest {
             LOG.error(TestHelper.returnExceptionString(e));
         }
 
+        TestHelper.saveSessionData();
+
         // Set up jersey to run the report and generate a graph
         Thread t = new JerseyServer();
         t.start();
