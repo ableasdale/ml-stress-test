@@ -53,7 +53,7 @@ public class ArchiveResource extends BaseResource {
     @Path("load/{name}")
     @Produces(MediaType.TEXT_HTML)
     public Response getSavedTest(@PathParam("name") String name) {
-        LOG.info("Loading Saved test: "+ name);
+        LOG.debug("Loading Saved test: "+ name);
         TestHelper.loadSessionData(name);
 
         URI uri = UriBuilder.fromPath("/").build();
