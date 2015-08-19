@@ -10,6 +10,9 @@
     </div>
 
     <div class="row">
+        <h4>Test label: </small>${metrics.getTestLabel()}</small></h4>
+        <h4>Date / Time: </small>${metrics.getTestDateTime()?datetime}</small></h4>
+        <h4>Total Hosts: </small>${metrics.getTotalHosts()}</small></h4>
         <div id="chart"></div>
     </div>
 
