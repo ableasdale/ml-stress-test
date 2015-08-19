@@ -40,19 +40,13 @@
                 height: 500
             },
             axis: {
-                y: {
-                    label: 'Response time'
-                }
-            },
-            axis: {
-                x: {
-                    label: 'Ping interval'
-                }
+                x: { label: 'Ping interval' },
+                y: { label: 'Response times (seconds)' }
             },
             data: {
                 type: 'spline',
                 columns: [
-                    ['Ping response time (seconds)', <#list metrics as metric>'${metric}',</#list>]
+                    ${chart}
                 ]
             }
         });

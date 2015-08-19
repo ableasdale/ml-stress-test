@@ -24,8 +24,6 @@ public class TestHelper {
         return StressTestDataProvider.INSTANCE;
     }
 
-    public static List<String> timingsList = Collections.synchronizedList(new ArrayList<String>());
-
     public static String returnExceptionString(Exception e) {
         return MessageFormat.format("{0} caught: {1}", e.getClass().getName(),
                 e);

@@ -11,6 +11,7 @@ package com.marklogic.stresstest.jobs;
 import com.marklogic.stresstest.helpers.TestHelper;
 import com.marklogic.stresstest.providers.LoadBalancedMarkLogicContentSource;
 import com.marklogic.stresstest.providers.XQueryModules;
+import com.marklogic.xcc.ContentSource;
 import com.marklogic.xcc.ResultSequence;
 import com.marklogic.xcc.Session;
 import com.marklogic.xcc.exceptions.RequestException;
@@ -29,26 +30,35 @@ public class Ping implements Job {
 
     public void execute(JobExecutionContext context) throws JobExecutionException {
 
+        for (ContentSource cs : LoadBalancedMarkLogicContentSource.getInstance().getCopyOfActiveContentSourceList()) {
+            Session s = cs.newSession();
+            try {
+                //LOG.debug("Ping: Range query for recent # docs ...");
+                ResultSequence rs = s.submitRequest(s.newAdhocQuery(XQueryModules.getInstance().pingMarkLogic()));
+                String[] results = rs.asStrings();
+                List<String> timingsList = TestHelper.getStressTestInstance().getHostTimings().get(s.getConnectionUri().getHost());
+                timingsList.add(results[1].substring(2, results[1].length() - 1));
+                TestHelper.getStressTestInstance().getHostTimings().put(s.getConnectionUri().getHost(), timingsList);
+                LOG.debug(String.format("Ping - total documents: %s Execution time: %s", results[0], results[1]));
+                s.close();
+            } catch (RequestException e) {
+                LOG.error(TestHelper.returnExceptionString(e));
+            }
+        }
+
+        /*  Original version
         Session s = LoadBalancedMarkLogicContentSource.getInstance().openSession();
         try {
             //LOG.debug("Ping: Range query for recent # docs ...");
             ResultSequence rs = s.submitRequest(s.newAdhocQuery(XQueryModules.getInstance().pingMarkLogic()));
             String[] results = rs.asStrings();
             String x = results[1].substring(2, results[1].length() - 1);
-            List timingsList = TestHelper.getStressTestInstance().getHostTimings().get(s.getConnectionUri().getHost());
+            List<String> timingsList = TestHelper.getStressTestInstance().getHostTimings().get(s.getConnectionUri().getHost());
             timingsList.add(x);
             TestHelper.getStressTestInstance().getHostTimings().put(s.getConnectionUri().getHost(), timingsList);
-            // TODO - remove the timings list!
-            TestHelper.timingsList.add(x);
+
             LOG.debug(String.format("Ping - total documents: %s Execution time: %s", results[0], results[1]));
             s.close();
-        } catch (RequestException e) {
-            LOG.error(TestHelper.returnExceptionString(e));
-        }
-
-        /* My original ping code - returns the timestamp
-        try {
-            LOG.info(String.format("Ping: MarkLogic Current Query Timestamp: %s", SingleNodeMarkLogicContentSource.getInstance().getSession().getCurrentServerPointInTime()));
         } catch (RequestException e) {
             LOG.error(TestHelper.returnExceptionString(e));
         } */

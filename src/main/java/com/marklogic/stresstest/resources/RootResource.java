@@ -31,7 +31,8 @@ public class RootResource extends BaseResource {
     private Map<String, Object> createModel(String id) {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("title", "Dashboard and Overview");
-        map.put("metrics", TestHelper.timingsList);
+        map.put("metrics", TestHelper.getStressTestInstance());
+        map.put("chart", formatForChart(TestHelper.getStressTestInstance().getHostTimings()));
         return map;
     }
 
@@ -45,6 +46,7 @@ public class RootResource extends BaseResource {
     @Produces(MediaType.TEXT_HTML)
     public Viewable getDashboard() {
         LOG.debug("Getting Dashboard ...");
+        LOG.debug(formatForChart(TestHelper.getStressTestInstance().getHostTimings()));
         return new Viewable("/dashboard", createModel("Dashboard"));
     }
 

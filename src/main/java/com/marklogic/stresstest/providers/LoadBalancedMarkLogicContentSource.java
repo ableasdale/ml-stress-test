@@ -446,4 +446,8 @@ public class LoadBalancedMarkLogicContentSource {
 
         return rotateContentSourceListAndOpenSession();
     }
+
+    public List<ContentSource> getCopyOfActiveContentSourceList(){
+        return new ArrayList<ContentSource>(activeContentSourceList);
+    }
 }

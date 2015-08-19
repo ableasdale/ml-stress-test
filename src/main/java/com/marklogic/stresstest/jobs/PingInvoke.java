@@ -1,7 +1,7 @@
 package com.marklogic.stresstest.jobs;
 
 import com.marklogic.stresstest.helpers.TestHelper;
-import com.marklogic.stresstest.providers.SingleNodeMarkLogicContentSource;
+import com.marklogic.stresstest.providers.LoadBalancedMarkLogicContentSource;
 import com.marklogic.xcc.Request;
 import com.marklogic.xcc.ResultSequence;
 import com.marklogic.xcc.Session;
@@ -20,7 +20,7 @@ public class PingInvoke implements Job {
     private Logger LOG = LoggerFactory.getLogger(PingInvoke.class);
 
     public void execute(JobExecutionContext context) throws JobExecutionException {
-        Session s = SingleNodeMarkLogicContentSource.getInstance().getSession();
+        Session s = LoadBalancedMarkLogicContentSource.getInstance().openSession();
         Request request = s.newModuleInvoke("ping-invoke.xqy");
         // there are no args to pass in on this one
 
