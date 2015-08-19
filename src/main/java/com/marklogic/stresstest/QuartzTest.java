@@ -11,6 +11,13 @@ import org.quartz.impl.StdSchedulerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 /**
  * Created with IntelliJ IDEA.
  * User: alexb
@@ -24,7 +31,13 @@ public class QuartzTest {
 
     public static void main(String[] args) {
 
+        // INIT
+
         LOG.info(String.format("Starting MarkLogic stress test: running for %d minute(s)", Configuration.getInstance().getDurationInMinutes()));
+        TestHelper.getStressTestInstance().setTestDateTime(new Date());
+        TestHelper.getStressTestInstance().setTestLabel("TODO - XML VALUE?");
+        TestHelper.getStressTestInstance().setTotalHosts(Configuration.getInstance().getUriList().size());
+        TestHelper.getStressTestInstance().setHostTimings(new ConcurrentHashMap<String, List<String>>());
 
         // JOBS
 
@@ -52,6 +65,7 @@ public class QuartzTest {
 
             /* Another example of scheduler use from the docs....
               .startNow().withSchedule(simpleSchedule().withIntervalInSeconds(40).repeatForever()) */
+            LOG.info("Stress test begins");
             scheduler.start();
             try {
                 // Wait X seconds then kill the scheduler
@@ -59,7 +73,7 @@ public class QuartzTest {
             } catch (InterruptedException e) {
                 TestHelper.returnExceptionString(e);
             }
-
+            LOG.info("End of stress test");
             scheduler.shutdown(true);
         } catch (SchedulerException e) {
             LOG.error(TestHelper.returnExceptionString(e));

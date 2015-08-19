@@ -11,6 +11,9 @@ import org.slf4j.LoggerFactory;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+/**
+ * This class can likely be deprecated in later releases...
+ */
 public class SingleNodeMarkLogicContentSource {
 
     private static final Logger LOG = LoggerFactory.getLogger(SingleNodeMarkLogicContentSource.class);

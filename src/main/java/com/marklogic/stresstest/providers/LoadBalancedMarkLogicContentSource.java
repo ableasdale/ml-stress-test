@@ -18,6 +18,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.MessageFormat;
 import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
@@ -160,7 +161,6 @@ public class LoadBalancedMarkLogicContentSource {
 
         LOG.debug(MessageFormat.format(
                 "Init: Creating ContentSources for {0} nodes.", uriList.size()));
-
         for (String s : uriList) {
             try {
                 URI uri = new URI(s);
@@ -168,6 +168,7 @@ public class LoadBalancedMarkLogicContentSource {
                 addContentSourceToActiveList(activeContentSourceList, c);
                 LOG.info(MessageFormat.format("Created XCC Connection: {0}",
                         uri.getHost()));
+                TestHelper.getStressTestInstance().getHostTimings().put(uri.getHost(), new CopyOnWriteArrayList<String>());
             } catch (URISyntaxException e) {
                 LOG.error(TestHelper.returnExceptionString(e));
             } catch (XccConfigException e) {

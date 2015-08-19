@@ -1,5 +1,7 @@
 package com.marklogic.stresstest.helpers;
 
+import com.marklogic.stresstest.beans.StressTest;
+
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,6 +15,14 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class TestHelper {
+
+    private static class StressTestDataProvider {
+        private static final StressTest INSTANCE = new StressTest();
+    }
+
+    public static StressTest getStressTestInstance() {
+        return StressTestDataProvider.INSTANCE;
+    }
 
     public static List<String> timingsList = Collections.synchronizedList(new ArrayList<String>());
 

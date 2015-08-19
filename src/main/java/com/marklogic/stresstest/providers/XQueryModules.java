@@ -24,7 +24,7 @@ public class XQueryModules {
 
     private XQueryModules() {
 
-        LOG.info("Preparing XQuery Modules");
+        LOG.debug("Preparing XQuery Modules");
         try {
             LOAD_XML_DOC = FileUtils.readFileToString(new File("src/main/resources/queries/load.xqy"));
             PING_MARKLOGIC = FileUtils.readFileToString(new File("src/main/resources/queries/ping.xqy"));

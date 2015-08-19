@@ -39,6 +39,16 @@
             size: {
                 height: 500
             },
+            axis: {
+                y: {
+                    label: 'Response time'
+                }
+            },
+            axis: {
+                x: {
+                    label: 'Ping interval'
+                }
+            },
             data: {
                 type: 'spline',
                 columns: [

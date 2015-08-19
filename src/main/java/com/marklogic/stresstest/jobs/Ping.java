@@ -20,6 +20,9 @@ import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+import java.util.Map;
+
 
 public class Ping implements Job {
     private Logger LOG = LoggerFactory.getLogger(Ping.class);
@@ -31,13 +34,11 @@ public class Ping implements Job {
             //LOG.debug("Ping: Range query for recent # docs ...");
             ResultSequence rs = s.submitRequest(s.newAdhocQuery(XQueryModules.getInstance().pingMarkLogic()));
             String[] results = rs.asStrings();
-            // String x = results[1].substring(results[1].lastIndexOf("PT") + 1);
-
             String x = results[1].substring(2, results[1].length() - 1);
-            //s.substring(s.lastIndexOf("/") + 1)
-            //TestHelper.getTimingsListForHost(s.getContentBaseName());
-            //LOG.info(s.getConnectionUri().getHost());
-
+            List timingsList = TestHelper.getStressTestInstance().getHostTimings().get(s.getConnectionUri().getHost());
+            timingsList.add(x);
+            TestHelper.getStressTestInstance().getHostTimings().put(s.getConnectionUri().getHost(), timingsList);
+            // TODO - remove the timings list!
             TestHelper.timingsList.add(x);
             LOG.debug(String.format("Ping - total documents: %s Execution time: %s", results[0], results[1]));
             s.close();
@@ -45,7 +46,7 @@ public class Ping implements Job {
             LOG.error(TestHelper.returnExceptionString(e));
         }
 
-        /* Original ping code - returns the timestamp
+        /* My original ping code - returns the timestamp
         try {
             LOG.info(String.format("Ping: MarkLogic Current Query Timestamp: %s", SingleNodeMarkLogicContentSource.getInstance().getSession().getCurrentServerPointInTime()));
         } catch (RequestException e) {
