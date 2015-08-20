@@ -12,7 +12,6 @@ import java.io.File;
  * To change this template use File | Settings | File Templates.
  */
 public class Consts {
-
     public static String EVERY_SECOND = "0/1 * * * * ?";
     public static String EVERY_TWO_SECONDS = "0/2 * * * * ?";
     public static String EVERY_FIVE_SECONDS = "0/5 * * * * ?";
@@ -26,6 +25,7 @@ public class Consts {
 
     public static int GRIZZLY_HTTP_PORT = 9995;
 
-    public static String STATIC_RESOURCE_DIRECTORY_ROOT = System.getProperty("user.dir") + StringUtils.join( new String[]{"src","main","resources","vendor"} , File.pathSeparator);
-    public static String SAVE_DIRECTORY_ROOT = System.getProperty("user.dir") + StringUtils.join( new String[]{"src","main","resources","saved"} , File.pathSeparator);
+    public static String BASE_DIRECTORY_ROOT = new StringBuilder().append(System.getProperty("user.dir")).append(File.separator).append(StringUtils.join(new String[]{"src", "main", "resources"}, File.separator)).toString();
+    public static String STATIC_RESOURCE_DIRECTORY_ROOT = new StringBuilder().append(BASE_DIRECTORY_ROOT).append(File.separator).append("vendor").toString();
+    public static String SAVE_DIRECTORY_ROOT = new StringBuilder().append(BASE_DIRECTORY_ROOT).append(File.separator).append("saved").toString();
 }
