@@ -2,15 +2,14 @@ package com.marklogic.stresstest.helpers;
 
 import com.marklogic.stresstest.beans.StressTest;
 import com.marklogic.stresstest.consts.Consts;
+import com.marklogic.stresstest.providers.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -34,7 +33,10 @@ public class TestHelper {
 
     public static void saveSessionData() {
         try {
-            FileOutputStream fos = new FileOutputStream(Consts.SAVE_DIRECTORY_ROOT + "\\" + UUID.randomUUID() + ".ml");
+            Date d = new Date();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-hhmmss");
+            String filenameDate = sdf.format(d);
+            FileOutputStream fos = new FileOutputStream(Consts.SAVE_DIRECTORY_ROOT + File.separator + Configuration.getInstance().getTestLabel()+ "-" +filenameDate + ".ml");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(TestHelper.getStressTestInstance());
             oos.close();
