@@ -36,7 +36,7 @@ public class QuartzTest {
 
         LOG.info(String.format("Starting MarkLogic stress test: running for %d minute(s)", Configuration.getInstance().getDurationInMinutes()));
         TestHelper.getStressTestInstance().setTestDateTime(new Date());
-        TestHelper.getStressTestInstance().setTestLabel("TODO - XML VALUE?");
+        TestHelper.getStressTestInstance().setTestLabel(Configuration.getInstance().getTestLabel());
         TestHelper.getStressTestInstance().setTotalHosts(Configuration.getInstance().getUriList().size());
         TestHelper.getStressTestInstance().setHostTimings(new ConcurrentHashMap<String, List<String>>());
 
