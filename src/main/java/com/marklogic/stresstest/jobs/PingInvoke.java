@@ -38,9 +38,9 @@ public class PingInvoke implements Job {
                 ResultSequence rs = s.submitRequest(request);
                 //ResultSequence rs = s.submitRequest(s.newAdhocQuery(XQueryModules.getInstance().pingMarkLogic()));
                 String[] results = rs.asStrings();
-                List<String> timingsList = TestHelper.getStressTestInstance().getHostTimingMaps().get(timingGroup).get(s.getConnectionUri().getHost());
-                timingsList.add(results[1].substring(2, results[1].length() - 1));
-                TestHelper.getStressTestInstance().getHostTimingMaps().get(timingGroup).put(s.getConnectionUri().getHost(), timingsList);
+
+                TestHelper.addResultToTimingMap(timingGroup, s.getConnectionUri().getHost(), results[1].substring(2, results[1].length() - 1));
+
                 LOG.debug(String.format("PingGroupA - total documents: %s Execution time: %s", results[0], results[1]));
                 s.close();
             } catch (RequestException e) {
