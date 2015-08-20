@@ -22,24 +22,25 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
-import java.util.Map;
 
 
-public class Ping implements Job {
-    private Logger LOG = LoggerFactory.getLogger(Ping.class);
+public class PingGroupB implements Job {
+
+    private Logger LOG = LoggerFactory.getLogger(PingGroupB.class);
+    private String timingGroup = "groupB";
 
     public void execute(JobExecutionContext context) throws JobExecutionException {
 
         for (ContentSource cs : LoadBalancedMarkLogicContentSource.getInstance().getCopyOfActiveContentSourceList()) {
             Session s = cs.newSession();
             try {
-                //LOG.debug("Ping: Range query for recent # docs ...");
+                //LOG.debug("PingGroupA: Range query for recent # docs ...");
                 ResultSequence rs = s.submitRequest(s.newAdhocQuery(XQueryModules.getInstance().pingMarkLogic()));
                 String[] results = rs.asStrings();
-                List<String> timingsList = TestHelper.getStressTestInstance().getHostTimings().get(s.getConnectionUri().getHost());
-                timingsList.add(results[1].substring(2, results[1].length() - 1));
-                TestHelper.getStressTestInstance().getHostTimings().put(s.getConnectionUri().getHost(), timingsList);
-                LOG.debug(String.format("Ping - total documents: %s Execution time: %s", results[0], results[1]));
+
+                TestHelper.addResultToTimingMap(timingGroup, s.getConnectionUri().getHost(), results[1].substring(2, results[1].length() - 1));
+
+                LOG.debug(String.format("PingGroupB - total documents: %s Execution time: %s", results[0], results[1]));
                 s.close();
             } catch (RequestException e) {
                 LOG.error(TestHelper.returnExceptionString(e));
@@ -49,7 +50,7 @@ public class Ping implements Job {
         /*  Original version
         Session s = LoadBalancedMarkLogicContentSource.getInstance().openSession();
         try {
-            //LOG.debug("Ping: Range query for recent # docs ...");
+            //LOG.debug("PingGroupA: Range query for recent # docs ...");
             ResultSequence rs = s.submitRequest(s.newAdhocQuery(XQueryModules.getInstance().pingMarkLogic()));
             String[] results = rs.asStrings();
             String x = results[1].substring(2, results[1].length() - 1);
@@ -57,7 +58,7 @@ public class Ping implements Job {
             timingsList.add(x);
             TestHelper.getStressTestInstance().getHostTimings().put(s.getConnectionUri().getHost(), timingsList);
 
-            LOG.debug(String.format("Ping - total documents: %s Execution time: %s", results[0], results[1]));
+            LOG.debug(String.format("PingGroupA - total documents: %s Execution time: %s", results[0], results[1]));
             s.close();
         } catch (RequestException e) {
             LOG.error(TestHelper.returnExceptionString(e));

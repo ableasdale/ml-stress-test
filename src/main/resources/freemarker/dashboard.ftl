@@ -13,7 +13,12 @@
         <h4>Test label: </small>${metrics.getTestLabel()}</small></h4>
         <h4>Date / Time: </small>${metrics.getTestDateTime()?datetime}</small></h4>
         <h4>Total Hosts: </small>${metrics.getTotalHosts()}</small></h4>
-        <div id="chart"></div>
+
+    <#assign keys = chartMap?keys>
+
+    <#list keys as key>
+        <div id="${key}"></div>
+    </#list>
     </div>
 
     <!-- add  disabled -->
@@ -37,21 +42,23 @@
 
 <script>
     $(function() {
-        var chart = c3.generate({
-            bindto: '#chart',
-            size: {
-                height: 500
-            },
-            axis: {
-                x: { label: 'Ping interval' },
-                y: { label: 'Response times (seconds)' }
-            },
-            data: {
-                type: 'spline',
-                columns: [
-                    ${chart}
-                ]
-            }
-        });
+        <#list keys as key>
+            var chart${key} = c3.generate({
+
+                bindto: '#${key}',
+
+                size: {height: 500},
+                axis: {
+                    x: { label: '${key} interval' },
+                    y: { label: 'Response times (seconds)' }
+                },
+                data: {
+                    type: 'spline',
+                    columns: [
+                        ${chartMap[key]}
+                    ]
+                }
+            });
+        </#list>
     });
 </script>

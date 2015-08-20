@@ -11,6 +11,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 
@@ -32,7 +33,12 @@ public class RootResource extends BaseResource {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("title", "Dashboard and Overview");
         map.put("metrics", TestHelper.getStressTestInstance());
-        map.put("chart", formatForChart(TestHelper.getStressTestInstance().getHostTimings()));
+
+        Map<String, String> lhm = new LinkedHashMap<String,String>();
+        for(String k : TestHelper.getStressTestInstance().getHostTimingMaps().keySet()){
+            lhm.put(k, formatForChart(TestHelper.getStressTestInstance().getHostTimingMaps().get(k)));
+        }
+        map.put("chartMap", lhm);
         return map;
     }
 
@@ -46,7 +52,9 @@ public class RootResource extends BaseResource {
     @Produces(MediaType.TEXT_HTML)
     public Viewable getDashboard() {
         LOG.debug("Getting Dashboard ...");
-        LOG.debug(formatForChart(TestHelper.getStressTestInstance().getHostTimings()));
+        for(String k : TestHelper.getStressTestInstance().getHostTimingMaps().keySet()){
+            LOG.info(formatForChart(TestHelper.getStressTestInstance().getHostTimingMaps().get(k)));
+        }
         return new Viewable("/dashboard", createModel("Dashboard"));
     }
 

@@ -4,20 +4,18 @@ import com.marklogic.stresstest.consts.Consts;
 import com.marklogic.stresstest.helpers.TestHelper;
 import com.marklogic.stresstest.jobs.ForceMerge;
 import com.marklogic.stresstest.jobs.Load;
-import com.marklogic.stresstest.jobs.Ping;
-import com.marklogic.stresstest.jobs.PingInvoke;
+import com.marklogic.stresstest.jobs.PingGroupA;
+import com.marklogic.stresstest.jobs.PingGroupB;
 import com.marklogic.stresstest.providers.Configuration;
+import com.marklogic.stresstest.providers.LoadBalancedMarkLogicContentSource;
+import com.marklogic.xcc.ContentSource;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -33,16 +31,17 @@ public class QuartzTest {
     public static void main(String[] args) {
 
         // INIT
-
         LOG.info(String.format("Starting MarkLogic stress test: running for %d minute(s)", Configuration.getInstance().getDurationInMinutes()));
         TestHelper.getStressTestInstance().setTestDateTime(new Date());
         TestHelper.getStressTestInstance().setTestLabel(Configuration.getInstance().getTestLabel());
         TestHelper.getStressTestInstance().setTotalHosts(Configuration.getInstance().getUriList().size());
-        TestHelper.getStressTestInstance().setHostTimings(new ConcurrentHashMap<String, List<String>>());
+        TestHelper.getStressTestInstance().setHostTimingMaps(new ConcurrentHashMap<String, Map<String, List<String>>>());
 
         // JOBS
 
-        JobDetail ping = JobBuilder.newJob(Ping.class).withIdentity("ping").build();
+        JobDetail pingA = JobBuilder.newJob(PingGroupA.class).withIdentity("pingA").build();
+        JobDetail pingB = JobBuilder.newJob(PingGroupB.class).withIdentity("pingB").build();
+
         //JobDetail pingInvoke = JobBuilder.newJob(PingInvoke.class).withIdentity("pinginvoke").build();
         JobDetail load = JobBuilder.newJob(Load.class).withIdentity("load").build();
         JobDetail load2 = JobBuilder.newJob(Load.class).withIdentity("load2").build();
@@ -50,7 +49,8 @@ public class QuartzTest {
 
         // TRIGGERS
 
-        Trigger triggerPing = TriggerBuilder.newTrigger().withIdentity("triggerPing").withSchedule(CronScheduleBuilder.cronSchedule(Consts.EVERY_SECOND)).build();
+        Trigger triggerPingA = TriggerBuilder.newTrigger().withIdentity("triggerPingA").withSchedule(CronScheduleBuilder.cronSchedule(Consts.EVERY_SECOND)).build();
+        Trigger triggerPingB = TriggerBuilder.newTrigger().withIdentity("triggerPingB").withSchedule(CronScheduleBuilder.cronSchedule(Consts.EVERY_SECOND)).build();
         // Trigger triggerPingInvoke = TriggerBuilder.newTrigger().withIdentity("triggerPingInvoke").withSchedule(CronScheduleBuilder.cronSchedule(Consts.EVERY_SECOND)).build();
         Trigger triggerLoad = TriggerBuilder.newTrigger().withIdentity("triggerLoad").withSchedule(CronScheduleBuilder.cronSchedule(Consts.EVERY_FIVE_SECONDS)).build();
         Trigger triggerLoad2 = TriggerBuilder.newTrigger().withIdentity("triggerLoad2").withSchedule(CronScheduleBuilder.cronSchedule(Consts.EVERY_TWO_SECONDS)).build();
@@ -61,7 +61,8 @@ public class QuartzTest {
         try {
             Scheduler scheduler = new StdSchedulerFactory().getScheduler();
 
-            scheduler.scheduleJob(ping, triggerPing);
+            scheduler.scheduleJob(pingA, triggerPingA);
+            scheduler.scheduleJob(pingB, triggerPingB);
             //scheduler.scheduleJob(pingInvoke, triggerPingInvoke);
             scheduler.scheduleJob(load, triggerLoad);
             scheduler.scheduleJob(load2, triggerLoad2);

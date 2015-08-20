@@ -22,6 +22,7 @@ import java.util.List;
  */
 public class PingInvoke implements Job {
     private Logger LOG = LoggerFactory.getLogger(PingInvoke.class);
+    private String timingGroup = "groupA";
 
     public void execute(JobExecutionContext context) throws JobExecutionException {
         //Session s = LoadBalancedMarkLogicContentSource.getInstance().openSession();
@@ -32,15 +33,15 @@ public class PingInvoke implements Job {
         for (ContentSource cs : LoadBalancedMarkLogicContentSource.getInstance().getCopyOfActiveContentSourceList()) {
             Session s = cs.newSession();
             try {
-                //LOG.debug("Ping: Range query for recent # docs ...");
+                //LOG.debug("PingGroupA: Range query for recent # docs ...");
                 Request request = s.newModuleInvoke("ping-invoke.xqy");
                 ResultSequence rs = s.submitRequest(request);
                 //ResultSequence rs = s.submitRequest(s.newAdhocQuery(XQueryModules.getInstance().pingMarkLogic()));
                 String[] results = rs.asStrings();
-                List<String> timingsList = TestHelper.getStressTestInstance().getHostTimings().get(s.getConnectionUri().getHost());
+                List<String> timingsList = TestHelper.getStressTestInstance().getHostTimingMaps().get(timingGroup).get(s.getConnectionUri().getHost());
                 timingsList.add(results[1].substring(2, results[1].length() - 1));
-                TestHelper.getStressTestInstance().getHostTimings().put(s.getConnectionUri().getHost(), timingsList);
-                LOG.debug(String.format("Ping - total documents: %s Execution time: %s", results[0], results[1]));
+                TestHelper.getStressTestInstance().getHostTimingMaps().get(timingGroup).put(s.getConnectionUri().getHost(), timingsList);
+                LOG.debug(String.format("PingGroupA - total documents: %s Execution time: %s", results[0], results[1]));
                 s.close();
             } catch (RequestException e) {
                 LOG.error(TestHelper.returnExceptionString(e));
@@ -50,7 +51,7 @@ public class PingInvoke implements Job {
 
         /*
         try {
-            //LOG.debug("Ping: Range query for recent # docs ...");
+            //LOG.debug("PingGroupA: Range query for recent # docs ...");
             ResultSequence rs = s.submitRequest(request);
             String[] results = rs.asStrings();
             LOG.info(String.format("PingInvoke - total documents: %s Execution time: %s", results[0], results[1]));

@@ -3,6 +3,8 @@ package com.marklogic.stresstest.helpers;
 import com.marklogic.stresstest.beans.StressTest;
 import com.marklogic.stresstest.consts.Consts;
 import com.marklogic.stresstest.providers.Configuration;
+import com.marklogic.stresstest.providers.LoadBalancedMarkLogicContentSource;
+import com.marklogic.xcc.ContentSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,6 +12,8 @@ import java.io.*;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -29,6 +33,22 @@ public class TestHelper {
     public static String returnExceptionString(Exception e) {
         return MessageFormat.format("{0} caught: {1}", e.getClass().getName(),
                 e);
+    }
+
+    public static void addResultToTimingMap(String timingGroup, String uri, String result) {
+        if ( TestHelper.getStressTestInstance().getHostTimingMaps().containsKey(timingGroup) ){
+            List<String> timingsList = TestHelper.getStressTestInstance().getHostTimingMaps().get(timingGroup).get(uri);
+            timingsList.add(result);
+            TestHelper.getStressTestInstance().getHostTimingMaps().get(timingGroup).put(uri, timingsList);
+        }  else {
+            Map<String, List<String>> tm = new ConcurrentHashMap<String, List<String>>();
+            List<ContentSource> csl = LoadBalancedMarkLogicContentSource.getInstance().getCopyOfActiveContentSourceList();
+            for (ContentSource cs : csl){
+                tm.put(cs.getConnectionProvider().getHostName(), new CopyOnWriteArrayList<String>());
+            }
+            TestHelper.getStressTestInstance().getHostTimingMaps().put(timingGroup, tm);
+            TestHelper.addResultToTimingMap(timingGroup, uri, result);
+        }
     }
 
     public static void saveSessionData() {
@@ -63,7 +83,7 @@ public class TestHelper {
         if (st != null){
             TestHelper.getStressTestInstance().setTestLabel(st.getTestLabel());
             TestHelper.getStressTestInstance().setTestDateTime(st.getTestDateTime());
-            TestHelper.getStressTestInstance().setHostTimings(st.getHostTimings());
+            TestHelper.getStressTestInstance().setHostTimingMaps(st.getHostTimingMaps());
             TestHelper.getStressTestInstance().setTotalHosts(st.getTotalHosts());
         }
     }

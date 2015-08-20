@@ -131,7 +131,7 @@ public class BaseResource {
     /**
      * Creates a string that looks like this:
      *
-     * ['Ping response time (seconds)', '0.1', '0.2', '0.3']
+     * ['PingGroupA response time (seconds)', '0.1', '0.2', '0.3']
      *
      * @param m
      * @return

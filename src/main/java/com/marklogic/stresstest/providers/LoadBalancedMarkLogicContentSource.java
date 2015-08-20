@@ -168,7 +168,6 @@ public class LoadBalancedMarkLogicContentSource {
                 addContentSourceToActiveList(activeContentSourceList, c);
                 LOG.info(MessageFormat.format("Created XCC Connection: {0}",
                         uri.getHost()));
-                TestHelper.getStressTestInstance().getHostTimings().put(uri.getHost(), new CopyOnWriteArrayList<String>());
             } catch (URISyntaxException e) {
                 LOG.error(TestHelper.returnExceptionString(e));
             } catch (XccConfigException e) {
