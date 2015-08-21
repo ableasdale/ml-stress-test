@@ -4,6 +4,8 @@ import com.marklogic.stresstest.jobs.ForceMerge;
 import com.marklogic.stresstest.jobs.Load;
 import com.marklogic.stresstest.jobs.PingGroupA;
 import com.marklogic.stresstest.jobs.PingGroupB;
+import com.marklogic.stresstest.jobs.PingInvoke;
+import com.marklogic.stresstest.jobs.VersionInvoke;
 import com.marklogic.stresstest.providers.Configuration;
 import com.marklogic.stresstest.providers.JerseyServer;
 import com.marklogic.stresstest.util.Consts;
@@ -43,7 +45,8 @@ public class StressTest {
         JobDetail pingA = JobBuilder.newJob(PingGroupA.class).withIdentity("pingA").build();
         JobDetail pingB = JobBuilder.newJob(PingGroupB.class).withIdentity("pingB").build();
 
-        //JobDetail pingInvoke = JobBuilder.newJob(PingInvoke.class).withIdentity("pinginvoke").build();
+        JobDetail pingInvoke = JobBuilder.newJob(PingInvoke.class).withIdentity("pinginvoke").build();
+        JobDetail versionInvoke = JobBuilder.newJob(VersionInvoke.class).withIdentity("versioninvoke").build();
         JobDetail load = JobBuilder.newJob(Load.class).withIdentity("load").build();
         JobDetail load2 = JobBuilder.newJob(Load.class).withIdentity("load2").build();
         JobDetail merge = JobBuilder.newJob(ForceMerge.class).withIdentity("merge").build();
@@ -52,7 +55,8 @@ public class StressTest {
 
         Trigger triggerPingA = TriggerBuilder.newTrigger().withIdentity("triggerPingA").withSchedule(CronScheduleBuilder.cronSchedule(Consts.EVERY_SECOND)).build();
         Trigger triggerPingB = TriggerBuilder.newTrigger().withIdentity("triggerPingB").withSchedule(CronScheduleBuilder.cronSchedule(Consts.EVERY_SECOND)).build();
-        // Trigger triggerPingInvoke = TriggerBuilder.newTrigger().withIdentity("triggerPingInvoke").withSchedule(CronScheduleBuilder.cronSchedule(Consts.EVERY_SECOND)).build();
+        Trigger triggerPingInvoke = TriggerBuilder.newTrigger().withIdentity("triggerPingInvoke").withSchedule(CronScheduleBuilder.cronSchedule(Consts.EVERY_SECOND)).build();
+        Trigger triggerVersionInvoke = TriggerBuilder.newTrigger().withIdentity("triggerVersionInvoke").withSchedule(CronScheduleBuilder.cronSchedule(Consts.EVERY_SECOND)).build();
         Trigger triggerLoad = TriggerBuilder.newTrigger().withIdentity("triggerLoad").withSchedule(CronScheduleBuilder.cronSchedule(Consts.EVERY_FIVE_SECONDS)).build();
         Trigger triggerLoad2 = TriggerBuilder.newTrigger().withIdentity("triggerLoad2").withSchedule(CronScheduleBuilder.cronSchedule(Consts.EVERY_TWO_SECONDS)).build();
         Trigger triggerMerge = TriggerBuilder.newTrigger().withIdentity("triggerMerge").withSchedule(CronScheduleBuilder.cronSchedule(Consts.EVERY_MINUTE)).build();
@@ -62,12 +66,13 @@ public class StressTest {
         try {
             Scheduler scheduler = new StdSchedulerFactory().getScheduler();
 
-            scheduler.scheduleJob(pingA, triggerPingA);
-            scheduler.scheduleJob(pingB, triggerPingB);
-            //scheduler.scheduleJob(pingInvoke, triggerPingInvoke);
-            scheduler.scheduleJob(load, triggerLoad);
-            scheduler.scheduleJob(load2, triggerLoad2);
-            scheduler.scheduleJob(merge, triggerMerge);
+            // scheduler.scheduleJob(pingA, triggerPingA);
+            // scheduler.scheduleJob(pingB, triggerPingB);
+            scheduler.scheduleJob(pingInvoke, triggerPingInvoke);
+            scheduler.scheduleJob(versionInvoke, triggerVersionInvoke);
+            // scheduler.scheduleJob(load, triggerLoad);
+            // scheduler.scheduleJob(load2, triggerLoad2);
+            // scheduler.scheduleJob(merge, triggerMerge);
 
             /* Another example of scheduler use from the docs....
               .startNow().withSchedule(simpleSchedule().withIntervalInSeconds(40).repeatForever()) */
