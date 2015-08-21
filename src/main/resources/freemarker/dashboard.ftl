@@ -11,8 +11,8 @@
 
     <div class="row">
         <h4>Test label: </small>${metrics.getTestLabel()}</small></h4>
-        <h4>Date / Time: </small>${metrics.getTestDateTime()?datetime}</small></h4>
-        <h4>Total Hosts: </small>${metrics.getTotalHosts()}</small></h4>
+        <h4>Started at: </small>${metrics.getTestDateTime()?datetime}</small></h4>
+        <h4>Hosts in test: </small>${metrics.getTotalHosts()}</small></h4>
 
     <#assign keys = chartMap?keys>
 

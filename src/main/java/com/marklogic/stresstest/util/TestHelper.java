@@ -60,7 +60,7 @@ public class TestHelper {
             oos.writeObject(TestHelper.getStressTestInstance());
             oos.close();
             fos.close();
-            LOG.info("Session data saved");
+            LOG.debug("Session data saved");
         } catch (IOException e) {
             LOG.error(returnExceptionString(e));
         }
@@ -88,14 +88,7 @@ public class TestHelper {
     }
 
     public static List<String> getSaveDirectoryListing() {
-        File f = new File(Consts.SAVE_DIRECTORY_ROOT);
-        //List<String> filenames = new
-        //ArrayList<File> files = new ArrayList<File>(Arrays.asList(f.listFiles()));
-        //File[] list = f.listFiles();
-        //for (File fi : f.listFiles()){
-
-        //}
-        return new ArrayList<String>(Arrays.asList(f.list()));
+        return new ArrayList<String>(Arrays.asList(new File(Consts.SAVE_DIRECTORY_ROOT).list()));
     }
 
     private static class StressTestDataProvider {

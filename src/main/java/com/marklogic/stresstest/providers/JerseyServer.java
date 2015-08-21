@@ -1,4 +1,4 @@
-package com.marklogic.stresstest;
+package com.marklogic.stresstest.providers;
 
 import com.marklogic.stresstest.resources.BaseResource;
 import com.marklogic.stresstest.util.Consts;
@@ -36,7 +36,7 @@ public class JerseyServer extends Thread {
     @Override
     public void run() {
         try {
-            LOG.info("Starting Grizzly (HTTP Service) - CTRL^C to stop the server");
+            LOG.info("Starting HTTP Service - CTRL^C to stop the server");
             ResourceConfig rc = new PackagesResourceConfig(BaseResource.class.getPackage().getName());
             rc.getProperties().put(
                     FreemarkerViewProcessor.FREEMARKER_TEMPLATES_BASE_PATH,

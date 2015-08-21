@@ -5,6 +5,7 @@ import com.marklogic.stresstest.jobs.Load;
 import com.marklogic.stresstest.jobs.PingGroupA;
 import com.marklogic.stresstest.jobs.PingGroupB;
 import com.marklogic.stresstest.providers.Configuration;
+import com.marklogic.stresstest.providers.JerseyServer;
 import com.marklogic.stresstest.util.Consts;
 import com.marklogic.stresstest.util.TestHelper;
 import org.quartz.*;
@@ -24,9 +25,9 @@ import java.util.concurrent.ConcurrentHashMap;
  * Time: 09:24
  * To change this template use File | Settings | File Templates.
  */
-public class QuartzTest {
+public class StressTest {
 
-    private static Logger LOG = LoggerFactory.getLogger(QuartzTest.class);
+    private static Logger LOG = LoggerFactory.getLogger(StressTest.class);
 
     public static void main(String[] args) {
 

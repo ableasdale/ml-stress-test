@@ -6,8 +6,7 @@
 
     <groupId>ml-stress-test</groupId>
     <artifactId>ml-stress-test</artifactId>
-    <version>1.0-SNAPSHOT</version>
-
+    <version>0.2</version>
 
     <repositories>
         <repository>
@@ -15,7 +14,6 @@
             <url>http://developer.marklogic.com/maven2</url>
         </repository>
     </repositories>
-
 
     <dependencies>
         <dependency>
@@ -82,7 +80,5 @@
             <artifactId>jersey-freemarker</artifactId>
             <version>1.19</version>
         </dependency>
-
     </dependencies>
-
 </project>
