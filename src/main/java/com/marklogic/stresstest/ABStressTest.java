@@ -76,7 +76,7 @@ public class ABStressTest {
             } catch (InterruptedException e) {
                 TestHelper.returnExceptionString(e);
             }
-            LOG.info("End of stress test");
+            LOG.info("End of ** AB ** stress test");
             scheduler.shutdown(true);
         } catch (SchedulerException e) {
             LOG.error(TestHelper.returnExceptionString(e));
