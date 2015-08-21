@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <configuration>
     <uris>
-        <uri>xcc://q:q@localhost:8000</uri>
+        <uri>xcc://admin:admin@engrlab-129-119.engrlab.marklogic.com:8330</uri>
+        <uri>xcc://admin:admin@engrlab-129-123.engrlab.marklogic.com:8330</uri>
+        <uri>xcc://admin:admin@engrlab-129-124.engrlab.marklogic.com:8330</uri>
+        <uri>xcc://admin:admin@engrlab-129-125.engrlab.marklogic.com:8330</uri>
         <!--uri>xcc://admin:admin@localhost:8004</uri>
         <uri>xcc://admin:admin@localhost:8005</uri-->
     </uris>
-    <durationInMinutes>1</durationInMinutes>
-    <testLabel>12345</testLabel>
+    <durationInMinutes>5</durationInMinutes>
+    <testLabel>Ping v. Version</testLabel>
 </configuration>
