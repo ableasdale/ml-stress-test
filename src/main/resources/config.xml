@@ -1,20 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <configuration>
     <uris>
-        <!-- jj uri>xcc://admin:admin@engrlab-129-119.engrlab.marklogic.com:8330</uri>
-        <uri>xcc://admin:admin@engrlab-129-123.engrlab.marklogic.com:8330</uri>
-        <uri>xcc://admin:admin@engrlab-129-124.engrlab.marklogic.com:8330</uri>
-        <uri>xcc://admin:admin@engrlab-129-125.engrlab.marklogic.com:8330</uri -->
-
-
-        <uri>xcc://admin:admin@engrlab-129-087.engrlab.marklogic.com:8041/Stress</uri>
-        <uri>xcc://admin:admin@engrlab-129-102.engrlab.marklogic.com:8041/Stress</uri>
-        <uri>xcc://admin:admin@engrlab-129-103.engrlab.marklogic.com:8041/Stress</uri>
-        <uri>xcc://admin:admin@engrlab-129-104.engrlab.marklogic.com:8041/Stress</uri>
-
-        <!--<uri>xcc://admin:admin@localhost:8000</uri>
-         uri>xcc://admin:admin@localhost:8005</uri-->
+        <uri>xcc://admin:admin@localhost:8000</uri>
     </uris>
     <durationInMinutes>1</durationInMinutes>
-    <testLabel>ABTest</testLabel>
+    <testLabel>12345</testLabel>
 </configuration>
