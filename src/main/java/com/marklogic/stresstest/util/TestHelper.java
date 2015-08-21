@@ -87,6 +87,10 @@ public class TestHelper {
         }
     }
 
+    public static File[] getSaveDirectoryFiles() {
+        return new File(Consts.SAVE_DIRECTORY_ROOT).listFiles();
+    }
+
     public static List<String> getSaveDirectoryListing() {
         return new ArrayList<String>(Arrays.asList(new File(Consts.SAVE_DIRECTORY_ROOT).list()));
     }

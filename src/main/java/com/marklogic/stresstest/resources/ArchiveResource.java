@@ -29,6 +29,7 @@ public class ArchiveResource extends BaseResource {
     private Map<String, Object> createModel(String id) {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("title", "Archived Tests");
+        map.put("files", TestHelper.getSaveDirectoryFiles());
         map.put("filenames", TestHelper.getSaveDirectoryListing());
         //map.put("metrics", TestHelper.getStressTestInstance());
         //map.put("chart", formatForChart(TestHelper.getStressTestInstance().getHostTimings()));
