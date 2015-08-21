@@ -34,8 +34,8 @@ public class RootResource extends BaseResource {
         map.put("title", "Dashboard and Overview");
         map.put("metrics", TestHelper.getStressTestInstance());
 
-        Map<String, String> lhm = new LinkedHashMap<String,String>();
-        for(String k : TestHelper.getStressTestInstance().getHostTimingMaps().keySet()){
+        Map<String, String> lhm = new LinkedHashMap<String, String>();
+        for (String k : TestHelper.getStressTestInstance().getHostTimingMaps().keySet()) {
             lhm.put(k, formatForChart(TestHelper.getStressTestInstance().getHostTimingMaps().get(k)));
         }
         map.put("chartMap", lhm);
@@ -52,7 +52,7 @@ public class RootResource extends BaseResource {
     @Produces(MediaType.TEXT_HTML)
     public Viewable getDashboard() {
         LOG.debug("Getting Dashboard ...");
-        for(String k : TestHelper.getStressTestInstance().getHostTimingMaps().keySet()){
+        for (String k : TestHelper.getStressTestInstance().getHostTimingMaps().keySet()) {
             LOG.debug(formatForChart(TestHelper.getStressTestInstance().getHostTimingMaps().get(k)));
         }
         return new Viewable("/dashboard", createModel("Dashboard"));

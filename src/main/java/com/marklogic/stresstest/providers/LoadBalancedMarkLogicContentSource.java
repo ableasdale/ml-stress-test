@@ -1,8 +1,8 @@
 package com.marklogic.stresstest.providers;
 
-import com.marklogic.stresstest.util.Consts;
 import com.marklogic.stresstest.exceptions.ConnectionFailedException;
 import com.marklogic.stresstest.exceptions.ContentSourceAlreadyEnlistedException;
+import com.marklogic.stresstest.util.Consts;
 import com.marklogic.stresstest.util.TestHelper;
 import com.marklogic.xcc.ContentSource;
 import com.marklogic.xcc.ContentSourceFactory;
@@ -445,7 +445,7 @@ public class LoadBalancedMarkLogicContentSource {
         return rotateContentSourceListAndOpenSession();
     }
 
-    public List<ContentSource> getCopyOfActiveContentSourceList(){
+    public List<ContentSource> getCopyOfActiveContentSourceList() {
         return new ArrayList<ContentSource>(activeContentSourceList);
     }
 }

@@ -47,7 +47,9 @@ public class Configuration {
         return config;
     }
 
-    public String getTestLabel() { return testLabel; }
+    public String getTestLabel() {
+        return testLabel;
+    }
 
     public List<String> getUriList() {
         return uriList;

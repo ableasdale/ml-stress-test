@@ -6,7 +6,7 @@ import java.util.Map;
 
 /**
  * Data about each test is stored in this Object - which will then be saved to disk for retrieval later.
- *
+ * <p/>
  * User: Alex
  * Date: 19/08/15
  * Time: 10:17

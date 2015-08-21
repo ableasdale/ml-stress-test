@@ -6,9 +6,9 @@ package com.marklogic.stresstest.jobs; /**
  * To change this template use File | Settings | File Templates.
  */
 
-import com.marklogic.stresstest.util.TestHelper;
 import com.marklogic.stresstest.providers.LoadBalancedMarkLogicContentSource;
 import com.marklogic.stresstest.providers.XQueryModules;
+import com.marklogic.stresstest.util.TestHelper;
 import com.marklogic.xcc.Session;
 import com.marklogic.xcc.exceptions.RequestException;
 import org.quartz.Job;

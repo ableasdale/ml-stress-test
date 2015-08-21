@@ -35,14 +35,14 @@ public class TestHelper {
     }
 
     public static void addResultToTimingMap(String timingGroup, String uri, String result) {
-        if ( TestHelper.getStressTestInstance().getHostTimingMaps().containsKey(timingGroup) ){
+        if (TestHelper.getStressTestInstance().getHostTimingMaps().containsKey(timingGroup)) {
             List<String> timingsList = TestHelper.getStressTestInstance().getHostTimingMaps().get(timingGroup).get(uri);
             timingsList.add(result);
             TestHelper.getStressTestInstance().getHostTimingMaps().get(timingGroup).put(uri, timingsList);
-        }  else {
+        } else {
             Map<String, List<String>> tm = new ConcurrentHashMap<String, List<String>>();
             List<ContentSource> csl = LoadBalancedMarkLogicContentSource.getInstance().getCopyOfActiveContentSourceList();
-            for (ContentSource cs : csl){
+            for (ContentSource cs : csl) {
                 tm.put(cs.getConnectionProvider().getHostName(), new CopyOnWriteArrayList<String>());
             }
             TestHelper.getStressTestInstance().getHostTimingMaps().put(timingGroup, tm);
@@ -55,7 +55,7 @@ public class TestHelper {
             Date d = new Date();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-hhmmss");
             String filenameDate = sdf.format(d);
-            FileOutputStream fos = new FileOutputStream(Consts.SAVE_DIRECTORY_ROOT + File.separator + Configuration.getInstance().getTestLabel()+ "-" +filenameDate + ".ml");
+            FileOutputStream fos = new FileOutputStream(Consts.SAVE_DIRECTORY_ROOT + File.separator + Configuration.getInstance().getTestLabel() + "-" + filenameDate + ".ml");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(TestHelper.getStressTestInstance());
             oos.close();
@@ -69,7 +69,7 @@ public class TestHelper {
     public static void loadSessionData(String fname) {
         StressTest st = null;
         try {
-            FileInputStream fin = new FileInputStream(Consts.SAVE_DIRECTORY_ROOT + "\\" + fname);
+            FileInputStream fin = new FileInputStream(Consts.SAVE_DIRECTORY_ROOT + File.separator + fname);
             ObjectInputStream in = new ObjectInputStream(fin);
             st = (StressTest) in.readObject();
             in.close();
@@ -79,7 +79,7 @@ public class TestHelper {
         } catch (ClassNotFoundException c) {
             LOG.error(returnExceptionString(c));
         }
-        if (st != null){
+        if (st != null) {
             TestHelper.getStressTestInstance().setTestLabel(st.getTestLabel());
             TestHelper.getStressTestInstance().setTestDateTime(st.getTestDateTime());
             TestHelper.getStressTestInstance().setHostTimingMaps(st.getHostTimingMaps());

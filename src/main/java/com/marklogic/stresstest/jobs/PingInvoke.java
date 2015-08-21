@@ -1,7 +1,7 @@
 package com.marklogic.stresstest.jobs;
 
-import com.marklogic.stresstest.util.TestHelper;
 import com.marklogic.stresstest.providers.LoadBalancedMarkLogicContentSource;
+import com.marklogic.stresstest.util.TestHelper;
 import com.marklogic.xcc.ContentSource;
 import com.marklogic.xcc.Request;
 import com.marklogic.xcc.ResultSequence;

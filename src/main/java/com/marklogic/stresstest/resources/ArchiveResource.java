@@ -45,7 +45,7 @@ public class ArchiveResource extends BaseResource {
     @Produces(MediaType.TEXT_HTML)
     public Viewable getArchive() {
         //LOG.debug("Getting Dashboard ...");
-       // LOG.debug(formatForChart(TestHelper.getStressTestInstance().getHostTimings()));
+        // LOG.debug(formatForChart(TestHelper.getStressTestInstance().getHostTimings()));
         return new Viewable("/archive", createModel("Archived Tests"));
     }
 
@@ -53,7 +53,7 @@ public class ArchiveResource extends BaseResource {
     @Path("load/{name}")
     @Produces(MediaType.TEXT_HTML)
     public Response getSavedTest(@PathParam("name") String name) {
-        LOG.debug("Loading Saved test: "+ name);
+        LOG.debug("Loading Saved test: " + name);
         TestHelper.loadSessionData(name);
 
         URI uri = UriBuilder.fromPath("/").build();

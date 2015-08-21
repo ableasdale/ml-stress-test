@@ -11,7 +11,10 @@ import javax.ws.rs.core.UriInfo;
 import java.io.File;
 import java.net.URI;
 import java.text.MessageFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static java.text.MessageFormat.format;
 
@@ -130,15 +133,15 @@ public class BaseResource {
 
     /**
      * Creates a string that looks like this:
-     *
+     * <p/>
      * ['PingGroupA response time (seconds)', '0.1', '0.2', '0.3']
      *
      * @param m
      * @return
      */
-    protected String formatForChart(Map<String, List<String>> m){
+    protected String formatForChart(Map<String, List<String>> m) {
         List<String> chartData = new ArrayList<String>();
-        for (String s : m.keySet()){
+        for (String s : m.keySet()) {
             StringBuilder sb = new StringBuilder();
             sb.append("['").append(s).append(" ping response time (s)',");
             sb.append(StringUtils.join(m.get(s), ","));

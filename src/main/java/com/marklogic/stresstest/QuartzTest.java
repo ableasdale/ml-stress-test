@@ -1,18 +1,20 @@
 package com.marklogic.stresstest;
 
-import com.marklogic.stresstest.util.Consts;
-import com.marklogic.stresstest.util.TestHelper;
 import com.marklogic.stresstest.jobs.ForceMerge;
 import com.marklogic.stresstest.jobs.Load;
 import com.marklogic.stresstest.jobs.PingGroupA;
 import com.marklogic.stresstest.jobs.PingGroupB;
 import com.marklogic.stresstest.providers.Configuration;
+import com.marklogic.stresstest.util.Consts;
+import com.marklogic.stresstest.util.TestHelper;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
