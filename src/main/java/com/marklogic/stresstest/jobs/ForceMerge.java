@@ -1,6 +1,6 @@
 package com.marklogic.stresstest.jobs;
 
-import com.marklogic.stresstest.helpers.TestHelper;
+import com.marklogic.stresstest.util.TestHelper;
 import com.marklogic.stresstest.providers.LoadBalancedMarkLogicContentSource;
 import com.marklogic.xcc.Session;
 import com.marklogic.xcc.exceptions.RequestException;

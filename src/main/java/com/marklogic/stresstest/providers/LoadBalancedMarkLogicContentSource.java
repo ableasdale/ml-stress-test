@@ -1,9 +1,9 @@
 package com.marklogic.stresstest.providers;
 
-import com.marklogic.stresstest.consts.Consts;
+import com.marklogic.stresstest.util.Consts;
 import com.marklogic.stresstest.exceptions.ConnectionFailedException;
 import com.marklogic.stresstest.exceptions.ContentSourceAlreadyEnlistedException;
-import com.marklogic.stresstest.helpers.TestHelper;
+import com.marklogic.stresstest.util.TestHelper;
 import com.marklogic.xcc.ContentSource;
 import com.marklogic.xcc.ContentSourceFactory;
 import com.marklogic.xcc.Session;
@@ -18,7 +18,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.MessageFormat;
 import java.util.*;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 

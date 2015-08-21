@@ -1,7 +1,7 @@
 package com.marklogic.stresstest.providers;
 
-import com.marklogic.stresstest.consts.Consts;
-import com.marklogic.stresstest.helpers.TestHelper;
+import com.marklogic.stresstest.util.Consts;
+import com.marklogic.stresstest.util.TestHelper;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.XMLConfiguration;
 import org.slf4j.Logger;

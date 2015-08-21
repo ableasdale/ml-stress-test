@@ -1,4 +1,4 @@
-package com.marklogic.stresstest.consts;
+package com.marklogic.stresstest.util;
 
 import org.apache.commons.lang3.StringUtils;
 

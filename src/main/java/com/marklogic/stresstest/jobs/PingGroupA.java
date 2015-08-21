@@ -8,7 +8,7 @@ package com.marklogic.stresstest.jobs;
  * To change this template use File | Settings | File Templates.
  */
 
-import com.marklogic.stresstest.helpers.TestHelper;
+import com.marklogic.stresstest.util.TestHelper;
 import com.marklogic.stresstest.providers.LoadBalancedMarkLogicContentSource;
 import com.marklogic.stresstest.providers.XQueryModules;
 import com.marklogic.xcc.ContentSource;
@@ -20,8 +20,6 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.List;
 
 
 public class PingGroupA implements Job {

@@ -1,6 +1,6 @@
 package com.marklogic.stresstest.providers;
 
-import com.marklogic.stresstest.helpers.TestHelper;
+import com.marklogic.stresstest.util.TestHelper;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

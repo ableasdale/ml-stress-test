@@ -1,6 +1,6 @@
 package com.marklogic.stresstest.resources;
 
-import com.marklogic.stresstest.helpers.TestHelper;
+import com.marklogic.stresstest.util.TestHelper;
 import com.sun.jersey.api.view.Viewable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,7 +53,7 @@ public class RootResource extends BaseResource {
     public Viewable getDashboard() {
         LOG.debug("Getting Dashboard ...");
         for(String k : TestHelper.getStressTestInstance().getHostTimingMaps().keySet()){
-            LOG.info(formatForChart(TestHelper.getStressTestInstance().getHostTimingMaps().get(k)));
+            LOG.debug(formatForChart(TestHelper.getStressTestInstance().getHostTimingMaps().get(k)));
         }
         return new Viewable("/dashboard", createModel("Dashboard"));
     }

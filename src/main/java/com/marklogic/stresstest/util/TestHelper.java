@@ -1,7 +1,6 @@
-package com.marklogic.stresstest.helpers;
+package com.marklogic.stresstest.util;
 
 import com.marklogic.stresstest.beans.StressTest;
-import com.marklogic.stresstest.consts.Consts;
 import com.marklogic.stresstest.providers.Configuration;
 import com.marklogic.stresstest.providers.LoadBalancedMarkLogicContentSource;
 import com.marklogic.xcc.ContentSource;

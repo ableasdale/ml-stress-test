@@ -1,7 +1,7 @@
 package com.marklogic.stresstest;
 
-import com.marklogic.stresstest.consts.Consts;
-import com.marklogic.stresstest.helpers.TestHelper;
+import com.marklogic.stresstest.util.Consts;
+import com.marklogic.stresstest.util.TestHelper;
 import com.marklogic.stresstest.resources.BaseResource;
 import com.sun.jersey.api.container.grizzly2.GrizzlyServerFactory;
 import com.sun.jersey.api.core.PackagesResourceConfig;
