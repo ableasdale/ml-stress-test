@@ -68,7 +68,7 @@ public class ABStressTest {
 
             /* Another example of scheduler use from the docs....
               .startNow().withSchedule(simpleSchedule().withIntervalInSeconds(40).repeatForever()) */
-            LOG.info("Stress test begins");
+            LOG.info("AB Stress test begins");
             scheduler.start();
             try {
                 // Wait X seconds then kill the scheduler
