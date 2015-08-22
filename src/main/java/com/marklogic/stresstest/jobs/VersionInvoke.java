@@ -14,8 +14,6 @@ import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
-
 /**
  * Created by jjames on 8/20/15.
  */
@@ -41,8 +39,8 @@ public class VersionInvoke implements Job {
                 endTime = System.currentTimeMillis();
                 //ResultSequence rs = s.submitRequest(s.newAdhocQuery(XQueryModules.getInstance().pingMarkLogic()));
                 String[] results = rs.asStrings();
-                TestHelper.addResultToTimingMap(timingGroup, s.getConnectionUri().getHost(), String.format("%d", (endTime-startTime)));
-                LOG.debug(String.format("Version - version %s, total Server execution time: %d", results[0], (endTime-startTime)));
+                TestHelper.addResultToTimingMap(timingGroup, s.getConnectionUri().getHost(), String.format("%d", (endTime - startTime)));
+                LOG.debug(String.format("Version - version %s, total Server execution time: %d", results[0], (endTime - startTime)));
                 s.close();
             } catch (RequestException e) {
                 LOG.error(TestHelper.returnExceptionString(e));

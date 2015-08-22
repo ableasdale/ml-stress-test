@@ -2,18 +2,22 @@ package com.marklogic.stresstest.util;
 
 import com.marklogic.stresstest.beans.StressTest;
 import com.marklogic.stresstest.providers.Configuration;
+import com.marklogic.stresstest.providers.JerseyServer;
 import com.marklogic.stresstest.providers.LoadBalancedMarkLogicContentSource;
+import com.marklogic.stresstest.providers.TestScheduler;
 import com.marklogic.xcc.ContentSource;
+import org.quartz.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
-import java.nio.file.Files;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
 
 /**
  * Created with IntelliJ IDEA.
@@ -92,7 +96,6 @@ public class TestHelper {
         new File(Consts.SAVE_DIRECTORY_ROOT + File.separator + name).delete();
     }
 
-
     public static File[] getSaveDirectoryFiles() {
         return new File(Consts.SAVE_DIRECTORY_ROOT).listFiles();
     }
@@ -101,11 +104,70 @@ public class TestHelper {
         return new ArrayList<String>(Arrays.asList(new File(Consts.SAVE_DIRECTORY_ROOT).list()));
     }
 
+    public static void initialize() {
+        LOG.info(String.format("Starting MarkLogic ** AB ** stress test: running for %d minute(s)", Configuration.getInstance().getDurationInMinutes()));
+        getStressTestInstance().setTestDateTime(new Date());
+        getStressTestInstance().setTestLabel(Configuration.getInstance().getTestLabel());
+        getStressTestInstance().setTotalHosts(Configuration.getInstance().getUriList().size());
+        getStressTestInstance().setHostTimingMaps(new ConcurrentHashMap<String, Map<String, List<String>>>());
+    }
 
+    public static void saveSessionDataAndReport() {
+        TestHelper.saveSessionData();
+        // Set up jersey to run the report and generate a graph
+        Thread t = new JerseyServer();
+        t.start();
+    }
+
+    public static void runTest() {
+        try {
+            LOG.info("Test starting");
+            TestScheduler.getScheduler().start();
+            // Wait X seconds then kill the scheduler
+            Thread.sleep(Consts.ONE_MINUTE * Configuration.getInstance().getDurationInMinutes());
+            TestScheduler.getScheduler().shutdown(true);
+            //getStressTestInstance().setScheduler(scheduler);
+
+            //for(String group: scheduler.getJobGroupNames()) {
+            // enumerate each job in group
+
+                /*
+                for(JobKey jobKey : scheduler.getJobKeys((Key) groupEquals(group))) {
+                    System.out.println("Found job identified by: " + jobKey);
+                    LOG.info(scheduler.getJobDetail(jobKey).getDescription();
+                } */
+            //}
+
+            LOG.info("Test complete");
+        } catch (SchedulerException e) {
+            returnExceptionString(e);
+        } catch (InterruptedException e) {
+            returnExceptionString(e);
+        }
+
+    }
+
+    public static void addJob(Class<? extends Job> job, int interval) {
+        LOG.info("add job"+job.getCanonicalName());
+        JobDetail jd = JobBuilder.newJob(job).withIdentity(job.getSimpleName()).build();
+        LOG.info(job.getSimpleName());
+
+        // TODO - this currently only works with CRON - do we pass the cron in for the interval? Perhaps?
+
+        // Trigger t = TriggerBuilder.newTrigger().withIdentity("trigger" + job.getSimpleName()).withSchedule(simpleSchedule().withIntervalInSeconds(interval).repeatForever()).build();
+        Trigger t = TriggerBuilder.newTrigger().withIdentity("trigger" + job.getSimpleName()).withSchedule(CronScheduleBuilder.cronSchedule(Consts.EVERY_SECOND)).build();
+        //Trigger triggerPingA = TriggerBuilder.newTrigger().withIdentity("triggerPingA").withSchedule(CronScheduleBuilder.cronSchedule(Consts.EVERY_SECOND)).build();
+
+        try {
+            TestScheduler.getScheduler().scheduleJob(jd, t);
+        } catch (SchedulerException e) {
+            returnExceptionString(e);
+        }
+
+    }
 
     private static class StressTestDataProvider {
         private static final StressTest INSTANCE = new StressTest();
     }
-
 
 }

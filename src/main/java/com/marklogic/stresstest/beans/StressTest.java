@@ -1,5 +1,7 @@
 package com.marklogic.stresstest.beans;
 
+import org.quartz.Scheduler;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +19,7 @@ public class StressTest implements java.io.Serializable {
     private Date testDateTime;
     private int totalHosts;
     private Map<String, Map<String, List<String>>> hostTimingMaps;
+
 
     public String getTestLabel() {
         return testLabel;
