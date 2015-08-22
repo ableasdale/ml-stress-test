@@ -10,9 +10,9 @@
     </div>
 
     <div class="row">
-        <h4>Test label: </small>${metrics.getTestLabel()}</small></h4>
-        <h4>Started at: </small>${metrics.getTestDateTime()?datetime}</small></h4>
-        <h4>Hosts in test: </small>${metrics.getTotalHosts()}</small></h4>
+        <h3><small>Test label: </small>${metrics.getTestLabel()}</h3>
+        <h3><small>Started at: </small>${metrics.getTestDateTime()?datetime}</h3>
+        <h3><small>Hosts in test: </small>${metrics.getTotalHosts()}</h3>
 
     <#assign keys = chartMap?keys>
 
