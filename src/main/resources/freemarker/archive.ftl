@@ -22,7 +22,7 @@
             <tr>
                 <th>Filename</th>
                 <th>Test Label</th>
-                <th>Length</th>
+                <th>Length (KB)</th>
                 <th>Last Modified</th>
                 <th>Delete</th>
             </tr>
@@ -33,7 +33,7 @@
             <tr>
                 <td><a href="/archive/load/${file.getName()}">${file.getName()}</a></td>
                 <td><strong>${file.getName()?keep_before("-")}</strong></td>
-                <td>${file.length()}</td>
+                <td><#setting number_format="0.#">${file.length() / 1024}</td>
                 <td>${file.lastModified()?number_to_datetime}</td>
                 <td><a href="/archive/delete/${file.getName()}"><span class="glyphicon glyphicon-trash"> </span></a></td>
             </tr>
