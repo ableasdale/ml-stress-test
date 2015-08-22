@@ -60,4 +60,14 @@ public class ArchiveResource extends BaseResource {
         URI uri = UriBuilder.fromPath("/").build();
         return Response.seeOther(uri).build();
     }
+
+    @GET
+    @Path("delete/{name}")
+    @Produces(MediaType.TEXT_HTML)
+    public Viewable deleteSavedTest(@PathParam("name") String name) {
+        LOG.debug("Deleting Saved test: " + name);
+        TestHelper.deleteSavedSessionData(name);
+
+        return new Viewable("/archive", createModel("Archived Tests"));
+    }
 }

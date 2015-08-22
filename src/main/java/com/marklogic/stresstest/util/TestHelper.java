@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -87,6 +88,11 @@ public class TestHelper {
         }
     }
 
+    public static void deleteSavedSessionData(String name) {
+        new File(Consts.SAVE_DIRECTORY_ROOT + File.separator + name).delete();
+    }
+
+
     public static File[] getSaveDirectoryFiles() {
         return new File(Consts.SAVE_DIRECTORY_ROOT).listFiles();
     }
@@ -95,8 +101,11 @@ public class TestHelper {
         return new ArrayList<String>(Arrays.asList(new File(Consts.SAVE_DIRECTORY_ROOT).list()));
     }
 
+
+
     private static class StressTestDataProvider {
         private static final StressTest INSTANCE = new StressTest();
     }
+
 
 }
