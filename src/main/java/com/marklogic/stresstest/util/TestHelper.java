@@ -89,10 +89,11 @@ public class TestHelper {
             LOG.error(returnExceptionString(c));
         }
         if (st != null) {
-            TestHelper.getStressTestInstance().setTestLabel(st.getTestLabel());
-            TestHelper.getStressTestInstance().setTestDateTime(st.getTestDateTime());
-            TestHelper.getStressTestInstance().setHostTimingMaps(st.getHostTimingMaps());
-            TestHelper.getStressTestInstance().setTotalHosts(st.getTotalHosts());
+            getStressTestInstance().setTestLabel(st.getTestLabel());
+            getStressTestInstance().setTestDateTime(st.getTestDateTime());
+            getStressTestInstance().setHostTimingMaps(st.getHostTimingMaps());
+            getStressTestInstance().setTotalHosts(st.getTotalHosts());
+            getStressTestInstance().setTestOverview(st.getTestOverview());
         }
     }
 
