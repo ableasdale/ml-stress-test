@@ -2,6 +2,7 @@ package com.marklogic.stresstest;
 
 import com.marklogic.stresstest.jobs.PingGroupA;
 import com.marklogic.stresstest.jobs.PingGroupB;
+import com.marklogic.stresstest.util.Consts;
 import com.marklogic.stresstest.util.TestHelper;
 
 /**
@@ -15,14 +16,13 @@ public class ABStressTest {
         TestHelper.initialize();
 
         // Add Jobs
-        TestHelper.addJob(PingGroupA.class, 1);
-        TestHelper.addJob(PingGroupB.class, 1);
+        TestHelper.addJob(PingGroupA.class, Consts.EVERY_SECOND);
+        TestHelper.addJob(PingGroupB.class, Consts.EVERY_TWO_SECONDS);
 
         // Run
         TestHelper.runTest();
 
         // Generate HTML report
         TestHelper.saveSessionDataAndReport();
-
     }
 }

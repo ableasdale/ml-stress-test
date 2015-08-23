@@ -38,7 +38,7 @@ public class    PingGroupA implements Job {
 
                 TestHelper.addResultToTimingMap(timingGroup, s.getConnectionUri().getHost(), results[1].substring(2, results[1].length() - 1));
 
-                LOG.info(String.format("PingGroupA - total documents: %s Execution time: %s", results[0], results[1]));
+                LOG.debug(String.format("PingGroupA - total documents: %s Execution time: %s", results[0], results[1]));
                 s.close();
             } catch (RequestException e) {
                 LOG.error(TestHelper.returnExceptionString(e));

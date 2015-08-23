@@ -147,7 +147,9 @@ public class TestHelper {
 
     }
 
-    public static void addJob(Class<? extends Job> job, int interval) {
+    // TODO public static void addJob(Class<? extends Job> job, int interval) {
+
+    public static void addJob(Class<? extends Job> job, String interval) {
         LOG.info("add job"+job.getCanonicalName());
         JobDetail jd = JobBuilder.newJob(job).withIdentity(job.getSimpleName()).build();
         LOG.info(job.getSimpleName());
@@ -155,7 +157,7 @@ public class TestHelper {
         // TODO - this currently only works with CRON - do we pass the cron in for the interval? Perhaps?
 
         // Trigger t = TriggerBuilder.newTrigger().withIdentity("trigger" + job.getSimpleName()).withSchedule(simpleSchedule().withIntervalInSeconds(interval).repeatForever()).build();
-        Trigger t = TriggerBuilder.newTrigger().withIdentity("trigger" + job.getSimpleName()).withSchedule(CronScheduleBuilder.cronSchedule(Consts.EVERY_SECOND)).build();
+        Trigger t = TriggerBuilder.newTrigger().withIdentity("trigger" + job.getSimpleName()).withSchedule(CronScheduleBuilder.cronSchedule(interval)).build();
         //Trigger triggerPingA = TriggerBuilder.newTrigger().withIdentity("triggerPingA").withSchedule(CronScheduleBuilder.cronSchedule(Consts.EVERY_SECOND)).build();
 
         try {
