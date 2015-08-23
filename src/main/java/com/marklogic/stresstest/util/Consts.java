@@ -12,9 +12,12 @@ import java.io.File;
  * To change this template use File | Settings | File Templates.
  */
 public class Consts {
+
     public static String EVERY_SECOND = "0/1 * * * * ?";
     public static String EVERY_TWO_SECONDS = "0/2 * * * * ?";
     public static String EVERY_FIVE_SECONDS = "0/5 * * * * ?";
+    public static String EVERY_TEN_SECONDS = "0/10 * * * * ?";
+    public static String EVERY_TWENTY_SECONDS = "0/20 * * * * ?";
     public static String EVERY_MINUTE = "0/60 * * * * ?";
 
     public static final String CONFIG_FILE_PATH = "config.xml";

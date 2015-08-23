@@ -12,10 +12,13 @@ import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.text.MessageFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import net.redhogs.cronparser.*;
 
 import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
 
@@ -150,19 +153,22 @@ public class TestHelper {
     // TODO public static void addJob(Class<? extends Job> job, int interval) {
 
     public static void addJob(Class<? extends Job> job, String interval) {
-        LOG.info("add job"+job.getCanonicalName());
-        JobDetail jd = JobBuilder.newJob(job).withIdentity(job.getSimpleName()).build();
-        LOG.info(job.getSimpleName());
 
-        // TODO - this currently only works with CRON - do we pass the cron in for the interval? Perhaps?
+        JobDetail jd = JobBuilder.newJob(job).withIdentity(job.getSimpleName()).build();
+        Trigger t = TriggerBuilder.newTrigger().withIdentity("trigger" + job.getSimpleName()).withSchedule(CronScheduleBuilder.cronSchedule(interval)).build();
 
         // Trigger t = TriggerBuilder.newTrigger().withIdentity("trigger" + job.getSimpleName()).withSchedule(simpleSchedule().withIntervalInSeconds(interval).repeatForever()).build();
-        Trigger t = TriggerBuilder.newTrigger().withIdentity("trigger" + job.getSimpleName()).withSchedule(CronScheduleBuilder.cronSchedule(interval)).build();
         //Trigger triggerPingA = TriggerBuilder.newTrigger().withIdentity("triggerPingA").withSchedule(CronScheduleBuilder.cronSchedule(Consts.EVERY_SECOND)).build();
 
         try {
             TestScheduler.getScheduler().scheduleJob(jd, t);
         } catch (SchedulerException e) {
+            returnExceptionString(e);
+        }
+
+        try {
+            LOG.info(String.format("Added Job from class: '%s'.  Job interval is set to run: %s", job.getSimpleName(), CronExpressionDescriptor.getDescription(interval)));
+        } catch (ParseException e) {
             returnExceptionString(e);
         }
 
