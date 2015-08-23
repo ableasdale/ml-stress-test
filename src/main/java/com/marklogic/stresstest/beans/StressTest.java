@@ -1,7 +1,5 @@
 package com.marklogic.stresstest.beans;
 
-import org.quartz.Scheduler;
-
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -18,8 +16,8 @@ public class StressTest implements java.io.Serializable {
     private String testLabel;
     private Date testDateTime;
     private int totalHosts;
+    private List<String> testOverview;
     private Map<String, Map<String, List<String>>> hostTimingMaps;
-
 
     public String getTestLabel() {
         return testLabel;
@@ -45,6 +43,14 @@ public class StressTest implements java.io.Serializable {
         this.totalHosts = totalHosts;
     }
 
+    public List<String> getTestOverview() {
+        return testOverview;
+    }
+
+    public void setTestOverview(List<String> testOverview) {
+        this.testOverview = testOverview;
+    }
+
     public Map<String, Map<String, List<String>>> getHostTimingMaps() {
         return hostTimingMaps;
     }
@@ -61,18 +67,21 @@ public class StressTest implements java.io.Serializable {
         StressTest that = (StressTest) o;
 
         if (totalHosts != that.totalHosts) return false;
-        if (testLabel != null ? !testLabel.equals(that.testLabel) : that.testLabel != null) return false;
-        if (testDateTime != null ? !testDateTime.equals(that.testDateTime) : that.testDateTime != null) return false;
-        return !(hostTimingMaps != null ? !hostTimingMaps.equals(that.hostTimingMaps) : that.hostTimingMaps != null);
+        if (!hostTimingMaps.equals(that.hostTimingMaps)) return false;
+        if (!testDateTime.equals(that.testDateTime)) return false;
+        if (!testLabel.equals(that.testLabel)) return false;
+        if (!testOverview.equals(that.testOverview)) return false;
 
+        return true;
     }
 
     @Override
     public int hashCode() {
-        int result = testLabel != null ? testLabel.hashCode() : 0;
-        result = 31 * result + (testDateTime != null ? testDateTime.hashCode() : 0);
+        int result = testLabel.hashCode();
+        result = 31 * result + testDateTime.hashCode();
         result = 31 * result + totalHosts;
-        result = 31 * result + (hostTimingMaps != null ? hostTimingMaps.hashCode() : 0);
+        result = 31 * result + testOverview.hashCode();
+        result = 31 * result + hostTimingMaps.hashCode();
         return result;
     }
 }

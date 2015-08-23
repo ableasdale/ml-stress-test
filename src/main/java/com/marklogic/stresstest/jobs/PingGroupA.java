@@ -22,10 +22,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public class    PingGroupA implements Job {
+public class PingGroupA implements Job {
+
+    public static String description = "Routinely pings all nodes in a MarkLogic cluster";
 
     private Logger LOG = LoggerFactory.getLogger(PingGroupA.class);
     private String timingGroup = "groupA";
+
+    public static String getDescription() {
+        return description;
+    }
+
+    public static void setDescription(String description) {
+        PingGroupA.description = description;
+    }
 
     public void execute(JobExecutionContext context) throws JobExecutionException {
 

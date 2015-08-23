@@ -14,6 +14,17 @@
         <h3><small>Started at: </small>${metrics.getTestDateTime()?datetime}</h3>
         <h3><small>Hosts in test: </small>${metrics.getTotalHosts()}</h3>
 
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">Test Overview</div>
+            <div class="panel-body">
+            <#list metrics.getTestOverview() as job>
+                <p>${job}</p>
+            </#list>
+            </div>
+        </div>
+
+
     <#assign keys = chartMap?keys>
 
     <#list keys as key>

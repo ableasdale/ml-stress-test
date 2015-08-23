@@ -1,6 +1,7 @@
 package com.marklogic.stresstest.util;
 
 import com.marklogic.stresstest.beans.StressTest;
+import com.marklogic.stresstest.jobs.PingGroupA;
 import com.marklogic.stresstest.providers.Configuration;
 import com.marklogic.stresstest.providers.JerseyServer;
 import com.marklogic.stresstest.providers.LoadBalancedMarkLogicContentSource;
@@ -113,6 +114,7 @@ public class TestHelper {
         getStressTestInstance().setTestLabel(Configuration.getInstance().getTestLabel());
         getStressTestInstance().setTotalHosts(Configuration.getInstance().getUriList().size());
         getStressTestInstance().setHostTimingMaps(new ConcurrentHashMap<String, Map<String, List<String>>>());
+        getStressTestInstance().setTestOverview(new ArrayList<String>());
     }
 
     public static void saveSessionDataAndReport() {
@@ -129,17 +131,6 @@ public class TestHelper {
             // Wait X seconds then kill the scheduler
             Thread.sleep(Consts.ONE_MINUTE * Configuration.getInstance().getDurationInMinutes());
             TestScheduler.getScheduler().shutdown(true);
-            //getStressTestInstance().setScheduler(scheduler);
-
-            //for(String group: scheduler.getJobGroupNames()) {
-            // enumerate each job in group
-
-                /*
-                for(JobKey jobKey : scheduler.getJobKeys((Key) groupEquals(group))) {
-                    System.out.println("Found job identified by: " + jobKey);
-                    LOG.info(scheduler.getJobDetail(jobKey).getDescription();
-                } */
-            //}
 
             LOG.info("Test complete");
         } catch (SchedulerException e) {
@@ -168,6 +159,8 @@ public class TestHelper {
 
         try {
             LOG.info(String.format("Added Job from class: '%s'.  Job interval is set to run: %s", job.getSimpleName(), CronExpressionDescriptor.getDescription(interval)));
+            getStressTestInstance().getTestOverview().add(String.format("%s : %s", job.getSimpleName(), CronExpressionDescriptor.getDescription(interval)));
+            // TODO - to add a description would need to create a new Interface / Object for these jobs - job.getClass().getDescription()
         } catch (ParseException e) {
             returnExceptionString(e);
         }
