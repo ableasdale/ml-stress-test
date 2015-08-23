@@ -110,7 +110,7 @@ public class TestHelper {
     }
 
     public static void initialize() {
-        LOG.info(String.format("Starting MarkLogic ** AB ** stress test: running for %d minute(s)", Configuration.getInstance().getDurationInMinutes()));
+        LOG.info(String.format("Starting MarkLogic stress test: running for %d minute(s)", Configuration.getInstance().getDurationInMinutes()));
         getStressTestInstance().setTestDateTime(new Date());
         getStressTestInstance().setTestLabel(Configuration.getInstance().getTestLabel());
         getStressTestInstance().setTotalHosts(Configuration.getInstance().getUriList().size());

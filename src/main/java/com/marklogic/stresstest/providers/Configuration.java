@@ -35,7 +35,7 @@ public class Configuration {
         testLabel = config.getString("testLabel");
         durationInMinutes = config.getLong("durationInMinutes");
         uriList = Arrays.asList(config.getStringArray("uris.uri"));
-        LOG.info(MessageFormat.format("Number of xcc uris: {0}", uriList.size()));
+        LOG.debug(MessageFormat.format("Number of xcc uris: {0}", uriList.size()));
 
     }
 
