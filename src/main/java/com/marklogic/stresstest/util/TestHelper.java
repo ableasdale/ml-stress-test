@@ -1,6 +1,7 @@
 package com.marklogic.stresstest.util;
 
 import com.marklogic.stresstest.beans.StressTest;
+import com.marklogic.stresstest.jobs.ForceMerge;
 import com.marklogic.stresstest.jobs.PingGroupA;
 import com.marklogic.stresstest.providers.Configuration;
 import com.marklogic.stresstest.providers.JerseyServer;
@@ -118,8 +119,8 @@ public class TestHelper {
         getStressTestInstance().setTestOverview(new ArrayList<String>());
     }
 
-    public static void saveSessionDataAndReport() {
-        TestHelper.saveSessionData();
+
+    public static void runHttpReport() {
         // Set up jersey to run the report and generate a graph
         Thread t = new JerseyServer();
         t.start();

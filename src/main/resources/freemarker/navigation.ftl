@@ -18,5 +18,10 @@
     <#if title = "Archived Tests">
     <li class="active"><#else>
     <li></#if><a href="/archive">Archive</a></li>
+
+    <#if title = "Active Jobs">
+    <li class="active"><#else>
+    <li></#if><a href="/jobs">Jobs</a></li>
+
     </ul>
 </div>
