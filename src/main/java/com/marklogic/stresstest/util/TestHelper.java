@@ -1,13 +1,12 @@
 package com.marklogic.stresstest.util;
 
 import com.marklogic.stresstest.beans.StressTest;
-import com.marklogic.stresstest.jobs.ForceMerge;
-import com.marklogic.stresstest.jobs.PingGroupA;
 import com.marklogic.stresstest.providers.Configuration;
 import com.marklogic.stresstest.providers.JerseyServer;
 import com.marklogic.stresstest.providers.LoadBalancedMarkLogicContentSource;
 import com.marklogic.stresstest.providers.TestScheduler;
 import com.marklogic.xcc.ContentSource;
+import net.redhogs.cronparser.CronExpressionDescriptor;
 import org.quartz.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,10 +18,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
-
-import net.redhogs.cronparser.*;
-
-import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
 
 /**
  * Created with IntelliJ IDEA.

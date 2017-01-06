@@ -22,7 +22,9 @@ public class TestScheduler {
         } catch (SchedulerException e) {
             TestHelper.returnExceptionString(e);
         }
-    };
+    }
+
+    ;
 
 
     public static Scheduler getScheduler() {

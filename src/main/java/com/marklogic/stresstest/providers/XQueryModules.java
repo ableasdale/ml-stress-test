@@ -33,11 +33,6 @@ public class XQueryModules {
         }
     }
 
-    private static class XQueryModulesProvider {
-        private static final XQueryModules INSTANCE = new XQueryModules();
-    }
-
-
     public static XQueryModules getInstance() {
         return XQueryModulesProvider.INSTANCE;
     }
@@ -48,6 +43,10 @@ public class XQueryModules {
 
     public String pingMarkLogic() {
         return PING_MARKLOGIC;
+    }
+
+    private static class XQueryModulesProvider {
+        private static final XQueryModules INSTANCE = new XQueryModules();
     }
 
 }

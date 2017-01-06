@@ -29,43 +29,38 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class LoadBalancedMarkLogicContentSource {
 
     /**
-     * The active content source list.
+     * The Constant LOG.
      */
-    private volatile List<ContentSource> activeContentSourceList;
-
-    /**
-     * The connection count.
-     */
-    private volatile AtomicInteger connectionCount;
-
+    private static final Logger LOG = LoggerFactory
+            .getLogger(LoadBalancedMarkLogicContentSource.class);
     /**
      * The inactive content source list.
      */
     private final List<ContentSource> inactiveContentSourceList;
-
     /**
      * The connection failure map.
      */
     private final Map<URI, Integer> connectionFailureMap;
-
-	/*
-     * Default initial values
-	 */
     /**
      * The connections before delist check.
      */
     private final int connectionsBeforeDelistCheck = 100000;
 
+	/*
+     * Default initial values
+	 */
+    /**
+     * The active content source list.
+     */
+    private volatile List<ContentSource> activeContentSourceList;
+    /**
+     * The connection count.
+     */
+    private volatile AtomicInteger connectionCount;
     /**
      * The ready.
      */
     private boolean ready = false;
-
-    /**
-     * The Constant LOG.
-     */
-    private static final Logger LOG = LoggerFactory
-            .getLogger(LoadBalancedMarkLogicContentSource.class);
 
     /**
      * Constructor method. Set to private as this is a Singleton class
@@ -105,17 +100,13 @@ public class LoadBalancedMarkLogicContentSource {
     }
 
     /**
-     * Nested Singleton private static class (Adopts the <strong>Initialization
-     * on Demand Holder Idiom</strong>)
-     * <p/>
-     * See: http://en.wikipedia.org/wiki/Initialization_on_demand_holder_idiom
+     * Static getInstance method. Accessor is used to return the Singleton
+     * Instance for this class.
+     *
+     * @return LoadBalancedMarkLogicContentSource Object
      */
-    private static class ContentSourceProviderWrapper {
-
-        /**
-         * The Constant INSTANCE.
-         */
-        private static final LoadBalancedMarkLogicContentSource INSTANCE = new LoadBalancedMarkLogicContentSource();
+    public static LoadBalancedMarkLogicContentSource getInstance() {
+        return ContentSourceProviderWrapper.INSTANCE;
     }
 
     /**
@@ -207,8 +198,8 @@ public class LoadBalancedMarkLogicContentSource {
             connectionFailureMap.put(c.newSession().getConnectionUri(), 0);
             LOG.debug(MessageFormat.format(
                     "id: {0} | position: {1} | URI: {2} | String: {3}", c
-                    .hashCode(), activeContentSourceList.indexOf(c), c
-                    .newSession().getConnectionUri(), c.toString()));
+                            .hashCode(), activeContentSourceList.indexOf(c), c
+                            .newSession().getConnectionUri(), c.toString()));
         }
     }
 
@@ -219,8 +210,7 @@ public class LoadBalancedMarkLogicContentSource {
      *
      * @param cslist        A List for ContentSource Objects
      * @param contentSource The ContentSource to be added to the List
-     * @throws ContentSourceAlreadyEnlistedException
-     *          the content source already enlisted exception
+     * @throws ContentSourceAlreadyEnlistedException the content source already enlisted exception
      */
     private void addContentSourceToActiveList(List<ContentSource> cslist,
                                               ContentSource contentSource)
@@ -410,16 +400,6 @@ public class LoadBalancedMarkLogicContentSource {
     }
 
     /**
-     * Static getInstance method. Accessor is used to return the Singleton
-     * Instance for this class.
-     *
-     * @return LoadBalancedMarkLogicContentSource Object
-     */
-    public static LoadBalancedMarkLogicContentSource getInstance() {
-        return ContentSourceProviderWrapper.INSTANCE;
-    }
-
-    /**
      * Creates a MarkLogic XCC Session from a given List of ContentSource
      * Objects.
      *
@@ -447,5 +427,19 @@ public class LoadBalancedMarkLogicContentSource {
 
     public List<ContentSource> getCopyOfActiveContentSourceList() {
         return new ArrayList<ContentSource>(activeContentSourceList);
+    }
+
+    /**
+     * Nested Singleton private static class (Adopts the <strong>Initialization
+     * on Demand Holder Idiom</strong>)
+     * <p/>
+     * See: http://en.wikipedia.org/wiki/Initialization_on_demand_holder_idiom
+     */
+    private static class ContentSourceProviderWrapper {
+
+        /**
+         * The Constant INSTANCE.
+         */
+        private static final LoadBalancedMarkLogicContentSource INSTANCE = new LoadBalancedMarkLogicContentSource();
     }
 }

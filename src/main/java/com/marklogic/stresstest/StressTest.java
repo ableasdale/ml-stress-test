@@ -1,11 +1,6 @@
 package com.marklogic.stresstest;
 
-import com.marklogic.stresstest.jobs.ForceMerge;
-import com.marklogic.stresstest.jobs.Load;
-import com.marklogic.stresstest.jobs.PingGroupA;
-import com.marklogic.stresstest.jobs.PingGroupB;
-import com.marklogic.stresstest.jobs.PingInvoke;
-import com.marklogic.stresstest.jobs.VersionInvoke;
+import com.marklogic.stresstest.jobs.*;
 import com.marklogic.stresstest.providers.Configuration;
 import com.marklogic.stresstest.providers.JerseyServer;
 import com.marklogic.stresstest.util.Consts;

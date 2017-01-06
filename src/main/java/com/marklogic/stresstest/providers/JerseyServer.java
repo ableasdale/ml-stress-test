@@ -25,13 +25,12 @@ import java.net.URI;
 public class JerseyServer extends Thread {
 
     public static final URI BASE_URI = getBaseURI();
+    private static Logger LOG = LoggerFactory.getLogger(JerseyServer.class);
 
     private static URI getBaseURI() {
         return UriBuilder.fromUri("http://0.0.0.0/")
                 .port(Consts.GRIZZLY_HTTP_PORT).build();
     }
-
-    private static Logger LOG = LoggerFactory.getLogger(JerseyServer.class);
 
     @Override
     public void run() {
@@ -49,7 +48,8 @@ public class JerseyServer extends Thread {
 
             server.start();
 
-            synchronized (this) {//CTRL-C to stop the server
+            synchronized (this) {
+                // CTRL-C to stop the server - is there a better way to manage this?
                 while (true) {
                     this.wait();
                 }

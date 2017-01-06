@@ -17,7 +17,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import java.net.URI;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -38,7 +37,6 @@ public class JobControlResource {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("title", "Active Jobs");
         map.put("metrics", TestHelper.getStressTestInstance());
-
 
 
         //map.put("chartMap", lhm);
