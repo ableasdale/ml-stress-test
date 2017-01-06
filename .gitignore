@@ -1,6 +1,7 @@
 target/
 .idea/
 .gradle/
+.DS_Store
 build/
 src/main/resources/saved/
 src/main/resources/config.xml

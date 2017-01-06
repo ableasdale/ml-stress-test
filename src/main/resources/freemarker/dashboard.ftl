@@ -5,7 +5,7 @@
 
 <div class="container">
     <div class="row">
-        <h2>Stress Test <small>${title}</small></h2>
+        <h2>MarkLogic Stress Test Tool <small>${title}</small></h2>
         <#include "navigation.ftl">
     </div>
 
