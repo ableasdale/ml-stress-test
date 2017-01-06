@@ -25,7 +25,7 @@ public class Consts {
     public static Long ONE_MINUTE = 60L * 1000L;
     public static Long ONE_HOUR = 3600L * 1000L;
 
-    public static int GRIZZLY_HTTP_PORT = 9995;
+    public static int GRIZZLY_HTTP_PORT = 9999;
 
     public static String BASE_DIRECTORY_ROOT = new StringBuilder().append(System.getProperty("user.dir")).append(File.separator).append(StringUtils.join(new String[]{"src", "main", "resources"}, File.separator)).toString();
     public static String STATIC_RESOURCE_DIRECTORY_ROOT = new StringBuilder().append(BASE_DIRECTORY_ROOT).append(File.separator).append("vendor").toString();

@@ -1,10 +1,13 @@
 apply plugin: 'java'
 apply plugin: 'maven'
+apply plugin: 'application'
+
+mainClassName = 'com.marklogic.stresstest.ABStressTest'
 
 group = 'ml-stress-test'
-version = '0.2a'
+version = '0.3'
 
-description = "ml-stress-test"
+description = "MarkLogic Application Stress Test Tool"
 
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
