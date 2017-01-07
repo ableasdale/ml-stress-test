@@ -7,7 +7,7 @@ mainClassName = 'com.marklogic.stresstest.ABStressTest'
 group = 'ml-stress-test'
 version = '0.3'
 
-description = "MarkLogic Application Stress Test Tool"
+description = "MarkLogic Application Stress Testing Tool"
 
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
@@ -18,7 +18,7 @@ repositories {
      maven { url "http://repo.maven.apache.org/maven2" }
 }
 dependencies {
-    compile group: 'net.redhogs.cronparser', name: 'cron-parser-core', version:'2.8'
+    compile group: 'net.redhogs.cronparser', name: 'cron-parser-core', version:'2.9'
     compile group: 'org.quartz-scheduler', name: 'quartz', version:'2.2.1'
     compile group: 'ch.qos.logback', name: 'logback-classic', version:'1.1.3'
     compile group: 'ch.qos.logback', name: 'logback-core', version:'1.1.3'
