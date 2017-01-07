@@ -2,6 +2,7 @@ target/
 .idea/
 .gradle/
 .DS_Store
+.gradletasknamecache
 build/
 src/main/resources/saved/
 src/main/resources/config.xml

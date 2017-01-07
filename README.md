@@ -15,4 +15,4 @@ TODO - add dateTime rangeindex using ml-gradle or similar...
 ./gradlew run
 ```
 
-2. Go to the application server to view test results [http://localhost:9999]
+2. Go to the application server to view test results [http://localhost:9999](http://localhost:9999)
