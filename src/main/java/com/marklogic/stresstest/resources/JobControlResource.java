@@ -27,17 +27,15 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  */
 @Path("/jobs")
-public class JobControlResource {
+public class JobControlResource extends BaseResource  {
 
     private static final Logger LOG = LoggerFactory.getLogger(JobControlResource.class);
 
-
     // data model for freemarker .ftl template
     private Map<String, Object> createModel(String id) {
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map map = createModel();
         map.put("title", "Active Jobs");
         map.put("metrics", TestHelper.getStressTestInstance());
-
 
         //map.put("chartMap", lhm);
         return map;

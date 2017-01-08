@@ -30,7 +30,8 @@ public class RootResource extends BaseResource {
 
     // data model for freemarker .ftl template
     private Map<String, Object> createModel(String id) {
-        Map<String, Object> map = new HashMap<String, Object>();
+
+        Map map = createModel();
         map.put("title", "Dashboard and Overview");
         map.put("metrics", TestHelper.getStressTestInstance());
 

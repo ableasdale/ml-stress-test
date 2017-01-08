@@ -1,5 +1,6 @@
 package com.marklogic.stresstest.resources;
 
+import com.marklogic.stresstest.util.TestHelper;
 import com.sun.jersey.api.view.Viewable;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -32,6 +33,13 @@ public class BaseResource {
 
     public BaseResource() {
         LOG.debug("Base Constructor :: Init");
+    }
+
+
+    protected Map<String, Object> createModel() {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("applicationTitle", "MarkLogic Stress Testing Tool");
+        return map;
     }
 
     /**

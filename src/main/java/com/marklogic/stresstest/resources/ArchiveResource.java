@@ -27,7 +27,7 @@ public class ArchiveResource extends BaseResource {
 
     // data model for freemarker .ftl template
     private Map<String, Object> createModel(String id) {
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = createModel();
         map.put("title", "Archived Tests");
         map.put("files", TestHelper.getSaveDirectoryFiles());
         map.put("filenames", TestHelper.getSaveDirectoryListing());
