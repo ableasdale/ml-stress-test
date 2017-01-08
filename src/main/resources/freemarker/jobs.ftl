@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<#include "header.ftl">
-<body role="document">
+<#include "includes/header.ftl">
+<body>
 
 <div class="container">
-    <div class="row">
-        <h2>${applicationTitle} <small>${title}</small></h2>
-        <#include "navigation.ftl">
-    </div>
+
+    <h2>${applicationTitle} <small>${title}</small></h2>
+    <#include "includes/navigation.ftl">
 
 
     <div class="panel panel-default">
@@ -22,7 +21,7 @@
 
 </div>
 
-<#include "footer.ftl">
+<#include "includes/footer.ftl">
 
 </body>
 </html>
