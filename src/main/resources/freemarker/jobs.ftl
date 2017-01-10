@@ -5,7 +5,7 @@
 
 <div class="container">
 
-    <h2>${applicationTitle} <small>${title}</small></h2>
+    <h3>${applicationTitle} <small>${title}</small></h3>
     <#include "includes/navigation.ftl">
 
 

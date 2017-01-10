@@ -5,13 +5,16 @@
 
 <div class="container">
 
-    <h2>${applicationTitle} <small>${title}</small></h2>
+    <div class="row">
+        <div class="col"><h3>${applicationTitle} <small>${title}</small></h3></div>
+    </div>
+
     <#include "includes/navigation.ftl">
 
 
-    <h3><small>Test label: </small>${metrics.getTestLabel()}</h3>
-    <h3><small>Started at: </small>${metrics.getTestDateTime()?datetime}</h3>
-    <h3><small>Hosts in test: </small>${metrics.getTotalHosts()}</h3>
+    <h4><small>Test label: </small>${metrics.getTestLabel()}</h4>
+    <h4><small>Started at: </small>${metrics.getTestDateTime()?datetime}</h4>
+    <h4><small>Hosts in test: </small>${metrics.getTotalHosts()}</h4>
 
     <div class="card">
         <div class="card-header">Test Overview</div>

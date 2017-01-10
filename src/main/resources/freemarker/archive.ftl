@@ -8,11 +8,7 @@
     <h2>${applicationTitle} <small>${title}</small></h2>
     <#include "includes/navigation.ftl">
 
-    <h3>Saved Stress Tests
-        <small>Click on headers to sort</small>
-    </h3>
-
-
+    <h4>Saved Stress Tests <small>Click on headers to sort</small></h4>
 
     <table class="table table-bordered table-striped tablesorter-bootstrap">
         <thead>
