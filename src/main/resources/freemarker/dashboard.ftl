@@ -6,39 +6,37 @@
 <div class="container">
 
     <div class="row">
-        <div class="col"><h3>${applicationTitle} <small>${title}</small></h3></div>
+        <div class="col"><h3>${applicationTitle} <small class="text-muted"> ${title}</small></h3></div>
     </div>
 
     <#include "includes/navigation.ftl">
 
 
-    <h4><small>Test label: </small>${metrics.getTestLabel()}</h4>
-    <h4><small>Started at: </small>${metrics.getTestDateTime()?datetime}</h4>
-    <h4><small>Hosts in test: </small>${metrics.getTotalHosts()}</h4>
+    <p class="lead">This test was started on <strong>${metrics.getTestDateTime()?datetime}</strong> with <strong>${metrics.getTotalHosts()}</strong> hosts</p>
+
 
     <div class="card">
         <div class="card-header">Test Overview</div>
         <div class="card-block">
-        <#list metrics.getTestOverview() as job>
-            <p>${job}</p>
-        </#list>
+            <dl class="row">
+                <dt class="col-sm-3">Test label</dt>
+                <dd class="col-sm-9">${metrics.getTestLabel()}</dd>
+                <dt class="col-sm-3">Test Composition</dt>
+                <#list metrics.getTestOverview() as job>
+                    <#if job?is_first><dd class="col-sm-9"><#else><dd class="col-sm-9  offset-sm-3"></#if>${job}</dd>
+                </#list>
+            </dl>
         </div>
     </div>
 
-
-
-
     <#assign keys = chartMap?keys>
-
     <#list keys as key>
         <div id="${key}"></div>
     </#list>
 
-
     <!-- add  disabled -->
 
     <!-- Small modal data-toggle="modal" data-target=".bs-example-modal-sm" -->
-
 
     <!-- div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">
@@ -58,9 +56,7 @@
     $(function() {
         <#list keys as key>
             var chart${key} = c3.generate({
-
                 bindto: '#${key}',
-
                 size: {height: 500},
                 axis: {
                     x: { label: '${key} interval' },
