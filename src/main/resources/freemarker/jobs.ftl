@@ -6,13 +6,11 @@
 <div class="container">
     <#include "includes/navigation.ftl">
 
-
-    <div class="panel panel-default">
-        <!-- Default panel contents -->
-        <div class="panel-heading">Test Overview</div>
-        <div class="panel-body">
+    <div class="card">
+        <div class="card-header">Test Overview</div>
+        <div class="card-block">
         <#list metrics.getTestOverview() as job>
-            <p><a href="/jobs/stop/${job?keep_before(" ")}"><span class="glyphicon glyphicon-remove"></span> ${job}</p></a>
+            <p><i class="icon ion-close-circled"></i> <a href="/jobs/stop/${job?keep_before(" ")}">${job}</p></a>
         </#list>
         </div>
     </div>
