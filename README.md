@@ -16,3 +16,18 @@ TODO - add dateTime rangeindex using ml-gradle or similar...
 ```
 
 2. Go to the application server to view test results [http://localhost:9999](http://localhost:9999)
+
+### Configuration
+
+The sample configuration file can be found in **resources/config.xml**:
+
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+    <uris>
+        <uri>xcc://user:passwd@hostname:port</uri>
+    </uris>
+    <durationInMinutes>2</durationInMinutes>
+    <testLabel>v0.3</testLabel>
+</configuration>
+```

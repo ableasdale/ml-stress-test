@@ -16,6 +16,8 @@
             <dl class="row">
                 <dt class="col-sm-3">Test label</dt>
                 <dd class="col-sm-9">${metrics.getTestLabel()}</dd>
+                <dt class="col-sm-3">Test duration (minutes)</dt>
+                <dd class="col-sm-9">${metrics.getTestDuration()}</dd>
                 <dt class="col-sm-3">Test Composition</dt>
                 <#list metrics.getTestOverview() as job>
                     <#if job?is_first><dd class="col-sm-9"><#else><dd class="col-sm-9  offset-sm-3"></#if>${job}</dd>

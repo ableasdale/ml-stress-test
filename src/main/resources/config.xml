@@ -2,9 +2,7 @@
 <configuration>
     <uris>
         <uri>xcc://q:q@localhost:8000</uri>
-        <uri>xcc://q:q@0.0.0.0:8000</uri>
-        <uri>xcc://q:q@127.0.0.1:8000</uri>
     </uris>
-    <durationInMinutes>1</durationInMinutes>
-    <testLabel>12345</testLabel>
+    <durationInMinutes>2</durationInMinutes>
+    <testLabel>v0.3</testLabel>
 </configuration>

@@ -16,6 +16,7 @@ public class StressTest implements java.io.Serializable {
     private String testLabel;
     private Date testDateTime;
     private int totalHosts;
+    private long testDuration;
     private List<String> testOverview;
     private Map<String, Map<String, List<String>>> hostTimingMaps;
 
@@ -43,6 +44,14 @@ public class StressTest implements java.io.Serializable {
         this.totalHosts = totalHosts;
     }
 
+    public long getTestDuration() {
+        return testDuration;
+    }
+
+    public void setTestDuration(long testDuration) {
+        this.testDuration = testDuration;
+    }
+
     public List<String> getTestOverview() {
         return testOverview;
     }
@@ -67,21 +76,22 @@ public class StressTest implements java.io.Serializable {
         StressTest that = (StressTest) o;
 
         if (totalHosts != that.totalHosts) return false;
-        if (!hostTimingMaps.equals(that.hostTimingMaps)) return false;
-        if (!testDateTime.equals(that.testDateTime)) return false;
-        if (!testLabel.equals(that.testLabel)) return false;
-        if (!testOverview.equals(that.testOverview)) return false;
+        if (testDuration != that.testDuration) return false;
+        if (testLabel != null ? !testLabel.equals(that.testLabel) : that.testLabel != null) return false;
+        if (testDateTime != null ? !testDateTime.equals(that.testDateTime) : that.testDateTime != null) return false;
+        if (testOverview != null ? !testOverview.equals(that.testOverview) : that.testOverview != null) return false;
+        return hostTimingMaps != null ? hostTimingMaps.equals(that.hostTimingMaps) : that.hostTimingMaps == null;
 
-        return true;
     }
 
     @Override
     public int hashCode() {
-        int result = testLabel.hashCode();
-        result = 31 * result + testDateTime.hashCode();
+        int result = testLabel != null ? testLabel.hashCode() : 0;
+        result = 31 * result + (testDateTime != null ? testDateTime.hashCode() : 0);
         result = 31 * result + totalHosts;
-        result = 31 * result + testOverview.hashCode();
-        result = 31 * result + hostTimingMaps.hashCode();
+        result = 31 * result + (int) (testDuration ^ (testDuration >>> 32));
+        result = 31 * result + (testOverview != null ? testOverview.hashCode() : 0);
+        result = 31 * result + (hostTimingMaps != null ? hostTimingMaps.hashCode() : 0);
         return result;
     }
 }

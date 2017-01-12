@@ -110,6 +110,7 @@ public class TestHelper {
         getStressTestInstance().setTestDateTime(new Date());
         getStressTestInstance().setTestLabel(Configuration.getInstance().getTestLabel());
         getStressTestInstance().setTotalHosts(Configuration.getInstance().getUriList().size());
+        getStressTestInstance().setTestDuration(Configuration.getInstance().getDurationInMinutes());
         getStressTestInstance().setHostTimingMaps(new ConcurrentHashMap<String, Map<String, List<String>>>());
         getStressTestInstance().setTestOverview(new ArrayList<String>());
     }
