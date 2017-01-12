@@ -1,3 +1,4 @@
+<h3>${applicationTitle} <small class="text-muted"> ${title}</small></h3>
 <nav class="navbar navbar-toggleable-md navbar-light bg-faded rounded">
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>

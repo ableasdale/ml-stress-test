@@ -4,11 +4,6 @@
 <body>
 
 <div class="container">
-
-    <div class="row">
-        <div class="col"><h3>${applicationTitle} <small class="text-muted"> ${title}</small></h3></div>
-    </div>
-
     <#include "includes/navigation.ftl">
 
 
