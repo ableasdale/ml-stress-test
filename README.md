@@ -12,8 +12,14 @@ MarkLogic Application Stress Testing Tool
 
 1. Use Gradle to launch the application:
 
+Linux
 ```bash
 ./gradlew run
+```
+
+Windows
+```cmd
+D:\workspace\ml-stress-test>gradlew run
 ```
 
 2. Go to the application server to view test results [http://localhost:9999](http://localhost:9999)
