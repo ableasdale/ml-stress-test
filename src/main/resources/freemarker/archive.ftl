@@ -6,7 +6,7 @@
         <#include "includes/navigation.ftl">
 
         <h4>Saved Stress Tests <small class="text-muted">Click on headers to sort</small></h4>
-        <table class="table table-bordered table-striped">
+        <table class="table table-bordered table-striped display-none">
             <thead>
                 <tr>
                     <th>Filename</th>
@@ -112,6 +112,8 @@
                             output: '{startRow} - {endRow} / {filteredRows} ({totalRows})'
 
                         });
+                // unhide when ready
+                $('.display-none').show();
             });
         </script>
     </div>

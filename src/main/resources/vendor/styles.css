@@ -18,6 +18,10 @@ body {
     line-height: 18px;
 }
 
+.display-none {
+    display: none;
+}
+
 
 /* Sticky footer styles
 -------------------------------------------------- */
