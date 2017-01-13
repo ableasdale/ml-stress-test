@@ -113,7 +113,7 @@
 
                         });
                 // unhide when ready
-                $('.display-none').show();
+                $('.display-none').fadeIn();
             });
         </script>
     </div>

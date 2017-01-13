@@ -3,7 +3,7 @@ body {
     padding-bottom: 20px;
 }
 
-.navbar {
+.navbar, .card, .mrg-btm-20 {
     margin-bottom: 20px;
 }
 
