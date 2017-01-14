@@ -1,5 +1,6 @@
 package com.marklogic.stresstest.jobs;
 
+import com.marklogic.stresstest.util.TestHelper;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
@@ -17,6 +18,7 @@ public class MarkLogicAdminRequest implements Job {
 
     public static String description = "Makes a call to the MarkLogic Admin API and measures the response time";
     private Logger LOG = LoggerFactory.getLogger(MarkLogicAdminRequest.class);
+    private String timingGroup = "MLAdmin";
 
     public void execute(JobExecutionContext context) throws JobExecutionException {
         Client client = Client.create();
@@ -35,9 +37,12 @@ public class MarkLogicAdminRequest implements Job {
                     + response.getStatus());
         }
 
-        String output = response.getEntity(String.class);
+        //String output = response.getEntity(String.class);
 
-        LOG.info("Output from Server .... \n");
-        LOG.info(output);
+        // TODO - time taken is hard coded...
+        TestHelper.addResultToTimingMap(timingGroup, "localhost", "0.10");//webResource.getURI().toString(), "0.10");
+
+        //LOG.info("Output from Server .... \n");
+        //LOG.info(output);
     }
 }

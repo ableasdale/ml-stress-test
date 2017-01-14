@@ -40,6 +40,7 @@ public class TestHelper {
     }
 
     public static void addResultToTimingMap(String timingGroup, String uri, String result) {
+        LOG.info(timingGroup + " | " + uri + " | " + result);
         if (TestHelper.getStressTestInstance().getHostTimingMaps().containsKey(timingGroup)) {
             List<String> timingsList = TestHelper.getStressTestInstance().getHostTimingMaps().get(timingGroup).get(uri);
             timingsList.add(result);

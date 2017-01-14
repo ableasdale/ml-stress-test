@@ -1,5 +1,6 @@
 package com.marklogic.stresstest.jobs;
 
+import com.marklogic.stresstest.util.TestHelper;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
@@ -18,6 +19,7 @@ public class RestEndpointRequest implements Job {
 
     public static String description = "Makes a call to a MarkLogic ReST endpoint and measures the response time";
     private Logger LOG = LoggerFactory.getLogger(RestEndpointRequest.class);
+    private String timingGroup = "MLReST";
 
 
     public void execute(JobExecutionContext context) throws JobExecutionException {
@@ -38,9 +40,10 @@ public class RestEndpointRequest implements Job {
                     + response.getStatus());
         }
 
-        String output = response.getEntity(String.class);
+        //String output = response.getEntity(String.class);
+        TestHelper.addResultToTimingMap(timingGroup, "localhost", "0.10");
 
-        LOG.info("Output from Server .... \n");
-        LOG.info(output);
+        //LOG.info("Output from Server .... \n");
+        //LOG.info(output);
     }
 }

@@ -15,9 +15,9 @@ public class ABStressTest {
         TestHelper.initialize();
 
         // Add Jobs
-       // TestHelper.addJob(PingGroupA.class, Consts.EVERY_SECOND);
+        TestHelper.addJob(PingGroupA.class, Consts.EVERY_SECOND);
         TestHelper.addJob(MarkLogicAdminRequest.class, Consts.EVERY_FIVE_SECONDS);
-        //TestHelper.addJob(RestEndpointRequest.class, Consts.EVERY_FIVE_SECONDS);
+        TestHelper.addJob(RestEndpointRequest.class, Consts.EVERY_FIVE_SECONDS);
         TestHelper.addJob(PingGroupB.class, Consts.EVERY_TWO_SECONDS);
         TestHelper.addJob(ForceMerge.class, Consts.EVERY_TEN_SECONDS);
 
