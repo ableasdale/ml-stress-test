@@ -1,8 +1,6 @@
 package com.marklogic.stresstest;
 
-import com.marklogic.stresstest.jobs.ForceMerge;
-import com.marklogic.stresstest.jobs.PingGroupA;
-import com.marklogic.stresstest.jobs.PingGroupB;
+import com.marklogic.stresstest.jobs.*;
 import com.marklogic.stresstest.util.Consts;
 import com.marklogic.stresstest.util.TestHelper;
 
@@ -17,7 +15,9 @@ public class ABStressTest {
         TestHelper.initialize();
 
         // Add Jobs
-        TestHelper.addJob(PingGroupA.class, Consts.EVERY_SECOND);
+       // TestHelper.addJob(PingGroupA.class, Consts.EVERY_SECOND);
+        TestHelper.addJob(MarkLogicAdminRequest.class, Consts.EVERY_FIVE_SECONDS);
+        //TestHelper.addJob(RestEndpointRequest.class, Consts.EVERY_FIVE_SECONDS);
         TestHelper.addJob(PingGroupB.class, Consts.EVERY_TWO_SECONDS);
         TestHelper.addJob(ForceMerge.class, Consts.EVERY_TEN_SECONDS);
 

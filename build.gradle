@@ -27,6 +27,7 @@ dependencies {
     compile group: 'commons-io', name: 'commons-io', version:'2.5'
     compile group: 'org.apache.commons', name: 'commons-lang3', version:'3.5'
     compile group: 'com.marklogic', name: 'marklogic-xcc', version:'8.0.6'
+    compile group: 'com.sun.jersey', name: 'jersey-client', version:'1.19.3'
     compile group: 'com.sun.jersey', name: 'jersey-grizzly2', version:'1.19.3'
     compile group: 'com.sun.jersey.contribs', name: 'jersey-multipart', version:'1.19.3'
     compile group: 'org.freemarker', name: 'freemarker', version:'2.3.23'
