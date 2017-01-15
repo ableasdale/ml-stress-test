@@ -28,20 +28,21 @@ public class HTTPEndpointGetRequest implements Job {
         JobSpec js = (JobSpec) context.getJobDetail().getJobDataMap().get("jobSpec");
 
         Client client = Client.create();
-        // TODO - username and password from config.xml
-        client.addFilter(new HTTPDigestAuthFilter("q", "q"));
+
+        client.addFilter(new HTTPDigestAuthFilter(js.getUsername(), js.getPassword()));
 
         WebResource webResource = client.resource(js.getEndpoint());
 
         long startTime = System.currentTimeMillis();
 
-        ClientResponse response = webResource.accept("text/html").get(ClientResponse.class);
+        ClientResponse response = webResource.accept(js.getAccepts()).get(ClientResponse.class);
 
         if (response.getStatus() != 200) {
             throw new RuntimeException(String.format("Failed : HTTP error code : %d", response.getStatus()));
         }
 
         long elapsedTime = System.currentTimeMillis() - startTime;
+        LOG.debug(String.format("Endpoint response:\n%s", response.getEntity(String.class)));
 
         // TODO - "localhost" value is hardcoded - need to figure out how we're going to deal with this in future (was put in for XCC)
         TestManager.addResultToTimingMap(js.getGroupname(), "localhost", String.format("%.2f", elapsedTime / 1000.0f));

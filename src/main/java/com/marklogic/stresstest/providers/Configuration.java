@@ -44,8 +44,12 @@ public class Configuration {
         jobSpecList = new ArrayList<JobSpec>();
 
         for(HierarchicalConfiguration job : jobs) {
+            // TODO - Manufacture default values if some are absent in config file?
             JobSpec js = new JobSpec();
             js.setClassname(job.getString("classname"));
+            js.setUsername(job.getString("username"));
+            js.setPassword(job.getString("password"));
+            js.setAccepts(job.getString("accepts"));
             js.setGroupname(job.getString("group"));
             js.setEndpoint(job.getString("endpoint"));
             js.setInterval(job.getString("interval"));

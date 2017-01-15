@@ -1,4 +1,4 @@
-package com.marklogic.stresstest.jobs;
+package com.marklogic.stresstest.jobs.attic;
 
 import com.marklogic.stresstest.util.TestManager;
 import com.sun.jersey.api.client.Client;

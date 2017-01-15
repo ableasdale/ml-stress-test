@@ -14,6 +14,7 @@ public class ABStressTest {
         TestManager.initialize();
 
         TestManager.configureJobs();
+
         /* Add Jobs
         TestManager.addJob(PingGroupA.class, Consts.EVERY_SECOND);
         TestManager.addJob(HTTPEndpointGetRequest.class, Consts.EVERY_FIVE_SECONDS);

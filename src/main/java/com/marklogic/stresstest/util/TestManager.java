@@ -25,7 +25,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * User: alexb
  * Date: 16/08/15
  * Time: 21:49
- * To change this template use File | Settings | File Templates.
  */
 public class TestManager {
 

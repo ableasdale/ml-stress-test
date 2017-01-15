@@ -39,13 +39,19 @@ The sample configuration file can be found in **resources/config.xml**:
     <jobs>
         <job>
             <classname>HTTPEndpointGetRequest</classname>
-            <group>MLAdmin</group>
+            <username>user</username>
+            <password>password</password>
+            <accepts>text/html</accepts>
+            <group>ML_Admin</group>
             <endpoint>http://localhost:8001</endpoint>
             <interval>every-second</interval>
         </job>
         <job>
             <classname>HTTPEndpointGetRequest</classname>
-            <group>ReSTRequest</group>
+            <username>user</username>
+            <password>password</password>
+            <accepts>application/json</accepts>
+            <group>ReST_Request</group>
             <endpoint>http://localhost:8002/manage/v2/forests/</endpoint>
             <interval>every-second</interval>
         </job>
