@@ -5,7 +5,7 @@ apply plugin: 'application'
 mainClassName = 'com.marklogic.stresstest.ABStressTest'
 
 group = 'ml-stress-test'
-version = '0.3'
+version = '0.4'
 
 description = "MarkLogic Application Stress Testing Tool"
 

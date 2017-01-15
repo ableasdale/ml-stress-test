@@ -18,23 +18,24 @@ import org.slf4j.LoggerFactory;
 public class HTTPEndpointGetRequest implements Job {
 
     public static String description = "Makes a call to the MarkLogic Admin API and measures the response time";
+
     private Logger LOG = LoggerFactory.getLogger(HTTPEndpointGetRequest.class);
 
     public void execute(JobExecutionContext context) throws JobExecutionException {
 
+        LOG.debug(String.format("Job fired at: %s", context.getFireTime()));
+
         JobSpec js = (JobSpec) context.getJobDetail().getJobDataMap().get("jobSpec");
 
         Client client = Client.create();
+        // TODO - username and password from config.xml
         client.addFilter(new HTTPDigestAuthFilter("q", "q"));
 
-        // TODO - Resource URI is hard coded!
-        WebResource webResource = client
-                .resource(js.getEndpoint());
+        WebResource webResource = client.resource(js.getEndpoint());
 
         long startTime = System.currentTimeMillis();
 
-        ClientResponse response = webResource.accept("text/html")
-                .get(ClientResponse.class);
+        ClientResponse response = webResource.accept("text/html").get(ClientResponse.class);
 
         if (response.getStatus() != 200) {
             throw new RuntimeException(String.format("Failed : HTTP error code : %d", response.getStatus()));

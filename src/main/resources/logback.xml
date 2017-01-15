@@ -1,18 +1,13 @@
 <configuration>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <!-- encoders are assigned the type
-             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 
     <logger name="org.quartz" level="INFO"/>
-    <logger name="com.marklogic.stresstest.jobs" level="INFO"/>
-    <logger name="com.marklogic.stresstest.providers" level="INFO"/>
-    <logger name="com.marklogic.stresstest.resources" level="INFO"/>
-    <logger name="com.marklogic.stresstest.jobs.VersionInvoke" level="INFO"/>
+    <logger name="com.marklogic.stresstest" level="INFO"/>
     <logger name="org.quartz.simpl" level="WARN"/>
     <logger name="org.quartz.impl" level="WARN"/>
 

@@ -41,7 +41,7 @@ public class TestManager {
     }
 
     public static void addResultToTimingMap(String timingGroup, String uri, String result) {
-        LOG.info(timingGroup + " | " + uri + " | " + result);
+        LOG.debug(String.format("Adding to timingMap: %s | %s | %s", timingGroup, uri, result));
         if (TestManager.getStressTestInstance().getHostTimingMaps().containsKey(timingGroup)) {
             List<String> timingsList = TestManager.getStressTestInstance().getHostTimingMaps().get(timingGroup).get(uri);
             timingsList.add(result);

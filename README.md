@@ -32,9 +32,23 @@ The sample configuration file can be found in **resources/config.xml**:
 <?xml version="1.0" encoding="UTF-8" ?>
 <configuration>
     <uris>
-        <uri>xcc://user:passwd@hostname:port</uri>
+        <uri>xcc://q:q@localhost:8000</uri>
     </uris>
-    <durationInMinutes>2</durationInMinutes>
-    <testLabel>v0.3</testLabel>
+    <durationInMinutes>1</durationInMinutes>
+    <testLabel>v0.4</testLabel>
+    <jobs>
+        <job>
+            <classname>HTTPEndpointGetRequest</classname>
+            <group>MLAdmin</group>
+            <endpoint>http://localhost:8001</endpoint>
+            <interval>every-second</interval>
+        </job>
+        <job>
+            <classname>HTTPEndpointGetRequest</classname>
+            <group>ReSTRequest</group>
+            <endpoint>http://localhost:8002/manage/v2/forests/</endpoint>
+            <interval>every-second</interval>
+        </job>
+    </jobs>
 </configuration>
 ```
