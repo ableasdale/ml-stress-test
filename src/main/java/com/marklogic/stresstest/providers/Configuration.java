@@ -44,10 +44,11 @@ public class Configuration {
         List<HierarchicalConfiguration> jobs = config.configurationsAt("jobs.job");
         LOG.info("Total number of Jobs found: "+jobs.size());
         for(HierarchicalConfiguration job : jobs) {
-            LOG.info("HC*"+job.getString("classname"));
-            LOG.info("HC*"+job.getString("interval"));
+            LOG.info("Adding: "+job.getString("classname"));
+            LOG.info(" - "+job.getString("endpoint"));
+            LOG.info(" - "+job.getString("interval"));
         }
-        
+
         //jobMap = config.jo
         LOG.debug(MessageFormat.format("Number of xcc uris: {0}", uriList.size()));
 

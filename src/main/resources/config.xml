@@ -8,10 +8,12 @@
     <jobs>
         <job>
             <classname>MarkLogicAdminRequest</classname>
+            <endpoint>http://localhost:8001</endpoint>
             <interval>EVERY_SECOND</interval>
         </job>
         <job>
             <classname>RestEndpointRequest</classname>
+            <endpoint>http://localhost:8002/manage/v2/forests/</endpoint>
             <interval>EVERY_SECOND</interval>
         </job>
     </jobs>
