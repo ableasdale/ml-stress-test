@@ -174,10 +174,19 @@ public class TestManager {
         LOG.info("Configuring Jobs for test...");
         for (JobSpec js : getStressTestInstance().getJobSpecList()) {
             try {
-                TestManager.addJob((Class<? extends Job>) Class.forName("com.marklogic.stresstest.jobs."+js.getClassname()), Consts.EVERY_SECOND);
+                TestManager.addJob((Class<? extends Job>) Class.forName("com.marklogic.stresstest.jobs."+js.getClassname()), mapIntervalToCron(js.getInterval()));
             } catch (ClassNotFoundException e) {
                 LOG.error("Exception caught when adding Job.",e);
             }
+        }
+    }
+
+    public static String mapIntervalToCron(String interval) {
+        if(interval.equals("every-second")){
+            return Consts.EVERY_SECOND;
+        } else {
+            LOG.warn(String.format("Unable to map the interval %s in configuration.xml; defaulting to five-seconds", interval));
+            return Consts.EVERY_FIVE_SECONDS;
         }
     }
 
