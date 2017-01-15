@@ -6,6 +6,7 @@ package com.marklogic.stresstest.beans;
 public class JobSpec implements java.io.Serializable {
 
     private String classname;
+    private String groupname;
     private String endpoint;
     private String interval;
 
@@ -15,6 +16,14 @@ public class JobSpec implements java.io.Serializable {
 
     public void setClassname(String classname) {
         this.classname = classname;
+    }
+
+    public String getGroupname() {
+        return groupname;
+    }
+
+    public void setGroupname(String groupname) {
+        this.groupname = groupname;
     }
 
     public String getEndpoint() {
@@ -41,6 +50,7 @@ public class JobSpec implements java.io.Serializable {
         JobSpec jobSpec = (JobSpec) o;
 
         if (classname != null ? !classname.equals(jobSpec.classname) : jobSpec.classname != null) return false;
+        if (groupname != null ? !groupname.equals(jobSpec.groupname) : jobSpec.groupname != null) return false;
         if (endpoint != null ? !endpoint.equals(jobSpec.endpoint) : jobSpec.endpoint != null) return false;
         return interval != null ? interval.equals(jobSpec.interval) : jobSpec.interval == null;
 
@@ -49,6 +59,7 @@ public class JobSpec implements java.io.Serializable {
     @Override
     public int hashCode() {
         int result = classname != null ? classname.hashCode() : 0;
+        result = 31 * result + (groupname != null ? groupname.hashCode() : 0);
         result = 31 * result + (endpoint != null ? endpoint.hashCode() : 0);
         result = 31 * result + (interval != null ? interval.hashCode() : 0);
         return result;

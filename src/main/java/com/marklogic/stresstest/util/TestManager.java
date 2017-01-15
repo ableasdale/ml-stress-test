@@ -13,8 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -146,12 +144,14 @@ public class TestManager {
 
     }
 
-    // TODO public static void addJob(Class<? extends Job> job, int interval) {
+    public static void addJob(Class<? extends Job> job, String interval, JobSpec js) {
 
-    public static void addJob(Class<? extends Job> job, String interval) {
+        JobDetail jd = JobBuilder.newJob(job).withIdentity(job.getSimpleName()+js.hashCode()).build();
 
-        JobDetail jd = JobBuilder.newJob(job).withIdentity(job.getSimpleName()).build();
-        Trigger t = TriggerBuilder.newTrigger().withIdentity("trigger" + job.getSimpleName()).withSchedule(CronScheduleBuilder.cronSchedule(interval)).build();
+        // Pass in the JobSpec details
+        jd.getJobDataMap().put("jobSpec", js);
+
+        Trigger t = TriggerBuilder.newTrigger().withIdentity("trigger" + job.getSimpleName()+js.hashCode()).withSchedule(CronScheduleBuilder.cronSchedule(interval)).build();
 
         // Trigger t = TriggerBuilder.newTrigger().withIdentity("trigger" + job.getSimpleName()).withSchedule(simpleSchedule().withIntervalInSeconds(interval).repeatForever()).build();
         //Trigger triggerPingA = TriggerBuilder.newTrigger().withIdentity("triggerPingA").withSchedule(CronScheduleBuilder.cronSchedule(Consts.EVERY_SECOND)).build();
@@ -175,16 +175,12 @@ public class TestManager {
     public static void configureJobs() {
         LOG.info("Configuring Jobs for test...");
         for (JobSpec js : getStressTestInstance().getJobSpecList()) {
+            LOG.info("Configuring Jobspec with endpoint "+js.getEndpoint());
             try {
-                // TODO - Get base package path rather than hard code it.
-
-                /*Class<?> clazz = Class.forName("com.marklogic.stresstest.jobs."+js.getClassname());
-                Constructor<?> ctor = clazz.getConstructor(JobSpec.class);
-                Object object = ctor.newInstance(new Object[] { js });
-
-                TestManager.addJob((Class<? extends Job>) object, mapIntervalToCron(js.getInterval())); */
-
-                TestManager.addJob((Class<? extends Job>) Class.forName("com.marklogic.stresstest.jobs."+js.getClassname()), mapIntervalToCron(js.getInterval()));
+                TestManager.addJob(
+                        (Class<? extends Job>) Class.forName("com.marklogic.stresstest.jobs."+js.getClassname()),
+                        mapIntervalToCron(js.getInterval()),
+                        js);
             } catch (ClassNotFoundException e) {
                 LOG.error("Exception caught when adding Job.",e);
             }

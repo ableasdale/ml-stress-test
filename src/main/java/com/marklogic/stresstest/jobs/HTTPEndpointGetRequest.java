@@ -19,22 +19,17 @@ public class HTTPEndpointGetRequest implements Job {
 
     public static String description = "Makes a call to the MarkLogic Admin API and measures the response time";
     private Logger LOG = LoggerFactory.getLogger(HTTPEndpointGetRequest.class);
-    private String timingGroup = "MLAdmin";
-
-    /*
-    public HTTPEndpointGetRequest(JobSpec j){
-        LOG.info("Hit the CONSTRUCTOR!");
-        LOG.info(j.getEndpoint());
-    } */
-
 
     public void execute(JobExecutionContext context) throws JobExecutionException {
+
+        JobSpec js = (JobSpec) context.getJobDetail().getJobDataMap().get("jobSpec");
+
         Client client = Client.create();
         client.addFilter(new HTTPDigestAuthFilter("q", "q"));
 
         // TODO - Resource URI is hard coded!
         WebResource webResource = client
-                .resource("http://localhost:8001");
+                .resource(js.getEndpoint());
 
         long startTime = System.currentTimeMillis();
 
@@ -48,7 +43,7 @@ public class HTTPEndpointGetRequest implements Job {
         long elapsedTime = System.currentTimeMillis() - startTime;
 
         // TODO - "localhost" value is hardcoded - need to figure out how we're going to deal with this in future (was put in for XCC)
-        TestManager.addResultToTimingMap(timingGroup, "localhost", String.format("%.2f", elapsedTime / 1000.0f));
+        TestManager.addResultToTimingMap(js.getGroupname(), "localhost", String.format("%.2f", elapsedTime / 1000.0f));
 
     }
 }

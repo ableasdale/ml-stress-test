@@ -46,10 +46,12 @@ public class Configuration {
         for(HierarchicalConfiguration job : jobs) {
             JobSpec js = new JobSpec();
             js.setClassname(job.getString("classname"));
+            js.setGroupname(job.getString("group"));
             js.setEndpoint(job.getString("endpoint"));
             js.setInterval(job.getString("interval"));
 
             LOG.debug(String.format("Adding Job: %s", job.getString("classname")));
+            LOG.debug(String.format(" - %s", job.getString("group")));
             LOG.debug(String.format(" - %s", job.getString("endpoint")));
             LOG.debug(String.format(" - %s", job.getString("interval")));
             jobSpecList.add(js);

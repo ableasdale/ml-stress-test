@@ -8,13 +8,13 @@
     <jobs>
         <job>
             <classname>HTTPEndpointGetRequest</classname>
-            <group>ML-Admin</group>
+            <group>MLAdmin</group>
             <endpoint>http://localhost:8001</endpoint>
             <interval>every-second</interval>
         </job>
         <job>
             <classname>HTTPEndpointGetRequest</classname>
-            <group>ReST-Request</group>
+            <group>ReSTRequest</group>
             <endpoint>http://localhost:8002/manage/v2/forests/</endpoint>
             <interval>every-second</interval>
         </job>
