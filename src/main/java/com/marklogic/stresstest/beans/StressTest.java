@@ -18,6 +18,7 @@ public class StressTest implements java.io.Serializable {
     private int totalHosts;
     private long testDuration;
     private List<String> testOverview;
+    private List<JobSpec> jobSpecList;
     private Map<String, Map<String, List<String>>> hostTimingMaps;
 
     public String getTestLabel() {
@@ -60,6 +61,14 @@ public class StressTest implements java.io.Serializable {
         this.testOverview = testOverview;
     }
 
+    public List<JobSpec> getJobSpecList() {
+        return jobSpecList;
+    }
+
+    public void setJobSpecList(List<JobSpec> jobSpecList) {
+        this.jobSpecList = jobSpecList;
+    }
+
     public Map<String, Map<String, List<String>>> getHostTimingMaps() {
         return hostTimingMaps;
     }
@@ -80,6 +89,7 @@ public class StressTest implements java.io.Serializable {
         if (testLabel != null ? !testLabel.equals(that.testLabel) : that.testLabel != null) return false;
         if (testDateTime != null ? !testDateTime.equals(that.testDateTime) : that.testDateTime != null) return false;
         if (testOverview != null ? !testOverview.equals(that.testOverview) : that.testOverview != null) return false;
+        if (jobSpecList != null ? !jobSpecList.equals(that.jobSpecList) : that.jobSpecList != null) return false;
         return hostTimingMaps != null ? hostTimingMaps.equals(that.hostTimingMaps) : that.hostTimingMaps == null;
 
     }
@@ -91,6 +101,7 @@ public class StressTest implements java.io.Serializable {
         result = 31 * result + totalHosts;
         result = 31 * result + (int) (testDuration ^ (testDuration >>> 32));
         result = 31 * result + (testOverview != null ? testOverview.hashCode() : 0);
+        result = 31 * result + (jobSpecList != null ? jobSpecList.hashCode() : 0);
         result = 31 * result + (hostTimingMaps != null ? hostTimingMaps.hashCode() : 0);
         return result;
     }

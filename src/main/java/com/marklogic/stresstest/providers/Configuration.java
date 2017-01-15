@@ -1,5 +1,6 @@
 package com.marklogic.stresstest.providers;
 
+import com.marklogic.stresstest.beans.JobSpec;
 import com.marklogic.stresstest.util.Consts;
 import com.marklogic.stresstest.util.TestHelper;
 import org.apache.commons.configuration.ConfigurationException;
@@ -9,10 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.text.MessageFormat;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,7 +26,7 @@ public class Configuration {
     private List<String> uriList;
     private String testLabel;
     private Long durationInMinutes;
-    private Map<String,String> jobMap;
+    private List<JobSpec> jobSpecList;
 
     private Configuration() {
         try {
@@ -42,14 +40,21 @@ public class Configuration {
 
         // Get the list of configured jobs from the config file
         List<HierarchicalConfiguration> jobs = config.configurationsAt("jobs.job");
-        LOG.info("Total number of Jobs found: "+jobs.size());
+        LOG.info(String.format("Total number of Jobs found: %d", jobs.size()));
+        jobSpecList = new ArrayList<JobSpec>();
+
         for(HierarchicalConfiguration job : jobs) {
-            LOG.info("Adding: "+job.getString("classname"));
-            LOG.info(" - "+job.getString("endpoint"));
-            LOG.info(" - "+job.getString("interval"));
+            JobSpec js = new JobSpec();
+            js.setClassname(job.getString("classname"));
+            js.setEndpoint(job.getString("endpoint"));
+            js.setInterval(job.getString("interval"));
+
+            LOG.debug(String.format("Adding Job: %s", job.getString("classname")));
+            LOG.debug(String.format(" - %s", job.getString("endpoint")));
+            LOG.debug(String.format(" - %s", job.getString("interval")));
+            jobSpecList.add(js);
         }
 
-        //jobMap = config.jo
         LOG.debug(MessageFormat.format("Number of xcc uris: {0}", uriList.size()));
 
     }
@@ -74,7 +79,7 @@ public class Configuration {
         return durationInMinutes;
     }
 
-    public Map<String,String> getJobMap() {return jobMap;}
+    public List<JobSpec> getJobSpecList() {return jobSpecList;}
 
     private static class ConfigurationProvider {
         private static final Configuration INSTANCE = new Configuration();
