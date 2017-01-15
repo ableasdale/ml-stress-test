@@ -3,13 +3,16 @@ package com.marklogic.stresstest.providers;
 import com.marklogic.stresstest.util.Consts;
 import com.marklogic.stresstest.util.TestHelper;
 import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.HierarchicalConfiguration;
 import org.apache.commons.configuration.XMLConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.text.MessageFormat;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -25,6 +28,7 @@ public class Configuration {
     private List<String> uriList;
     private String testLabel;
     private Long durationInMinutes;
+    private Map<String,String> jobMap;
 
     private Configuration() {
         try {
@@ -35,6 +39,16 @@ public class Configuration {
         testLabel = config.getString("testLabel");
         durationInMinutes = config.getLong("durationInMinutes");
         uriList = Arrays.asList(config.getStringArray("uris.uri"));
+
+        // Get the list of configured jobs from the config file
+        List<HierarchicalConfiguration> jobs = config.configurationsAt("jobs.job");
+        LOG.info("Total number of Jobs found: "+jobs.size());
+        for(HierarchicalConfiguration job : jobs) {
+            LOG.info("HC*"+job.getString("classname"));
+            LOG.info("HC*"+job.getString("interval"));
+        }
+        
+        //jobMap = config.jo
         LOG.debug(MessageFormat.format("Number of xcc uris: {0}", uriList.size()));
 
     }
@@ -58,6 +72,8 @@ public class Configuration {
     public Long getDurationInMinutes() {
         return durationInMinutes;
     }
+
+    public Map<String,String> getJobMap() {return jobMap;}
 
     private static class ConfigurationProvider {
         private static final Configuration INSTANCE = new Configuration();

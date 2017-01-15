@@ -5,4 +5,14 @@
     </uris>
     <durationInMinutes>5</durationInMinutes>
     <testLabel>v0.3</testLabel>
+    <jobs>
+        <job>
+            <classname>MarkLogicAdminRequest</classname>
+            <interval>EVERY_SECOND</interval>
+        </job>
+        <job>
+            <classname>RestEndpointRequest</classname>
+            <interval>EVERY_SECOND</interval>
+        </job>
+    </jobs>
 </configuration>
