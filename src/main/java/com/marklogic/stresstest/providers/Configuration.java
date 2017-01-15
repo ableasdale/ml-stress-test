@@ -2,7 +2,7 @@ package com.marklogic.stresstest.providers;
 
 import com.marklogic.stresstest.beans.JobSpec;
 import com.marklogic.stresstest.util.Consts;
-import com.marklogic.stresstest.util.TestHelper;
+import com.marklogic.stresstest.util.TestManager;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.HierarchicalConfiguration;
 import org.apache.commons.configuration.XMLConfiguration;
@@ -32,7 +32,7 @@ public class Configuration {
         try {
             config = new XMLConfiguration(Consts.CONFIG_FILE_PATH);
         } catch (ConfigurationException e) {
-            LOG.error(TestHelper.returnExceptionString(e));
+            LOG.error(TestManager.returnExceptionString(e));
         }
         testLabel = config.getString("testLabel");
         durationInMinutes = config.getLong("durationInMinutes");

@@ -1,6 +1,5 @@
 package com.marklogic.stresstest.resources;
 
-import com.marklogic.stresstest.util.TestHelper;
 import com.sun.jersey.api.view.Viewable;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

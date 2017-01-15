@@ -1,7 +1,7 @@
 package com.marklogic.stresstest.jobs;
 
 import com.marklogic.stresstest.providers.LoadBalancedMarkLogicContentSource;
-import com.marklogic.stresstest.util.TestHelper;
+import com.marklogic.stresstest.util.TestManager;
 import com.marklogic.xcc.Session;
 import com.marklogic.xcc.exceptions.RequestException;
 import org.quartz.Job;
@@ -28,7 +28,7 @@ public class ForceMerge implements Job {
             s.submitRequest(s.newAdhocQuery("xdmp:merge()"));
             s.close();
         } catch (RequestException e) {
-            LOG.error(TestHelper.returnExceptionString(e));
+            LOG.error(TestManager.returnExceptionString(e));
         }
     }
 

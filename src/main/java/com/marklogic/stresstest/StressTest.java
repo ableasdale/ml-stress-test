@@ -4,7 +4,7 @@ import com.marklogic.stresstest.jobs.*;
 import com.marklogic.stresstest.providers.Configuration;
 import com.marklogic.stresstest.providers.JerseyServer;
 import com.marklogic.stresstest.util.Consts;
-import com.marklogic.stresstest.util.TestHelper;
+import com.marklogic.stresstest.util.TestManager;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 import org.slf4j.Logger;
@@ -30,10 +30,10 @@ public class StressTest {
 
         // INIT
         LOG.info(String.format("Starting MarkLogic stress test: running for %d minute(s)", Configuration.getInstance().getDurationInMinutes()));
-        TestHelper.getStressTestInstance().setTestDateTime(new Date());
-        TestHelper.getStressTestInstance().setTestLabel(Configuration.getInstance().getTestLabel());
-        TestHelper.getStressTestInstance().setTotalHosts(Configuration.getInstance().getUriList().size());
-        TestHelper.getStressTestInstance().setHostTimingMaps(new ConcurrentHashMap<String, Map<String, List<String>>>());
+        TestManager.getStressTestInstance().setTestDateTime(new Date());
+        TestManager.getStressTestInstance().setTestLabel(Configuration.getInstance().getTestLabel());
+        TestManager.getStressTestInstance().setTotalHosts(Configuration.getInstance().getUriList().size());
+        TestManager.getStressTestInstance().setHostTimingMaps(new ConcurrentHashMap<String, Map<String, List<String>>>());
 
         // JOBS
 
@@ -77,15 +77,15 @@ public class StressTest {
                 // Wait X seconds then kill the scheduler
                 Thread.sleep(Consts.ONE_MINUTE * Configuration.getInstance().getDurationInMinutes());
             } catch (InterruptedException e) {
-                TestHelper.returnExceptionString(e);
+                TestManager.returnExceptionString(e);
             }
             LOG.info("End of stress test");
             scheduler.shutdown(true);
         } catch (SchedulerException e) {
-            LOG.error(TestHelper.returnExceptionString(e));
+            LOG.error(TestManager.returnExceptionString(e));
         }
 
-        TestHelper.saveSessionData();
+        TestManager.saveSessionData();
 
         // Set up jersey to run the report and generate a graph
         Thread t = new JerseyServer();

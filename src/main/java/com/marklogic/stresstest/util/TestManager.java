@@ -1,5 +1,6 @@
 package com.marklogic.stresstest.util;
 
+import com.marklogic.stresstest.beans.JobSpec;
 import com.marklogic.stresstest.beans.StressTest;
 import com.marklogic.stresstest.providers.Configuration;
 import com.marklogic.stresstest.providers.JerseyServer;
@@ -26,9 +27,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * Time: 21:49
  * To change this template use File | Settings | File Templates.
  */
-public class TestHelper {
+public class TestManager {
 
-    private static Logger LOG = LoggerFactory.getLogger(TestHelper.class);
+    private static Logger LOG = LoggerFactory.getLogger(TestManager.class);
 
     public static StressTest getStressTestInstance() {
         return StressTestDataProvider.INSTANCE;
@@ -41,18 +42,18 @@ public class TestHelper {
 
     public static void addResultToTimingMap(String timingGroup, String uri, String result) {
         LOG.info(timingGroup + " | " + uri + " | " + result);
-        if (TestHelper.getStressTestInstance().getHostTimingMaps().containsKey(timingGroup)) {
-            List<String> timingsList = TestHelper.getStressTestInstance().getHostTimingMaps().get(timingGroup).get(uri);
+        if (TestManager.getStressTestInstance().getHostTimingMaps().containsKey(timingGroup)) {
+            List<String> timingsList = TestManager.getStressTestInstance().getHostTimingMaps().get(timingGroup).get(uri);
             timingsList.add(result);
-            TestHelper.getStressTestInstance().getHostTimingMaps().get(timingGroup).put(uri, timingsList);
+            TestManager.getStressTestInstance().getHostTimingMaps().get(timingGroup).put(uri, timingsList);
         } else {
             Map<String, List<String>> tm = new ConcurrentHashMap<String, List<String>>();
             List<ContentSource> csl = LoadBalancedMarkLogicContentSource.getInstance().getCopyOfActiveContentSourceList();
             for (ContentSource cs : csl) {
                 tm.put(cs.getConnectionProvider().getHostName(), new CopyOnWriteArrayList<String>());
             }
-            TestHelper.getStressTestInstance().getHostTimingMaps().put(timingGroup, tm);
-            TestHelper.addResultToTimingMap(timingGroup, uri, result);
+            TestManager.getStressTestInstance().getHostTimingMaps().put(timingGroup, tm);
+            TestManager.addResultToTimingMap(timingGroup, uri, result);
         }
     }
 
@@ -63,7 +64,7 @@ public class TestHelper {
             String filenameDate = sdf.format(d);
             FileOutputStream fos = new FileOutputStream(Consts.SAVE_DIRECTORY_ROOT + File.separator + Configuration.getInstance().getTestLabel() + "-" + filenameDate + ".ml");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(TestHelper.getStressTestInstance());
+            oos.writeObject(TestManager.getStressTestInstance());
             oos.close();
             fos.close();
             LOG.debug("Session data saved");
@@ -86,10 +87,12 @@ public class TestHelper {
             LOG.error(returnExceptionString(c));
         }
         if (st != null) {
-            getStressTestInstance().setTestLabel(st.getTestLabel());
             getStressTestInstance().setTestDateTime(st.getTestDateTime());
-            getStressTestInstance().setHostTimingMaps(st.getHostTimingMaps());
+            getStressTestInstance().setTestLabel(st.getTestLabel());
             getStressTestInstance().setTotalHosts(st.getTotalHosts());
+            getStressTestInstance().setTestDuration(st.getTestDuration());
+            getStressTestInstance().setJobSpecList(st.getJobSpecList());
+            getStressTestInstance().setHostTimingMaps(st.getHostTimingMaps());
             getStressTestInstance().setTestOverview(st.getTestOverview());
         }
     }
@@ -112,6 +115,7 @@ public class TestHelper {
         getStressTestInstance().setTestLabel(Configuration.getInstance().getTestLabel());
         getStressTestInstance().setTotalHosts(Configuration.getInstance().getUriList().size());
         getStressTestInstance().setTestDuration(Configuration.getInstance().getDurationInMinutes());
+        getStressTestInstance().setJobSpecList(Configuration.getInstance().getJobSpecList());
         getStressTestInstance().setHostTimingMaps(new ConcurrentHashMap<String, Map<String, List<String>>>());
         getStressTestInstance().setTestOverview(new ArrayList<String>());
     }
@@ -164,6 +168,17 @@ public class TestHelper {
             returnExceptionString(e);
         }
 
+    }
+
+    public static void configureJobs() {
+        LOG.info("Configuring Jobs for test...");
+        for (JobSpec js : getStressTestInstance().getJobSpecList()) {
+            try {
+                TestManager.addJob((Class<? extends Job>) Class.forName("com.marklogic.stresstest.jobs."+js.getClassname()), Consts.EVERY_SECOND);
+            } catch (ClassNotFoundException e) {
+                LOG.error("Exception caught when adding Job.",e);
+            }
+        }
     }
 
     private static class StressTestDataProvider {

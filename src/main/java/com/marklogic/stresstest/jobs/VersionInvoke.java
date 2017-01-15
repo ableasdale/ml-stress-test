@@ -1,7 +1,7 @@
 package com.marklogic.stresstest.jobs;
 
 import com.marklogic.stresstest.providers.LoadBalancedMarkLogicContentSource;
-import com.marklogic.stresstest.util.TestHelper;
+import com.marklogic.stresstest.util.TestManager;
 import com.marklogic.xcc.ContentSource;
 import com.marklogic.xcc.Request;
 import com.marklogic.xcc.ResultSequence;
@@ -39,11 +39,11 @@ public class VersionInvoke implements Job {
                 endTime = System.currentTimeMillis();
                 //ResultSequence rs = s.submitRequest(s.newAdhocQuery(XQueryModules.getInstance().pingMarkLogic()));
                 String[] results = rs.asStrings();
-                TestHelper.addResultToTimingMap(timingGroup, s.getConnectionUri().getHost(), String.format("%d", (endTime - startTime)));
+                TestManager.addResultToTimingMap(timingGroup, s.getConnectionUri().getHost(), String.format("%d", (endTime - startTime)));
                 LOG.debug(String.format("Version - version %s, total Server execution time: %d", results[0], (endTime - startTime)));
                 s.close();
             } catch (RequestException e) {
-                LOG.error(TestHelper.returnExceptionString(e));
+                LOG.error(TestManager.returnExceptionString(e));
             }
         }
 
@@ -56,7 +56,7 @@ public class VersionInvoke implements Job {
             LOG.info(String.format("PingInvoke - total documents: %s Execution time: %s", results[0], results[1]));
             s.close();
         } catch (RequestException e) {
-            LOG.error(TestHelper.returnExceptionString(e));
+            LOG.error(TestManager.returnExceptionString(e));
         } */
     }
 }

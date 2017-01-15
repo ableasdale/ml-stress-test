@@ -10,7 +10,7 @@ package com.marklogic.stresstest.jobs;
 
 import com.marklogic.stresstest.providers.LoadBalancedMarkLogicContentSource;
 import com.marklogic.stresstest.providers.XQueryModules;
-import com.marklogic.stresstest.util.TestHelper;
+import com.marklogic.stresstest.util.TestManager;
 import com.marklogic.xcc.ContentSource;
 import com.marklogic.xcc.ResultSequence;
 import com.marklogic.xcc.Session;
@@ -46,12 +46,12 @@ public class PingGroupA implements Job {
                 ResultSequence rs = s.submitRequest(s.newAdhocQuery(XQueryModules.getInstance().pingMarkLogic()));
                 String[] results = rs.asStrings();
 
-                TestHelper.addResultToTimingMap(timingGroup, s.getConnectionUri().getHost(), results[1].substring(2, results[1].length() - 1));
+                TestManager.addResultToTimingMap(timingGroup, s.getConnectionUri().getHost(), results[1].substring(2, results[1].length() - 1));
 
                 LOG.debug(String.format("PingGroupA - total documents: %s Execution time: %s", results[0], results[1]));
                 s.close();
             } catch (RequestException e) {
-                LOG.error(TestHelper.returnExceptionString(e));
+                LOG.error(TestManager.returnExceptionString(e));
             }
         }
 
@@ -62,14 +62,14 @@ public class PingGroupA implements Job {
             ResultSequence rs = s.submitRequest(s.newAdhocQuery(XQueryModules.getInstance().pingMarkLogic()));
             String[] results = rs.asStrings();
             String x = results[1].substring(2, results[1].length() - 1);
-            List<String> timingsList = TestHelper.getStressTestInstance().getHostTimings().get(s.getConnectionUri().getHost());
+            List<String> timingsList = TestManager.getStressTestInstance().getHostTimings().get(s.getConnectionUri().getHost());
             timingsList.add(x);
-            TestHelper.getStressTestInstance().getHostTimings().put(s.getConnectionUri().getHost(), timingsList);
+            TestManager.getStressTestInstance().getHostTimings().put(s.getConnectionUri().getHost(), timingsList);
 
             LOG.debug(String.format("PingGroupA - total documents: %s Execution time: %s", results[0], results[1]));
             s.close();
         } catch (RequestException e) {
-            LOG.error(TestHelper.returnExceptionString(e));
+            LOG.error(TestManager.returnExceptionString(e));
         } */
 
     }

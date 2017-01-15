@@ -1,6 +1,6 @@
 package com.marklogic.stresstest.providers;
 
-import com.marklogic.stresstest.util.TestHelper;
+import com.marklogic.stresstest.util.TestManager;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.impl.StdSchedulerFactory;
@@ -20,7 +20,7 @@ public class TestScheduler {
         try {
             scheduler = new StdSchedulerFactory().getScheduler();
         } catch (SchedulerException e) {
-            TestHelper.returnExceptionString(e);
+            TestManager.returnExceptionString(e);
         }
     }
 

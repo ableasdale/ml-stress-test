@@ -8,7 +8,7 @@ package com.marklogic.stresstest.jobs; /**
 
 import com.marklogic.stresstest.providers.LoadBalancedMarkLogicContentSource;
 import com.marklogic.stresstest.providers.XQueryModules;
-import com.marklogic.stresstest.util.TestHelper;
+import com.marklogic.stresstest.util.TestManager;
 import com.marklogic.xcc.Session;
 import com.marklogic.xcc.exceptions.RequestException;
 import org.quartz.Job;
@@ -29,7 +29,7 @@ public class Load implements Job {
             s.submitRequest(s.newAdhocQuery(XQueryModules.getInstance().loadXML()));
             s.close();
         } catch (RequestException e) {
-            LOG.error(TestHelper.returnExceptionString(e));
+            LOG.error(TestManager.returnExceptionString(e));
         }
 
     }

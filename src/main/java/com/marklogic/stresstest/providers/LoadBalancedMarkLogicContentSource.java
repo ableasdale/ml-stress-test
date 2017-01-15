@@ -3,7 +3,7 @@ package com.marklogic.stresstest.providers;
 import com.marklogic.stresstest.exceptions.ConnectionFailedException;
 import com.marklogic.stresstest.exceptions.ContentSourceAlreadyEnlistedException;
 import com.marklogic.stresstest.util.Consts;
-import com.marklogic.stresstest.util.TestHelper;
+import com.marklogic.stresstest.util.TestManager;
 import com.marklogic.xcc.ContentSource;
 import com.marklogic.xcc.ContentSourceFactory;
 import com.marklogic.xcc.Session;
@@ -95,7 +95,7 @@ public class LoadBalancedMarkLogicContentSource {
                     "Required Parameters are null when initializing, unable to continue",
                     e);
         } catch (ConfigurationException e) {
-            LOG.error(TestHelper.returnExceptionString(e));
+            LOG.error(TestManager.returnExceptionString(e));
         }
     }
 
@@ -159,11 +159,11 @@ public class LoadBalancedMarkLogicContentSource {
                 LOG.info(MessageFormat.format("Created XCC Connection: {0}",
                         uri.getHost()));
             } catch (URISyntaxException e) {
-                LOG.error(TestHelper.returnExceptionString(e));
+                LOG.error(TestManager.returnExceptionString(e));
             } catch (XccConfigException e) {
-                LOG.error(TestHelper.returnExceptionString(e));
+                LOG.error(TestManager.returnExceptionString(e));
             } catch (ContentSourceAlreadyEnlistedException e) {
-                LOG.error(TestHelper.returnExceptionString(e));
+                LOG.error(TestManager.returnExceptionString(e));
             }
         }
         LOG.info(MessageFormat
@@ -394,7 +394,7 @@ public class LoadBalancedMarkLogicContentSource {
         try {
             return getSessionAtIndex(0);
         } catch (ConnectionFailedException e) {
-            LOG.error(TestHelper.returnExceptionString(e));
+            LOG.error(TestManager.returnExceptionString(e));
         }
         return null;
     }

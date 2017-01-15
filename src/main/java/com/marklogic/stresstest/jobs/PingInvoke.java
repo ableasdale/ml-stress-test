@@ -1,7 +1,7 @@
 package com.marklogic.stresstest.jobs;
 
 import com.marklogic.stresstest.providers.LoadBalancedMarkLogicContentSource;
-import com.marklogic.stresstest.util.TestHelper;
+import com.marklogic.stresstest.util.TestManager;
 import com.marklogic.xcc.ContentSource;
 import com.marklogic.xcc.Request;
 import com.marklogic.xcc.ResultSequence;
@@ -36,12 +36,12 @@ public class PingInvoke implements Job {
                 //ResultSequence rs = s.submitRequest(s.newAdhocQuery(XQueryModules.getInstance().pingMarkLogic()));
                 String[] results = rs.asStrings();
 
-                TestHelper.addResultToTimingMap(timingGroup, s.getConnectionUri().getHost(), results[1].substring(2, results[1].length() - 1));
+                TestManager.addResultToTimingMap(timingGroup, s.getConnectionUri().getHost(), results[1].substring(2, results[1].length() - 1));
 
                 LOG.debug(String.format("PingGroupA - total documents: %s Execution time: %s", results[0], results[1]));
                 s.close();
             } catch (RequestException e) {
-                LOG.error(TestHelper.returnExceptionString(e));
+                LOG.error(TestManager.returnExceptionString(e));
             }
         }
 
@@ -54,7 +54,7 @@ public class PingInvoke implements Job {
             LOG.info(String.format("PingInvoke - total documents: %s Execution time: %s", results[0], results[1]));
             s.close();
         } catch (RequestException e) {
-            LOG.error(TestHelper.returnExceptionString(e));
+            LOG.error(TestManager.returnExceptionString(e));
         } */
     }
 }

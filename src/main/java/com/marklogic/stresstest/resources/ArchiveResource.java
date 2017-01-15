@@ -1,6 +1,6 @@
 package com.marklogic.stresstest.resources;
 
-import com.marklogic.stresstest.util.TestHelper;
+import com.marklogic.stresstest.util.TestManager;
 import com.sun.jersey.api.view.Viewable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +10,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import java.net.URI;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -29,10 +28,10 @@ public class ArchiveResource extends BaseResource {
     private Map<String, Object> createModel(String id) {
         Map<String, Object> map = createModel();
         map.put("title", "Archived Tests");
-        map.put("files", TestHelper.getSaveDirectoryFiles());
-        map.put("filenames", TestHelper.getSaveDirectoryListing());
-        //map.put("metrics", TestHelper.getStressTestInstance());
-        //map.put("chart", formatForChart(TestHelper.getStressTestInstance().getHostTimings()));
+        map.put("files", TestManager.getSaveDirectoryFiles());
+        map.put("filenames", TestManager.getSaveDirectoryListing());
+        //map.put("metrics", TestManager.getStressTestInstance());
+        //map.put("chart", formatForChart(TestManager.getStressTestInstance().getHostTimings()));
         return map;
     }
 
@@ -46,7 +45,7 @@ public class ArchiveResource extends BaseResource {
     @Produces(MediaType.TEXT_HTML)
     public Viewable getArchive() {
         //LOG.debug("Getting Dashboard ...");
-        // LOG.debug(formatForChart(TestHelper.getStressTestInstance().getHostTimings()));
+        // LOG.debug(formatForChart(TestManager.getStressTestInstance().getHostTimings()));
         return new Viewable("/archive", createModel("Archived Tests"));
     }
 
@@ -55,7 +54,7 @@ public class ArchiveResource extends BaseResource {
     @Produces(MediaType.TEXT_HTML)
     public Response getSavedTest(@PathParam("name") String name) {
         LOG.debug("Loading Saved test: " + name);
-        TestHelper.loadSessionData(name);
+        TestManager.loadSessionData(name);
 
         URI uri = UriBuilder.fromPath("/").build();
         return Response.seeOther(uri).build();
@@ -66,7 +65,7 @@ public class ArchiveResource extends BaseResource {
     @Produces(MediaType.TEXT_HTML)
     public Viewable deleteSavedTest(@PathParam("name") String name) {
         LOG.debug("Deleting Saved test: " + name);
-        TestHelper.deleteSavedSessionData(name);
+        TestManager.deleteSavedSessionData(name);
 
         return new Viewable("/archive", createModel("Archived Tests"));
     }

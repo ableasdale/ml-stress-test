@@ -1,6 +1,6 @@
 package com.marklogic.stresstest.jobs;
 
-import com.marklogic.stresstest.util.TestHelper;
+import com.marklogic.stresstest.util.TestManager;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
@@ -41,7 +41,7 @@ public class RestEndpointRequest implements Job {
         }
 
         //String output = response.getEntity(String.class);
-        TestHelper.addResultToTimingMap(timingGroup, "localhost", "0.10");
+        TestManager.addResultToTimingMap(timingGroup, "localhost", "0.10");
 
         //LOG.info("Output from Server .... \n");
         //LOG.info(output);

@@ -1,8 +1,7 @@
 package com.marklogic.stresstest;
 
-import com.marklogic.stresstest.jobs.*;
-import com.marklogic.stresstest.util.Consts;
-import com.marklogic.stresstest.util.TestHelper;
+import com.marklogic.stresstest.beans.JobSpec;
+import com.marklogic.stresstest.util.TestManager;
 
 /**
  * Created by ableasdale on 8/21/2015.
@@ -12,22 +11,23 @@ public class ABStressTest {
     public static void main(String[] args) {
 
         // Set up
-        TestHelper.initialize();
+        TestManager.initialize();
 
-        // Add Jobs
-        TestHelper.addJob(PingGroupA.class, Consts.EVERY_SECOND);
-        TestHelper.addJob(MarkLogicAdminRequest.class, Consts.EVERY_FIVE_SECONDS);
-        TestHelper.addJob(RestEndpointRequest.class, Consts.EVERY_FIVE_SECONDS);
-        TestHelper.addJob(PingGroupB.class, Consts.EVERY_TWO_SECONDS);
-        TestHelper.addJob(ForceMerge.class, Consts.EVERY_TEN_SECONDS);
+        TestManager.configureJobs();
+        /* Add Jobs
+        TestManager.addJob(PingGroupA.class, Consts.EVERY_SECOND);
+        TestManager.addJob(MarkLogicAdminRequest.class, Consts.EVERY_FIVE_SECONDS);
+        TestManager.addJob(RestEndpointRequest.class, Consts.EVERY_FIVE_SECONDS);
+        TestManager.addJob(PingGroupB.class, Consts.EVERY_TWO_SECONDS);
+        TestManager.addJob(ForceMerge.class, Consts.EVERY_TEN_SECONDS); */
 
         // TESTING
-        TestHelper.runHttpReport();
+        TestManager.runHttpReport();
 
         // Run
-        TestHelper.runTest();
+        TestManager.runTest();
 
         // Generate HTML report
-        TestHelper.saveSessionData();
+        TestManager.saveSessionData();
     }
 }

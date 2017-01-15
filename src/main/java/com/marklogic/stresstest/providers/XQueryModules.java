@@ -1,6 +1,6 @@
 package com.marklogic.stresstest.providers;
 
-import com.marklogic.stresstest.util.TestHelper;
+import com.marklogic.stresstest.util.TestManager;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +29,7 @@ public class XQueryModules {
             LOAD_XML_DOC = FileUtils.readFileToString(new File("src/main/resources/queries/load.xqy"));
             PING_MARKLOGIC = FileUtils.readFileToString(new File("src/main/resources/queries/ping.xqy"));
         } catch (IOException e) {
-            LOG.error(TestHelper.returnExceptionString(e));
+            LOG.error(TestManager.returnExceptionString(e));
         }
     }
 

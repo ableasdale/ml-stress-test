@@ -1,7 +1,7 @@
 package com.marklogic.stresstest.resources;
 
 import com.marklogic.stresstest.providers.TestScheduler;
-import com.marklogic.stresstest.util.TestHelper;
+import com.marklogic.stresstest.util.TestManager;
 import com.sun.jersey.api.view.Viewable;
 import org.quartz.JobKey;
 import org.quartz.SchedulerException;
@@ -16,7 +16,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import java.net.URI;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -35,7 +34,7 @@ public class JobControlResource extends BaseResource  {
     private Map<String, Object> createModel(String id) {
         Map map = createModel();
         map.put("title", "Active Jobs");
-        map.put("metrics", TestHelper.getStressTestInstance());
+        map.put("metrics", TestManager.getStressTestInstance());
 
         //map.put("chartMap", lhm);
         return map;
@@ -46,8 +45,8 @@ public class JobControlResource extends BaseResource  {
     public Viewable getDashboard() {
         LOG.debug("Getting Dashboard ...");
         /*
-        for (String k : TestHelper.getStressTestInstance().getHostTimingMaps().keySet()) {
-            LOG.debug(formatForChart(TestHelper.getStressTestInstance().getHostTimingMaps().get(k)));
+        for (String k : TestManager.getStressTestInstance().getHostTimingMaps().keySet()) {
+            LOG.debug(formatForChart(TestManager.getStressTestInstance().getHostTimingMaps().get(k)));
         }    */
         return new Viewable("/jobs", createModel("Running Jobs"));
     }
@@ -60,7 +59,7 @@ public class JobControlResource extends BaseResource  {
         try {
             TestScheduler.getScheduler().deleteJob(JobKey.jobKey("ForceMerge"));
         } catch (SchedulerException e) {
-            TestHelper.returnExceptionString(e);
+            TestManager.returnExceptionString(e);
         }
 
         URI uri = UriBuilder.fromPath("/jobs").build();
