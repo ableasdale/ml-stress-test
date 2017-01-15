@@ -3,16 +3,18 @@
     <uris>
         <uri>xcc://q:q@localhost:8000</uri>
     </uris>
-    <durationInMinutes>5</durationInMinutes>
-    <testLabel>v0.3</testLabel>
+    <durationInMinutes>1</durationInMinutes>
+    <testLabel>v0.4</testLabel>
     <jobs>
         <job>
-            <classname>MarkLogicAdminRequest</classname>
+            <classname>HTTPEndpointGetRequest</classname>
+            <group>ML-Admin</group>
             <endpoint>http://localhost:8001</endpoint>
             <interval>every-second</interval>
         </job>
         <job>
-            <classname>RestEndpointRequest</classname>
+            <classname>HTTPEndpointGetRequest</classname>
+            <group>ReST-Request</group>
             <endpoint>http://localhost:8002/manage/v2/forests/</endpoint>
             <interval>every-second</interval>
         </job>

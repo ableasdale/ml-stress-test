@@ -3,7 +3,7 @@ package com.marklogic.stresstest.beans;
 /**
  * Created by ableasdale on 15/01/2017.
  */
-public class JobSpec {
+public class JobSpec implements java.io.Serializable {
 
     private String classname;
     private String endpoint;

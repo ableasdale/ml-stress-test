@@ -1,5 +1,6 @@
 package com.marklogic.stresstest.jobs;
 
+import com.marklogic.stresstest.beans.JobSpec;
 import com.marklogic.stresstest.util.TestManager;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
@@ -14,35 +15,40 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by ableasdale on 14/01/2017.
  */
-public class MarkLogicAdminRequest implements Job {
+public class HTTPEndpointGetRequest implements Job {
 
     public static String description = "Makes a call to the MarkLogic Admin API and measures the response time";
-    private Logger LOG = LoggerFactory.getLogger(MarkLogicAdminRequest.class);
+    private Logger LOG = LoggerFactory.getLogger(HTTPEndpointGetRequest.class);
     private String timingGroup = "MLAdmin";
+
+    /*
+    public HTTPEndpointGetRequest(JobSpec j){
+        LOG.info("Hit the CONSTRUCTOR!");
+        LOG.info(j.getEndpoint());
+    } */
+
 
     public void execute(JobExecutionContext context) throws JobExecutionException {
         Client client = Client.create();
         client.addFilter(new HTTPDigestAuthFilter("q", "q"));
 
+        // TODO - Resource URI is hard coded!
         WebResource webResource = client
                 .resource("http://localhost:8001");
 
-        //WebTarget target = client.target("http://localhost:8002").path("/manage/v2/forests/");
+        long startTime = System.currentTimeMillis();
 
         ClientResponse response = webResource.accept("text/html")
                 .get(ClientResponse.class);
 
         if (response.getStatus() != 200) {
-            throw new RuntimeException("Failed : HTTP error code : "
-                    + response.getStatus());
+            throw new RuntimeException(String.format("Failed : HTTP error code : %d", response.getStatus()));
         }
 
-        //String output = response.getEntity(String.class);
+        long elapsedTime = System.currentTimeMillis() - startTime;
 
-        // TODO - time taken is hard coded...
-        TestManager.addResultToTimingMap(timingGroup, "localhost", "0.10");//webResource.getURI().toString(), "0.10");
+        // TODO - "localhost" value is hardcoded - need to figure out how we're going to deal with this in future (was put in for XCC)
+        TestManager.addResultToTimingMap(timingGroup, "localhost", String.format("%.2f", elapsedTime / 1000.0f));
 
-        //LOG.info("Output from Server .... \n");
-        //LOG.info(output);
     }
 }

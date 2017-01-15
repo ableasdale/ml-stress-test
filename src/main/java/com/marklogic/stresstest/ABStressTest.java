@@ -16,7 +16,7 @@ public class ABStressTest {
         TestManager.configureJobs();
         /* Add Jobs
         TestManager.addJob(PingGroupA.class, Consts.EVERY_SECOND);
-        TestManager.addJob(MarkLogicAdminRequest.class, Consts.EVERY_FIVE_SECONDS);
+        TestManager.addJob(HTTPEndpointGetRequest.class, Consts.EVERY_FIVE_SECONDS);
         TestManager.addJob(RestEndpointRequest.class, Consts.EVERY_FIVE_SECONDS);
         TestManager.addJob(PingGroupB.class, Consts.EVERY_TWO_SECONDS);
         TestManager.addJob(ForceMerge.class, Consts.EVERY_TEN_SECONDS); */
