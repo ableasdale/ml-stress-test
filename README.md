@@ -42,7 +42,7 @@ The sample configuration file can be found in **resources/config.xml**:
             <username>user</username>
             <password>password</password>
             <accepts>text/html</accepts>
-            <group>ML_Admin</group>
+            <group>ML_Admin_8001</group>
             <endpoint>http://localhost:8001</endpoint>
             <interval>every-second</interval>
         </job>
@@ -51,9 +51,18 @@ The sample configuration file can be found in **resources/config.xml**:
             <username>user</username>
             <password>password</password>
             <accepts>application/json</accepts>
-            <group>ReST_Request</group>
+            <group>ReST_Request_8002</group>
             <endpoint>http://localhost:8002/manage/v2/forests/</endpoint>
             <interval>every-second</interval>
+        </job>
+        <job>
+            <classname>XCCModuleInvoker</classname>
+            <username>user</username>
+            <password>password</password>
+            <accepts>application/xml</accepts>
+            <group>XCC_Request_8000</group>
+            <endpoint>forest-status.xqy</endpoint>
+            <interval>five-seconds</interval>
         </job>
     </jobs>
 </configuration>
