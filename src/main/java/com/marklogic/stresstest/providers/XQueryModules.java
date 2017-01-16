@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
 
 /**
  * Created with IntelliJ IDEA.
@@ -43,6 +44,16 @@ public class XQueryModules {
 
     public String pingMarkLogic() {
         return PING_MARKLOGIC;
+    }
+
+    public String adhocQuery(String endpoint) {
+        try {
+            //LOG.info("src/main/resources/queries/"+endpoint);
+            return FileUtils.readFileToString(new File("src/main/resources/queries/"+endpoint), Charset.forName("UTF-8"));
+        } catch (IOException e) {
+            LOG.error(TestManager.returnExceptionString(e));
+        }
+        return "Error: Unable to process Module "+endpoint;
     }
 
     private static class XQueryModulesProvider {

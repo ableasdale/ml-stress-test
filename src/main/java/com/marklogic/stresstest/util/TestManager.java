@@ -188,11 +188,13 @@ public class TestManager {
 
     // TODO - is a switch going to be the way to go long term?
     public static String mapIntervalToCron(String interval) {
-        if(interval.equals("every-second")){
+        if (interval.equals("every-second")) {
             return Consts.EVERY_SECOND;
-        } else {
-            LOG.warn(String.format("Unable to map the interval %s in configuration.xml; defaulting to five-seconds", interval));
+        } else if (interval.equals("five-seconds")) {
             return Consts.EVERY_FIVE_SECONDS;
+        } else {
+            LOG.warn(String.format("Unable to map the interval %s in configuration.xml; defaulting to ten-seconds", interval));
+            return Consts.EVERY_TEN_SECONDS;
         }
     }
 
