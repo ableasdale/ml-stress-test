@@ -3,7 +3,7 @@
     <uris>
         <uri>xcc://q:q@localhost:8000</uri>
     </uris>
-    <durationInMinutes>1</durationInMinutes>
+    <durationInMinutes>5</durationInMinutes>
     <testLabel>v0.4</testLabel>
     <jobs>
         <job>

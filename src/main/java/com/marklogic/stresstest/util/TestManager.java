@@ -163,7 +163,7 @@ public class TestManager {
 
         try {
             LOG.info(String.format("Added Job from class: '%s'.  Job interval is set to run: %s", job.getSimpleName(), CronExpressionDescriptor.getDescription(interval)));
-            getStressTestInstance().getTestOverview().add(String.format("%s : %s", job.getSimpleName(), CronExpressionDescriptor.getDescription(interval)));
+            getStressTestInstance().getTestOverview().add(String.format("%s : %s", job.getSimpleName()+js.hashCode(), CronExpressionDescriptor.getDescription(interval)));
             // TODO - to add a description would need to create a new Interface / Object for these jobs - job.getClass().getDescription()
         } catch (ParseException e) {
             returnExceptionString(e);

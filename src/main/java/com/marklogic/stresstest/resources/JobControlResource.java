@@ -4,7 +4,10 @@ import com.marklogic.stresstest.providers.TestScheduler;
 import com.marklogic.stresstest.util.TestManager;
 import com.sun.jersey.api.view.Viewable;
 import org.quartz.JobKey;
+import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
+import org.quartz.Trigger;
+import org.quartz.impl.matchers.GroupMatcher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,6 +19,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import java.net.URI;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -43,11 +49,38 @@ public class JobControlResource extends BaseResource  {
     @GET
     @Produces(MediaType.TEXT_HTML)
     public Viewable getDashboard() {
-        LOG.debug("Getting Dashboard ...");
+        LOG.info("Getting Dashboard ...");
         /*
-        for (String k : TestManager.getStressTestInstance().getHostTimingMaps().keySet()) {
-            LOG.debug(formatForChart(TestManager.getStressTestInstance().getHostTimingMaps().get(k)));
-        }    */
+        for(JobKey jk : TestScheduler.getScheduler().getJobKeys()){
+            LOG.info("Key:"+jk.getName());
+        }*/
+
+        Scheduler scheduler = TestScheduler.getScheduler();
+
+        try {
+            for (String groupName : scheduler.getJobGroupNames()) {
+
+                for (JobKey jobKey : scheduler.getJobKeys(GroupMatcher.jobGroupEquals(groupName))) {
+
+                    //jobKey.
+                    String jobName = jobKey.getName();
+                    String jobGroup = jobKey.getGroup();
+
+                    //get job's trigger
+                    List<Trigger> triggers = (List<Trigger>) scheduler.getTriggersOfJob(jobKey);
+                    Date nextFireTime = triggers.get(0).getNextFireTime();
+
+                    LOG.info("[jobName] : " + jobName + " [groupName] : "
+                            + jobGroup + " - " + nextFireTime);
+
+                }
+
+            }
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+        }
+
+
         return new Viewable("/jobs", createModel("Running Jobs"));
     }
 
@@ -55,9 +88,17 @@ public class JobControlResource extends BaseResource  {
     @Path("stop/{key}")
     @Produces(MediaType.TEXT_HTML)
     public Response stopJob(@PathParam("key") String key) {
-        LOG.info("Stopping: " + key);
+
         try {
-            TestScheduler.getScheduler().deleteJob(JobKey.jobKey("ForceMerge"));
+            TestScheduler.getScheduler().deleteJob(JobKey.jobKey(key));
+
+            Iterator<String> iter = TestManager.getStressTestInstance().getTestOverview().iterator();
+            while(iter.hasNext()){
+                String t = iter.next();
+                if(t.substring(0, t.indexOf(" ")).equals(key))
+                    iter.remove();
+            }
+
         } catch (SchedulerException e) {
             TestManager.returnExceptionString(e);
         }
