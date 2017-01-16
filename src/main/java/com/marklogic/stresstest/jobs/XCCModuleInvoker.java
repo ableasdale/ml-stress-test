@@ -23,8 +23,6 @@ public class XCCModuleInvoker implements Job {
 
     public void execute(JobExecutionContext context) throws JobExecutionException {
 
-        LOG.info("Creating XCC Task");
-
         JobSpec js = (JobSpec) context.getJobDetail().getJobDataMap().get("jobSpec");
 
         for (ContentSource cs : LoadBalancedMarkLogicContentSource.getInstance().getCopyOfActiveContentSourceList()) {

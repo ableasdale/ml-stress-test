@@ -18,8 +18,13 @@
                         <dt class="col-sm-3">Total test duration</dt>
                         <dd class="col-sm-9">${metrics.getTestDuration()} minutes (${metrics.getTestDuration()*60} seconds)</dd>
                         <dt class="col-sm-3">Test duration so far</dt>
-                        <dd class="col-sm-9">${((nowTime - metrics.getTestDateTime()?time?long) / 1000)?string("0.0")} seconds
-                            (${(((nowTime - metrics.getTestDateTime()?time?long)/ 1000) / (metrics.getTestDuration()*60) * 100)?string("0.0")  }% of total test)
+                        <dd class="col-sm-9">
+                            <#if ((nowTime - metrics.getTestDateTime()?time?long) / 1000) lte (metrics.getTestDuration()*60)>
+                                ${((nowTime - metrics.getTestDateTime()?time?long) / 1000)?string("0.0")} seconds
+                                (${(((nowTime - metrics.getTestDateTime()?time?long)/ 1000) / (metrics.getTestDuration()*60) * 100)?string("0.0")  }% of total test)
+                            <#else>
+                                COMPLETED
+                            </#if>
                         </dd>
                         <dt class="col-sm-3">Test Composition</dt>
 
