@@ -50,11 +50,8 @@ public class JobControlResource extends BaseResource  {
     @Produces(MediaType.TEXT_HTML)
     public Viewable getDashboard() {
         LOG.info("Getting Dashboard ...");
-        /*
-        for(JobKey jk : TestScheduler.getScheduler().getJobKeys()){
-            LOG.info("Key:"+jk.getName());
-        }*/
 
+        /* Scheduler debug code
         Scheduler scheduler = TestScheduler.getScheduler();
 
         try {
@@ -70,7 +67,7 @@ public class JobControlResource extends BaseResource  {
                     List<Trigger> triggers = (List<Trigger>) scheduler.getTriggersOfJob(jobKey);
                     Date nextFireTime = triggers.get(0).getNextFireTime();
 
-                    LOG.info("[jobName] : " + jobName + " [groupName] : "
+                    LOG.debug("[jobName] : " + jobName + " [groupName] : "
                             + jobGroup + " - " + nextFireTime);
 
                 }
@@ -78,7 +75,7 @@ public class JobControlResource extends BaseResource  {
             }
         } catch (SchedulerException e) {
             e.printStackTrace();
-        }
+        } */
 
 
         return new Viewable("/jobs", createModel("Running Jobs"));
